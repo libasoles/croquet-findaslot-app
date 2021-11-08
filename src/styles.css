@@ -157,7 +157,8 @@ li {
 
 @media (max-width: 600px) {
     body > header {
-        background-color: var(--primaryColor)
+        background-color: var(--primaryColor);
+        padding: .5em;
     }
 
     .content {
