@@ -4,12 +4,14 @@ import CalendarView from "./CalendarView";
 import Configuration, { ConfigurationView } from "./Configuration";
 import EventName, { EventNameView } from "./EventName";
 import BestResultsView from "./BestResults";
+import Identity, { IdentityView } from "./Identity";
 
 class Main extends Model {
   init() {
     this.calendar = Calendar.create();
     this.configuration = Configuration.create();
-    this.event = EventName.create();
+    this.identity = Identity.create();
+    this.eventName = EventName.create();
   }
 }
 
@@ -21,8 +23,9 @@ class MainView extends View {
     this.views = [
       new CalendarView(model.calendar, model.configuration),
       new ConfigurationView(model.configuration),
-      new EventNameView(model.event),
+      new EventNameView(model.eventName),
       new BestResultsView(model.calendar),
+      new IdentityView(model.identity),
     ];
   }
 
@@ -34,6 +37,7 @@ class MainView extends View {
 }
 
 Main.register("Main");
+Identity.register("Identity");
 EventName.register("EventName");
 Calendar.register("Calendar");
 Configuration.register("Configuration");

@@ -40,10 +40,10 @@ body > header {
 }
 
 h2 {
-    font-size: 35px;
-
+    font-size: 2em;
     text-align: left;
     color: var(--primaryGrayscaleColor);
+    line-height: 1.5em;
 }
 
 p {
@@ -77,15 +77,11 @@ p {
 .content main header {
     margin: 1.5em 0;
     padding: .5em 0;
-    display: flex;
     max-width: 580px;
     width: 100%;
-}
-
-.content main header input {
-    width: 100%;
-    font-size: 2em;
-    padding: .25em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .content main footer {
@@ -97,24 +93,11 @@ p {
     justify-content: flex-end;
 }
 
-.content main .identity {
-    display: flex;
-    width: 100%;
-    max-width: 346px;
-}
-
-.content main footer input {
-    width: 100%;
-    font-size: 1em;
-    padding: .5em;
-}
-
 body > footer {
     background-color: var(--primaryColor);
     padding: 10px;
     text-align: center;
 }
-
 
 .dots {
     display: flex;
@@ -189,10 +172,6 @@ li {
         bottom: 0;
         left: 0;
         background-color: var(--tertiaryDark);
-    }
-
-    .content main footer .identity {
-        max-width: 100%;
     }
 
     .calendar {

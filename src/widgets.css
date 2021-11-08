@@ -111,16 +111,62 @@ input {
     align-items: center;
 }
 
+/* input widget */
+.input-widget .input-widget-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-widget .displayed-value {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--tertiaryGrayscaleColor);
+    border-radius: 0.5em;
+    padding-left: 0.5em;
+}
+
+.input-widget .displayed-value .value {
+    display: flex;
+    align-items: center;
+}
+
+.input-widget .displayed-value button {
+    margin-left: 20px;
+}
+
 /* event name form */
 .event-name-widget {
     width: 100%;
 }
 
-.event-name-form {
-    display: flex;
+.event-name-widget input {
+    width: 100%;
+    font-size: 2em;
+    padding: .25em;
 }
 
-.displayed-event-name {
-    display: flex;
-    justify-content: space-between;
+/* identity */
+.identity {
+    margin-top: 20px;
+}
+
+.identity .input-widget-form {
+    max-width: 260px;
+}
+
+.identity input {
+    width: 100%;
+    font-size: 1em;
+    padding: .5em;
+}
+
+.identity .displayed-value {
+    justify-content: flex-end;
+    width: fit-content;
+}
+
+@media (max-width: 600px) {
+    .identity {
+        max-width: 100%;
+    }
 }

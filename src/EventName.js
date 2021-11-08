@@ -1,17 +1,17 @@
 import { Model, View } from "@croquet/croquet";
-import { display, hide } from "./utils";
+import { InputWidget } from "./InputWidget";
 
 export default class EventName extends Model {
   init() {
     this.eventName = "";
 
-    this.subscribe("event", "name-changed", this.setEventName);
+    this.subscribe("event-name", "name-changed", this.setEventName);
   }
 
   setEventName(name) {
     this.eventName = name;
 
-    this.publish("event", "update-event-name", name);
+    this.publish("event-name", "update-event-name", name);
   }
 }
 
@@ -20,65 +20,31 @@ export class EventNameView extends View {
     super(model);
     this.model = model;
 
-    this.subscribe("event", "update-event-name", this.displayEventName);
+    const selector = document.querySelector(".event-name-widget");
 
-    this.eventNameForm = document.querySelector(".event-name-form");
-    this.eventNameInput = document.getElementById("event-name-input");
-    this.eventName = document.querySelector(".displayed-event-name");
+    const onChange = (eventName) => {
+      this.publish("event-name", "name-changed", eventName);
+    };
 
-    this.hydrate();
+    const formatValue = (value) => <h2>{value}</h2>;
 
-    this.subscribeToUserEvents();
-  }
+    const widget = new InputWidget(
+      selector,
+      {
+        name: "eventName",
+        placeholder: "Nombre del evento",
+        value: this.model.eventName,
+      },
+      {
+        onChange,
+        formatValue,
+      }
+    );
 
-  hydrate() {
-    if (this.model.eventName) {
-      this.displayEventName(this.model.eventName);
-    }
-  }
-
-  subscribeToUserEvents() {
-    const submitButton = document.querySelector(".event-name-form button");
-    const closeButton = document.querySelector(".displayed-event-name button");
-
-    this.eventNameInput.onkeyup = (e) => this.onUserTyping(e);
-
-    submitButton.onclick = () => this.onEventNameChange();
-    closeButton.onclick = () => this.onEditEventName();
-  }
-
-  onUserTyping(event) {
-    if (event.keyCode === 13) {
-      this.onEventNameChange();
-    }
-  }
-
-  onEventNameChange() {
-    if (!this.eventNameInput.value) return;
-
-    this.displayEventName(this.eventNameInput.value);
-
-    this.publishName();
-  }
-
-  onEditEventName() {
-    hide(this.eventName);
-
-    this.eventNameInput.value = this.eventName
-      .querySelector(".name")
-      .textContent.trim();
-
-    display(this.eventNameForm);
-  }
-
-  displayEventName(name) {
-    hide(this.eventNameForm);
-
-    this.eventName.querySelector(".name").textContent = name;
-    display(this.eventName);
-  }
-
-  publishName() {
-    this.publish("event", "name-changed", this.eventNameInput.value);
+    this.subscribe(
+      "event-name",
+      "update-event-name",
+      widget.displayEventName.bind(widget)
+    );
   }
 }
