@@ -1,0 +1,82 @@
+.calendar {
+    display: flex;
+    height: fit-content;
+    user-select: none;
+    justify-content: center;
+    align-content: flex-start;
+    padding: 1em 0;
+    color: var(--primaryGrayscaleColor);
+    background-color: var(--primaryDark);
+}
+
+.calendar .calendar-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.calendar .day {
+    min-width: 7em;
+}
+
+.calendar .cell {
+    height: 3em;
+    width: available;
+    margin: 0.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--secondaryDark);
+}
+
+.calendar .title {
+    min-width: 7em;
+    background: rgba(66, 68, 90, 0.075);
+    font-weight: bold;
+}
+
+.calendar .time-slot {
+    border: 2px solid transparent;
+    border-radius: 0.15em;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.calendar .time-slot .dots {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+
+.calendar .day .time-slot.selected {
+    background: var(--tertiaryColor);
+    border: 2px solid rgba(0, 0, 0, 0.075);
+    color: var(--primaryDark);
+    font-weight: bold;
+}
+
+.calendar .time-slot.selected .dot {
+    background-color: var(--secondaryDark);
+}
+
+.calendar .selection-area {
+    background: rgba(46, 115, 252, 0.11);
+    border: 1px solid rgba(98, 155, 255, 0.85);
+    border-radius: 0.15em;
+}
+
+
+.content .side {
+    margin: 3em;
+}
+
+.content .settings,
+.content .results {
+    margin-top: 104px;
+    min-width: 300px;
+}
+
+@media (max-width: 600px) {
+
+}

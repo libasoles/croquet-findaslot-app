@@ -1,0 +1,93 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Find a spot</title>
+    <meta name="description" content="Combina reuniones y ensayos en tiempo real.">
+    <meta name="author" content="Libasoles">
+
+    <meta property="og:title" content="Sale o sale">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://whenisgood.netlify.app/">
+    <meta property="og:description" content="Combina reuniones y ensayos en tiempo real">
+    <!--    <meta property="og:image" content="image.png">-->
+
+    <!--    <link rel="icon" href="/favicon.ico">-->
+    <!--    <link rel="icon" href="/favicon.svg" type="image/svg+xml">-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css?v=1.0">
+</head>
+
+<body>
+
+<header class="header">
+    <h2>Sale o sale</h2>
+</header>
+
+<div class="content">
+    <div class="column side left calendar-setup">
+        <div class="settings">
+            <h3>Configuracion</h3>
+            <br/>
+            <br/>
+            <br/>
+            <h4>Rango de dias</h4>
+            <div class="multi-range days-range"></div>
+
+            <h4>Rango de horas</h4>
+            <div class="multi-range time-range"></div>
+        </div>
+    </div>
+    <main class="column middle">
+        <header>
+            <div class="event-name-widget">
+                <div class="event-name-form">
+                    <input name="event" placeholder="Nombre del evento" id="event-name-input"/>
+                    <button class="button">ok</button>
+                </div>
+
+                <div class="hidden displayed-event-name">
+                    <h2 class="name"></h2>
+                    <button class="button icon close">x</button>
+                </div>
+            </div>
+        </header>
+        <section class="calendar">
+            <div class="calendar-columns"></div>
+        </section>
+        <footer>
+            <div class="identity hidden">
+                <input name="name" placeholder="Tu nombre"/>
+                <button class="button">ok</button>
+            </div>
+        </footer>
+    </main>
+    <div class="column side right">
+        <div class="instructions">
+            <h3>Instrucciones</h3>
+            <p class="">Clickea un horario para seleccionarlo o deseleccionarlo.</p>
+            <p class="">Podes pintar varios horarios a la vez manteniendo la tecla ctrl (cmd en macos).</p>
+            <p class="">Podes arrastrar y soltar en vez de clickear para seleccion multiple.</p>
+        </div>
+
+        <div class="results">
+            <h3>Mejores resultados</h3>
+            <div class="best-results"></div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>💚</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
