@@ -13,12 +13,12 @@ export default class Configuration extends Model {
   }
 
   daysRangeChange(values) {
-    this.daysRange[(values.lower, values.upper)];
+    this.daysRange = [values.lower, values.upper];
     this.publish("configuration", "update-days-range", values);
   }
 
   timeRangeChange(values) {
-    this.timeRange[(values.lower, values.upper)];
+    this.timeRange = [values.lower, values.upper];
     this.publish("configuration", "update-time-range", values);
   }
 }
