@@ -3,6 +3,7 @@ import Calendar from "./Calendar";
 import CalendarView from "./CalendarView";
 import Configuration, { ConfigurationView } from "./Configuration";
 import EventName, { EventNameView } from "./EventName";
+import BestResultsView from "./BestResults";
 
 class Main extends Model {
   init() {
@@ -21,6 +22,7 @@ class MainView extends View {
       new CalendarView(model.calendar, model.configuration),
       new ConfigurationView(model.configuration),
       new EventNameView(model.event),
+      new BestResultsView(model.calendar),
     ];
   }
 

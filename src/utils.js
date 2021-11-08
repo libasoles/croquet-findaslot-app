@@ -1,3 +1,14 @@
+import { intlFormat } from "date-fns";
+
+const locale = "es-ES";
+
+const dateTimeFormat = {
+  weekday: "long",
+  month: "short",
+  day: "numeric",
+  hour: "numeric",
+};
+
 export function range(start, end, includeEnd = true) {
   if (typeof end === "undefined")
     return start === 0 ? [] : [0, ...range(1, start, false)];
@@ -17,4 +28,14 @@ export function display(domNode) {
 
 export function hide(domNode) {
   domNode.classList.add("hidden");
+}
+
+export function target(name) {
+  return document.querySelector(name);
+}
+
+export function formatDateTime(date) {
+  return intlFormat(new Date(date), dateTimeFormat, {
+    locale,
+  });
 }

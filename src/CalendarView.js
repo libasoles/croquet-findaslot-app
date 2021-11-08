@@ -2,7 +2,8 @@ import { View } from "@croquet/croquet";
 import SelectionArea from "@viselect/vanilla";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { addHours, addDays, startOfToday, intlFormat } from "date-fns";
-import { range } from "./utils";
+import { range, target } from "./utils";
+import createDotElements from "./Dots";
 
 const selectableOptions = {
   selectables: ["section.calendar .time-slot"],
@@ -23,19 +24,6 @@ const dateFormat = {
   // month: "short",
   day: "numeric",
 };
-
-const dateTimeFormat = {
-  weekday: "long",
-  month: "short",
-  day: "numeric",
-  hour: "numeric",
-};
-
-const locale = "es-ES";
-
-function target(name) {
-  return document.getElementsByClassName(name)[0];
-}
 
 export default class CalendarView extends View {
   constructor(model, configuration) {
@@ -65,11 +53,14 @@ export default class CalendarView extends View {
   }
 
   hydrate() {
-    this.displayVotes(this.model.selectedSlotsByUser);
+    this.displayVotes({
+      selectedSlotsByUser: this.model.selectedSlotsByUser,
+      countedSlots: this.model.countedSlots(),
+    });
   }
 
   subscribeToEvents() {
-    this.subscribe("calendar", "selected-slots-by-user", this.displayVotes);
+    this.subscribe("calendar", "selected-slots", this.displayVotes);
 
     this.subscribe("configuration", "update-days-range", this.updateDaysRange);
     this.subscribe("configuration", "update-time-range", this.updateTimeRange);
@@ -123,9 +114,12 @@ export default class CalendarView extends View {
       </>
     );
 
-    render(columns, target("calendar-columns"));
+    render(columns, target(".calendar-columns"));
 
-    this.displayVotes(this.model.selectedSlotsByUser);
+    this.displayVotes({
+      selectedSlotsByUser: this.model.selectedSlotsByUser,
+      countedSlots: this.model.countedSlots(),
+    });
   }
 
   beforeSelectionStarts() {
@@ -196,9 +190,7 @@ export default class CalendarView extends View {
     });
   }
 
-  displayVotes(slotsByUser) {
-    const countedSlots = this.mapToCountedSlots(slotsByUser);
-
+  displayVotes({ selectedSlotsByUser, countedSlots }) {
     const slotElement = Array.from(
       document.getElementsByClassName("time-slot")
     );
@@ -207,14 +199,12 @@ export default class CalendarView extends View {
       this.addDotsToCalendarSlot(countedSlots, cell);
     });
 
-    this.highlightSelfSelection(slotsByUser);
-
-    this.renderMoreVotedResults(countedSlots);
+    this.highlightSelfSelection(selectedSlotsByUser);
   }
 
-  highlightSelfSelection(slotsByUser) {
-    const ownSelection = slotsByUser.has(this.viewId)
-      ? slotsByUser.get(this.viewId)
+  highlightSelfSelection(selectedSlotsByUser) {
+    const ownSelection = selectedSlotsByUser.has(this.viewId)
+      ? selectedSlotsByUser.get(this.viewId)
       : [];
 
     ownSelection.forEach((selection) => {
@@ -222,38 +212,6 @@ export default class CalendarView extends View {
         .querySelectorAll(`[data-slot="${selection}"]`)
         .forEach((element) => element.classList.add("selected"));
     });
-  }
-
-  renderMoreVotedResults(countedSlots) {
-    const bestFiveOrderedByCount = this.takeMoreVoted(countedSlots, 5);
-
-    if (bestFiveOrderedByCount.length === 0) {
-      render(<p>Aun nadie marco sus horarios</p>, target("best-results"));
-
-      return;
-    }
-
-    const results = (
-      <ul>
-        {bestFiveOrderedByCount.map(([slot, votes]) => {
-          const dateTime = intlFormat(new Date(slot), dateTimeFormat, {
-            locale,
-          });
-
-          const dots = this.createDotElements(votes);
-
-          return (
-            <li>
-              {dateTime}hs
-              <div className="dots">{dots}</div>
-              <p>{votes} votos</p>
-            </li>
-          );
-        })}
-      </ul>
-    );
-
-    render(results, target("best-results"));
   }
 
   addDotsToCalendarSlot(countedSlots, cell) {
@@ -268,34 +226,8 @@ export default class CalendarView extends View {
       return;
     }
 
-    const dots = this.createDotElements(votes);
+    const dots = createDotElements(votes);
 
     render(<>{dots}</>, dotsElement);
-  }
-
-  createDotElements(count) {
-    return count > 0
-      ? range(count).map((i) => <div className="dot"></div>)
-      : null;
-  }
-
-  takeMoreVoted(countedSlots, amount = 5) {
-    return Array.from(countedSlots)
-      .sort(([slotA, countA], [slotB, countB]) => countB - countA)
-      .slice(0, amount);
-  }
-
-  mapToCountedSlots(slotsByUser) {
-    const slotsCounted = new Map();
-
-    slotsByUser.forEach((slots) => {
-      if (!slots.length) return;
-
-      slots.forEach((slot) => {
-        const count = (slotsCounted.get(slot) || 0) + 1;
-        slotsCounted.set(slot, count);
-      });
-    });
-    return slotsCounted;
   }
 }
