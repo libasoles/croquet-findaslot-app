@@ -183,7 +183,21 @@ export default class CalendarView extends View {
       this.addDotsToCalendarSlot(countedSlots, cell);
     });
 
+    this.highlightSelfSelection(slotsByUser);
+
     this.renderMoreVotedResults(countedSlots);
+  }
+
+  highlightSelfSelection(slotsByUser) {
+    const ownSelection = slotsByUser.has(this.viewId)
+      ? slotsByUser.get(this.viewId)
+      : [];
+
+    ownSelection.forEach((selection) => {
+      document
+        .querySelectorAll(`[data-slot="${selection}"]`)
+        .forEach((element) => element.classList.add("selected"));
+    });
   }
 
   renderMoreVotedResults(countedSlots) {
