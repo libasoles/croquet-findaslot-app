@@ -1,6 +1,6 @@
 import { intlFormat } from "date-fns";
 
-const locale = "es-ES";
+export const locale = "en-US";
 
 const dateTimeFormat = {
   weekday: "long",

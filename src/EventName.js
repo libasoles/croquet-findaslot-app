@@ -1,5 +1,6 @@
 import { Model, View } from "@croquet/croquet";
 import { InputWidget } from "./InputWidget";
+import i18next from "i18next";
 
 export default class EventName extends Model {
   init() {
@@ -32,7 +33,7 @@ export class EventNameView extends View {
       selector,
       {
         name: "eventName",
-        placeholder: "Nombre del evento",
+        placeholder: i18next.t("event_name"),
         value: this.model.eventName,
       },
       {

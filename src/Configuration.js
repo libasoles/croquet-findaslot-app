@@ -1,5 +1,6 @@
 import { Model, View } from "@croquet/croquet";
 import { RangeSlider } from "./RangeSlider";
+import i18next from "i18next";
 
 export default class Configuration extends Model {
   init() {
@@ -50,7 +51,7 @@ export class ConfigurationView extends View {
     };
 
     const formatValue = (value) => {
-      return value === 0 ? "hoy" : value + 1;
+      return value === 0 ? i18next.t("today") : value + 1;
     };
 
     this.daysRangeSlider = new RangeSlider(

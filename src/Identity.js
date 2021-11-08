@@ -1,5 +1,6 @@
 import { Model, View } from "@croquet/croquet";
 import { InputWidget } from "./InputWidget";
+import i18next from "i18next";
 
 export default class Identity extends Model {
   init() {
@@ -30,7 +31,7 @@ export class IdentityView extends View {
       selector,
       {
         name: "name",
-        placeholder: "Tu nombre",
+        placeholder: i18next.t("your_name"),
         value: this.model.username,
       },
       {

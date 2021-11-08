@@ -2,6 +2,7 @@ import { View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { formatDateTime, target } from "./utils";
 import createDotElements from "./Dots";
+import i18next from "i18next";
 
 export default class BestResultsView extends View {
   constructor(model) {
@@ -10,7 +11,11 @@ export default class BestResultsView extends View {
 
     this.hydrate();
 
-    this.subscribe("calendar", "selected-slots", this.renderMoreVotedResults);
+    this.subscribe(
+      "calendar",
+      "selected-slots",
+      this.renderMoreVotedResults.bind(this)
+    );
   }
 
   hydrate() {
@@ -21,8 +26,7 @@ export default class BestResultsView extends View {
 
   renderMoreVotedResults({ countedSlots }) {
     if (countedSlots.size === 0) {
-      render(<p>Aun nadie marco sus horarios</p>, target("best-results"));
-
+      render(<p>{i18next.t("no_results")}</p>, target(".best-results"));
       return;
     }
 
@@ -39,7 +43,9 @@ export default class BestResultsView extends View {
             <li>
               {dateTime}hs
               <div className="dots">{dots}</div>
-              <p>{votes} votos</p>
+              <p>
+                {votes} {i18next.t("votes")}
+              </p>
             </li>
           );
         })}
