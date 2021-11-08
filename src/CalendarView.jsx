@@ -56,6 +56,7 @@ export default class CalendarView extends View {
     this.timeRange = this.configuration.timeRange;
 
     this.selection = new SelectionArea(selectableOptions)
+      .on("beforestart", this.beforeSelectionStarts.bind(this)())
       .on("start", this.onSelectionStart.bind(this))
       .on("move", this.whileSelecting.bind(this))
       .on("stop", this.onSelectionEnd.bind(this));
@@ -125,6 +126,29 @@ export default class CalendarView extends View {
     render(columns, target("calendar-columns"));
 
     this.displayVotes(this.model.selectedSlotsByUser);
+  }
+
+  beforeSelectionStarts() {
+    let timeout = null;
+
+    return ({ event }) => {
+      // Check if user already tapped inside of a selection-area.
+      if (timeout !== null) {
+        // A second pointer-event occurred, ignore that one.
+        clearTimeout(timeout);
+        timeout = null;
+      } else {
+        // Wait 50ms in case the user uses two fingers to scroll.
+        timeout = setTimeout(() => {
+          // OK User used only one finger, we can safely initiate a selection and reset the timer.
+          this.selection.trigger(event);
+          timeout = null;
+        }, 50);
+      }
+
+      // Never start automatically.
+      return false;
+    };
   }
 
   onSelectionStart({ store, event }) {
