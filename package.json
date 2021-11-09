@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build",
+    "start": "i18n && parcel",
+    "build": "i18n && parcel build",
     "postinstall": "cd node_modules/@itsjavi/jsx-runtime && npm install && npm run build:micro",
+    "i18n": "static-i18n -l en -i en src -o public",
     "test": "jest --watch"
   },
-  "source": "src/index.html",
+  "source": "public/index.html",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -25,6 +26,7 @@
     "babel-jest": "^27.3.1",
     "jest": "^27.3.1",
     "parcel": "^2.0.0",
-    "prettier": "2.4.1"
+    "prettier": "2.4.1",
+    "static-i18n": "^0.2.10"
   }
 }

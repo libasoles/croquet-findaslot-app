@@ -1,0 +1,17 @@
+{
+  "title": "Find a slot",
+  "description": "Combina reuniones y ensayos en tiempo real.",
+  "configuration": "Configuracion",
+  "days_range": "Rango de dias",
+  "time_range": "Rango de horas",
+  "best_results": "Aun nadie marco sus horarios",
+  "no_results": "Aun nadie marco sus horarios",
+  "votes": "votos",
+  "today": "hoy",
+  "event_name": "Nombre del evento",
+  "your_name": "Tu nombre",
+  "instructions": "Instrucciones",
+  "click_to_select": "Clickea un horario para seleccionarlo o deseleccionarlo.",
+  "how_to_multi_select": "Podes pintar varios horarios a la vez manteniendo la tecla ctrl (cmd en macOS).",
+  "drag_to_select": "Podes arrastrar y soltar en vez de clickear para seleccion multiple."
+}

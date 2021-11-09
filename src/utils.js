@@ -6,7 +6,6 @@ const dateTimeFormat = {
   weekday: "long",
   month: "short",
   day: "numeric",
-  hour: "numeric",
 };
 
 export function range(start, end, includeEnd = true) {
@@ -34,7 +33,7 @@ export function target(name) {
   return document.querySelector(name);
 }
 
-export function formatDateTime(date) {
+export function formatDate(date) {
   return intlFormat(new Date(date), dateTimeFormat, {
     locale,
   });

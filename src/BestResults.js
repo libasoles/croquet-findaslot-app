@@ -1,6 +1,6 @@
 import { View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
-import { formatDateTime, target } from "./utils";
+import { formatDate, target } from "./utils";
 import createDotElements from "./Dots";
 import i18next from "i18next";
 
@@ -35,13 +35,13 @@ export default class BestResultsView extends View {
     const results = (
       <ul>
         {bestFiveOrderedByCount.map(([timeSlot, votes]) => {
-          const dateTime = formatDateTime(timeSlot);
-
+          const date = formatDate(timeSlot);
+          const time = new Date(timeSlot).getHours();
           const dots = createDotElements(votes);
 
           return (
             <li>
-              {dateTime}hs
+              {date} - {time}hs
               <div className="dots">{dots}</div>
               <p>
                 {votes} {i18next.t("votes")}
