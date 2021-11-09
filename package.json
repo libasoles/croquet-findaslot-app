@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "i18n && parcel",
-    "build": "i18n && parcel build",
+    "start": "npm run i18n && parcel",
+    "build": "npm run i18n && parcel build",
     "postinstall": "cd node_modules/@itsjavi/jsx-runtime && npm install && npm run build:micro",
     "i18n": "static-i18n -l en -i en src -o public",
     "test": "jest --watch"
