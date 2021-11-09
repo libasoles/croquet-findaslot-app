@@ -1,6 +1,5 @@
 import { intlFormat } from "date-fns";
-
-export const locale = "en-US";
+import { config } from "./config";
 
 const dateTimeFormat = {
   weekday: "long",
@@ -35,6 +34,6 @@ export function target(name) {
 
 export function formatDate(date) {
   return intlFormat(new Date(date), dateTimeFormat, {
-    locale,
+    locale: config.locale,
   });
 }

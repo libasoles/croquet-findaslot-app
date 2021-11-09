@@ -1,16 +1,16 @@
 {
-  "name": "croquet-whenis",
+  "name": "find-a-slot",
   "version": "1.0.1",
-  "description": "",
+  "description": "Find a slot in your calendar in real-time.",
   "scripts": {
     "start": "npm run i18n && parcel",
     "build": "npm run i18n && parcel build",
     "postinstall": "cd node_modules/@itsjavi/jsx-runtime && npm install && npm run build:micro",
-    "i18n": "static-i18n -l en -i en src -o public",
+    "i18n": "static-i18n -l es -i en -i es src -o public",
     "test": "jest --watch"
   },
-  "source": "public/index.html",
-  "author": "",
+  "source": ["public/index.html", "public/en/index.html"],
+  "author": "Guillermo Perez",
   "license": "ISC",
   "dependencies": {
     "@croquet/croquet": "^1.0.5",

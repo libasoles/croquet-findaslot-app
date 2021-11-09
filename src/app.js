@@ -6,6 +6,8 @@ import EventName, { EventNameView } from "./EventName";
 import BestResultsView from "./BestResults";
 import Identity, { IdentityView } from "./Identity";
 import i18next from "i18next";
+import { locales } from "./locales";
+import { config } from "./config";
 
 class Main extends Model {
   init() {
@@ -40,51 +42,14 @@ class MainView extends View {
 
   i18n() {
     i18next.init({
-      lng: "en",
+      lng: config.lang,
       debug: false,
       resources: {
-        // TODO: load from json
         es: {
-          translation: {
-            title: "Find a slot",
-            description: "Combina reuniones y ensayos en tiempo real.",
-            configuration: "Configuracion",
-            days_range: "Rango de dias",
-            time_range: "Rango de horas",
-            best_results: "Aun nadie marco sus horarios",
-            no_results: "Aun nadie marco sus horarios",
-            votes: "votos",
-            today: "hoy",
-            event_name: "Nombre del evento",
-            your_name: "Tu nombre",
-            instructions: "Instrucciones",
-            click_to_select:
-              "Clickea un horario para seleccionarlo o deseleccionarlo.",
-            how_to_multi_select:
-              "Podes pintar varios horarios a la vez manteniendo la tecla ctrl (cmd en macos).",
-            drag_to_select:
-              "Podes arrastrar y soltar en vez de clickear para seleccion multiple.",
-          },
+          translation: locales.es,
         },
         en: {
-          translation: {
-            title: "Find a slot",
-            description: "Find a slot in your calendar in real-time.",
-            configuration: "Configuration",
-            days_range: "Days range",
-            time_range: "Time range",
-            best_results: "Best results",
-            no_results: "No results to display yet",
-            votes: "votes",
-            today: "today",
-            event_name: "Event name",
-            your_name: "Your name",
-            instructions: "Instructions",
-            click_to_select: "Click a time slot to select or deselect it.",
-            how_to_multi_select:
-              "You can paint several slots holding ctrl (cmd on macOS).",
-            drag_to_select: "Drag instead of clicking for multiple selection.",
-          },
+          translation: locales.en,
         },
       },
     });
