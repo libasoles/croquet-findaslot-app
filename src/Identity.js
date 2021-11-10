@@ -12,14 +12,14 @@ export default class Identity extends Model {
     this.subscribe(this.id, "name-changed", this.updateUser);
   }
 
-  registerUser({ viewId, userName }) {
+  registerUser({ viewId, userName, views }) {
     if (this.connectedUsers.has(viewId)) return;
 
     this.connectedUsers.set(viewId, {
       start: this.now(),
       userId: viewId,
       userName: userName || "",
-      views: [viewId],
+      views: views ? views : [viewId],
     });
 
     this.identityEstablished(viewId);
@@ -27,7 +27,7 @@ export default class Identity extends Model {
 
   registerUserView({ userId, viewId, userName }) {
     if (!this.connectedUsers.has(userId)) {
-      this.registerUser({ viewId, userName });
+      this.registerUser({ viewId: userId, userName, views: [userId, viewId] });
 
       return;
     }
