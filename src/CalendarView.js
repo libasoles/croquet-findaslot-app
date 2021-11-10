@@ -2,7 +2,8 @@ import { View } from "@croquet/croquet";
 import SelectionArea from "@viselect/vanilla";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { addHours, addDays, startOfToday, intlFormat } from "date-fns";
-import { locale, range, target } from "./utils";
+import { range, target } from "./utils";
+import { config } from "./config";
 import createDotElements from "./Dots";
 
 const selectableOptions = {
@@ -93,7 +94,7 @@ export default class CalendarView extends View {
       <>
         {daysRange.map((day) => {
           const formattedDate = intlFormat(day, dateFormat, {
-            locale,
+            locale: config.locale,
           });
 
           return (
