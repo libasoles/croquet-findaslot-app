@@ -67,13 +67,9 @@
 }
 
 
-.content .side {
-    margin: 3em;
-}
-
 .content .settings,
 .content .results {
-    margin-top: 82px;
+    margin-top: 92px;
     min-width: 300px;
 }
 

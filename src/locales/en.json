@@ -14,5 +14,6 @@
   "instructions": "Instructions",
   "click_to_select": "<b>Click</b> a time slot to select/deselect it.",
   "how_to_multi_select": "You can paint several slots holding <b>ctrl</b> key (<b>cmd</b> in macOS).",
-  "drag_to_select": "<b>Drag</b> instead of clicking for multiple selection."
+  "drag_to_select": "<b>Drag</b> instead of clicking for multiple selection.",
+  "participants": "Participants"
 }

@@ -56,6 +56,12 @@ export default class CalendarView extends View {
 
     this.subscribe("configuration", "update-days-range", this.updateDaysRange);
     this.subscribe("configuration", "update-time-range", this.updateTimeRange);
+
+    this.subscribe(
+      "calendar",
+      "user-pills-selection",
+      this.highlightSelectionForUsers
+    );
   }
 
   hydrate() {
@@ -195,17 +201,37 @@ export default class CalendarView extends View {
       this.addDotsToCalendarSlot(countedSlots, cell);
     });
 
-    this.highlightSelfSelection(selectedSlotsByUser);
+    this.highlightSelfSelection();
   }
 
-  highlightSelfSelection(selectedSlotsByUser) {
+  highlightSelfSelection() {
     const selfId = this.identity.selfId(this.viewId);
 
-    const ownSelection = selectedSlotsByUser.has(selfId)
-      ? selectedSlotsByUser.get(selfId)
+    this.highlightSelectionForUser(selfId);
+  }
+
+  highlightSelectionForUsers({ selectedUsersIds }) {
+    this.clearHighlights();
+
+    selectedUsersIds.forEach((userId) => {
+      this.highlightSelectionForUser(userId);
+    });
+  }
+
+  clearHighlights() {
+    document.querySelectorAll(".calendar .selected").forEach((slot) => {
+      slot.classList.remove("selected");
+    });
+  }
+
+  highlightSelectionForUser(userId) {
+    const { selectedSlotsByUser } = this.model;
+
+    const slotSelection = selectedSlotsByUser.has(userId)
+      ? selectedSlotsByUser.get(userId)
       : [];
 
-    ownSelection.forEach((selection) => {
+    slotSelection.forEach((selection) => {
       document
         .querySelectorAll(`[data-slot="${selection}"]`)
         .forEach((element) => element.classList.add("selected"));

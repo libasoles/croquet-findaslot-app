@@ -14,5 +14,6 @@
   "instructions": "Instrucciones",
   "click_to_select": "Clickea un horario para seleccionarlo o deseleccionarlo.",
   "how_to_multi_select": "Podes pintar varios horarios a la vez manteniendo la tecla ctrl (cmd en macOS).",
-  "drag_to_select": "Podes arrastrar y soltar en vez de clickear para seleccion multiple."
+  "drag_to_select": "Podes arrastrar y soltar en vez de clickear para seleccion multiple.",
+  "participants": "Participantes"
 }

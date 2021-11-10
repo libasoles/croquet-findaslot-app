@@ -25,6 +25,11 @@ input {
     background: var(--secondaryColor);
 }
 
+.block {
+    margin-bottom: 2em;
+}
+
+/* multi range sliders */
 .multi-range {
     margin: 1em 0;
     display: flex;
@@ -125,6 +130,10 @@ input {
     padding-left: 0.5em;
 }
 
+.input-widget .displayed-value h3 {
+    margin: 0;
+}
+
 .input-widget .displayed-value .value {
     display: flex;
     align-items: center;
@@ -172,9 +181,10 @@ input {
 }
 
 /* Pills */
-.users-pills {
+.users-pills .pills {
     display: flex;
-    gap: .5em
+    gap: .5em;
+    margin: 1em 0;
 }
 
 .pill {

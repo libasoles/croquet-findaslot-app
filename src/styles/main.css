@@ -46,6 +46,10 @@ h2 {
     line-height: 1.5em;
 }
 
+h3 {
+    margin-bottom: .5em;
+}
+
 p {
     margin: .4em 0
 }
@@ -64,6 +68,7 @@ p {
 /* Left and right column */
 .content .column.side {
     flex: 1;
+    margin: 2em
 }
 
 .content main {

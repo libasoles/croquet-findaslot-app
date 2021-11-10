@@ -18,13 +18,13 @@ export class PillsView extends View {
   }
 
   initialState() {
-    this.selected = [this.identity.selfId(this.viewId)];
+    this.selected = new Set([this.identity.selfId(this.viewId)]);
   }
 
   render() {
     // TODO: display only the ones who actually selected something
     const toPill = (user, index) => {
-      const isSelected = this.selected.includes(user.userId);
+      const isSelected = this.selected.has(user.userId);
       const isChecked = false;
 
       return (
@@ -32,7 +32,8 @@ export class PillsView extends View {
           className={`pill ${isSelected && "selected"} ${
             isChecked && "checked"
           }`}
-          onClick={this.toggle.bind(this)}
+          data-user-id={user.userId}
+          onClick={(event) => this.toggle(event)}
         >
           {user.userName || "Anonymous #" + (index + 1)}
         </button>
@@ -41,12 +42,22 @@ export class PillsView extends View {
 
     const pills = this.identity.allUsers().map(toPill);
 
-    render(<>{pills}</>, document.querySelector(".users-pills"));
+    render(<>{pills}</>, document.querySelector(".users-pills .pills"));
   }
 
   toggle(event) {
     event.currentTarget.classList.toggle("selected");
 
-    this.subscribe("calendar", "display-users-selection", {});
+    const clickedUserId = event.currentTarget.dataset.userId;
+
+    if (this.selected.has(clickedUserId)) {
+      this.selected.delete(clickedUserId);
+    } else {
+      this.selected.add(clickedUserId);
+    }
+
+    this.publish("calendar", "user-pills-selection", {
+      selectedUsersIds: Array.from(this.selected),
+    });
   }
 }
