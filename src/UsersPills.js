@@ -1,30 +1,64 @@
-import { View } from "@croquet/croquet";
+import { Model, View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 
+export default class Pills extends Model {
+  init() {
+    this.subscribe("identity", "established", this.preselectUser);
+    this.subscribe("pills", "toggle", this.toggle);
+
+    this.selectedPillsByUser = new Map();
+  }
+
+  preselectUser(self) {
+    const selection = new Set([self.userId]);
+    this.selectedPillsByUser.set(self.userId, selection);
+
+    this.publish("pills", "init");
+  }
+
+  toggle({ userId, clickedUserId }) {
+    const selection = this.selectedPillsByUser.get(userId);
+
+    if (selection.has(clickedUserId)) {
+      selection.delete(clickedUserId);
+    } else {
+      selection.add(clickedUserId);
+    }
+
+    this.selectedPillsByUser.set(userId, selection);
+
+    this.publish("calendar", "user-pills-selection", {
+      userId,
+      selectedUsersIds: Array.from(selection),
+    });
+  }
+
+  pillsForUser(userId) {
+    return Array.from(this.selectedPillsByUser.get(userId));
+  }
+
+  userHasSelected(userId, anotherUserId) {
+    return this.selectedPillsByUser.get(userId).has(anotherUserId);
+  }
+}
+
 export class PillsView extends View {
-  constructor(identity, calendar) {
-    super(identity);
+  constructor(model, identity, calendar) {
+    super(model);
+    this.model = model;
     this.identity = identity;
     this.calendar = calendar;
 
-    this.subscribe("identity", "established", this.init);
+    this.subscribe("pills", "init", this.render);
     this.subscribe("identity", "update-name", this.render);
     this.subscribe("calendar", "selected-slots-updated", this.render);
   }
 
-  init() {
-    this.initialState();
-
-    this.render();
-  }
-
-  initialState() {
-    this.selected = new Set([this.identity.selfId(this.viewId)]);
-  }
-
   render() {
+    const selfId = this.identity.selfId(this.viewId);
+
     const toPill = (user, index) => {
-      const isSelected = this.selected.has(user.userId);
+      const isSelected = this.model.userHasSelected(selfId, user.userId);
       const isChecked = this.calendar.userHasAnySelection(user.userId);
 
       return (
@@ -50,14 +84,9 @@ export class PillsView extends View {
 
     const clickedUserId = event.currentTarget.dataset.userId;
 
-    if (this.selected.has(clickedUserId)) {
-      this.selected.delete(clickedUserId);
-    } else {
-      this.selected.add(clickedUserId);
-    }
-
-    this.publish("calendar", "user-pills-selection", {
-      selectedUsersIds: Array.from(this.selected),
+    this.publish("pills", "toggle", {
+      userId: this.identity.selfId(this.viewId),
+      clickedUserId,
     });
   }
 }

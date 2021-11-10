@@ -8,7 +8,7 @@ import Identity, { IdentityView } from "./Identity";
 import i18next from "i18next";
 import { locales } from "./locales";
 import { config } from "./config";
-import { PillsView } from "./UsersPills";
+import Pills, { PillsView } from "./UsersPills";
 
 class Main extends Model {
   init() {
@@ -16,6 +16,7 @@ class Main extends Model {
     this.calendar = Calendar.create();
     this.configuration = Configuration.create();
     this.eventName = EventName.create();
+    this.pills = Pills.create();
   }
 }
 
@@ -28,8 +29,13 @@ class MainView extends View {
 
     this.views = [
       new IdentityView(model.identity),
-      new CalendarView(model.calendar, model.identity, model.configuration),
-      new PillsView(model.identity, model.calendar),
+      new CalendarView(
+        model.calendar,
+        model.identity,
+        model.configuration,
+        model.pills
+      ),
+      new PillsView(model.pills, model.identity, model.calendar),
       new ConfigurationView(model.configuration),
       new EventNameView(model.eventName),
       new BestResultsView(model.calendar),
@@ -63,6 +69,7 @@ Identity.register("Identity");
 EventName.register("EventName");
 Calendar.register("Calendar");
 Configuration.register("Configuration");
+Pills.register("Pills");
 
 Session.join({
   apiKey: "1d5yaq96ii9K5L7zHGa6lxgaMpbO7Au1oinsteyx5",

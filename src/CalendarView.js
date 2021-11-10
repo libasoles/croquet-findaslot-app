@@ -27,11 +27,12 @@ const dateFormat = {
 };
 
 export default class CalendarView extends View {
-  constructor(model, identity, configuration) {
+  constructor(model, identity, configuration, pills) {
     super(model);
     this.model = model;
     this.identity = identity;
     this.configuration = configuration;
+    this.pills = pills;
 
     this.init();
 
@@ -51,7 +52,11 @@ export default class CalendarView extends View {
   subscribeToEvents() {
     this.subscribe("identity", "established", this.hydrate);
 
-    this.subscribe("calendar", "selected-slots-updated", this.displayVotes);
+    this.subscribe(
+      "calendar",
+      "selected-slots-updated",
+      this.displaySlotsState
+    );
 
     this.subscribe("configuration", "update-days-range", this.updateDaysRange);
     this.subscribe("configuration", "update-time-range", this.updateTimeRange);
@@ -124,6 +129,8 @@ export default class CalendarView extends View {
     );
 
     render(columns, target(".calendar-columns"));
+
+    this.displaySlotsState();
   }
 
   beforeSelectionStarts() {
@@ -176,7 +183,18 @@ export default class CalendarView extends View {
     });
   }
 
-  displayVotes({ selectedSlotsByUser, countedSlots }) {
+  displaySlotsState() {
+    const selfId = this.identity.selfId(this.viewId);
+
+    this.highlightSelectionForUsers({
+      userId: selfId,
+      selectedUsersIds: this.pills.pillsForUser(selfId),
+    });
+
+    this.displayVotes({ countedSlots: this.model.countedSlots() });
+  }
+
+  displayVotes({ countedSlots }) {
     const slotElement = Array.from(
       document.getElementsByClassName("time-slot")
     );
@@ -184,8 +202,6 @@ export default class CalendarView extends View {
     slotElement.forEach((cell) => {
       this.addDotsToCalendarSlot(countedSlots, cell);
     });
-
-    this.highlightSelfSelection();
   }
 
   highlightSelfSelection() {
@@ -194,7 +210,10 @@ export default class CalendarView extends View {
     this.highlightSelectionForUser(selfId);
   }
 
-  highlightSelectionForUsers({ selectedUsersIds }) {
+  highlightSelectionForUsers({ userId, selectedUsersIds }) {
+    const selfId = this.identity.selfId(this.viewId);
+    if (userId !== selfId) return;
+
     this.clearHighlights();
 
     selectedUsersIds.forEach((userId) => {
