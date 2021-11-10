@@ -44,7 +44,6 @@ export default class CalendarView extends View {
 
     this.selection = new SelectionArea(selectableOptions)
       //.on("beforestart", this.beforeSelectionStarts.bind(this)())
-      .on("start", this.onSelectionStart.bind(this))
       .on("move", this.whileSelecting.bind(this))
       .on("stop", this.onSelectionEnd.bind(this));
   }
@@ -150,21 +149,6 @@ export default class CalendarView extends View {
     };
   }
 
-  onSelectionStart({ store, event }) {
-    const addingToSelection = event.ctrlKey || event.metaKey;
-    if (!addingToSelection) {
-      this.clearSelection(store);
-    }
-  }
-
-  clearSelection(store) {
-    for (const el of store.stored) {
-      el.classList.remove("selected");
-    }
-
-    this.selection.clearSelection();
-  }
-
   whileSelecting({
     store: {
       changed: { added, removed },
@@ -222,6 +206,8 @@ export default class CalendarView extends View {
     document.querySelectorAll(".calendar .selected").forEach((slot) => {
       slot.classList.remove("selected");
     });
+
+    this.selection.clearSelection();
   }
 
   highlightSelectionForUser(userId) {
