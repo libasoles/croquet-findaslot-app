@@ -7,8 +7,8 @@ export default class Calendar extends Model {
     this.subscribe("calendar", "selection", this.storeSelection);
   }
 
-  storeSelection({ viewId, slots }) {
-    this.selectedSlotsByUser.set(viewId, slots);
+  storeSelection({ userId, slots }) {
+    this.selectedSlotsByUser.set(userId, slots);
 
     this.publish("calendar", "selected-slots", {
       selectedSlotsByUser: this.selectedSlotsByUser,

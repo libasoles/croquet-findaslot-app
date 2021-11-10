@@ -26,15 +26,13 @@ const dateFormat = {
 };
 
 export default class CalendarView extends View {
-  constructor(model, configuration) {
+  constructor(model, identity, configuration) {
     super(model);
     this.model = model;
-
+    this.identity = identity;
     this.configuration = configuration;
 
     this.init();
-
-    this.hydrate();
 
     this.subscribeToEvents();
   }
@@ -48,22 +46,27 @@ export default class CalendarView extends View {
       .on("start", this.onSelectionStart.bind(this))
       .on("move", this.whileSelecting.bind(this))
       .on("stop", this.onSelectionEnd.bind(this));
-
-    this.render({ lower: this.daysRange[0], upper: this.daysRange[1] });
-  }
-
-  hydrate() {
-    this.displayVotes({
-      selectedSlotsByUser: this.model.selectedSlotsByUser,
-      countedSlots: this.model.countedSlots(),
-    });
   }
 
   subscribeToEvents() {
+    this.subscribe("identity", "established", this.hydrate);
+
     this.subscribe("calendar", "selected-slots", this.displayVotes);
 
     this.subscribe("configuration", "update-days-range", this.updateDaysRange);
     this.subscribe("configuration", "update-time-range", this.updateTimeRange);
+  }
+
+  hydrate() {
+    this.render({
+      lower: this.daysRange[0],
+      upper: this.daysRange[1],
+    });
+
+    this.displayVotes({
+      selectedSlotsByUser: this.model.selectedSlotsByUser,
+      countedSlots: this.model.countedSlots(),
+    });
   }
 
   updateDaysRange({ lower, upper }) {
@@ -115,11 +118,6 @@ export default class CalendarView extends View {
     );
 
     render(columns, target(".calendar-columns"));
-
-    this.displayVotes({
-      selectedSlotsByUser: this.model.selectedSlotsByUser,
-      countedSlots: this.model.countedSlots(),
-    });
   }
 
   beforeSelectionStarts() {
@@ -174,18 +172,15 @@ export default class CalendarView extends View {
     }
   }
 
-  onSelectionEnd({ store }) {
-    // TODO: all this datasets shouldn't be needed if stored would actually retrieve the data right
-    const stored = store.stored.map((slot) => slot.dataset.slot);
-    const selected = store.selected.map((slot) => slot.dataset.slot);
-    const removed = store.changed.removed.map((slot) => slot.dataset.slot);
-    const storedWithoutRemoved = stored.filter(
-      (slot) => !removed.includes(slot)
-    );
-    const slots = [...new Set([...storedWithoutRemoved, ...selected])];
+  onSelectionEnd() {
+    const slots = Array.from(
+      document.querySelectorAll(".calendar .selected")
+    ).map((slot) => slot.dataset.slot);
+
+    const selfId = this.identity.selfId(this.viewId);
 
     this.publish("calendar", "selection", {
-      viewId: this.viewId,
+      userId: selfId,
       slots,
     });
   }
@@ -203,8 +198,10 @@ export default class CalendarView extends View {
   }
 
   highlightSelfSelection(selectedSlotsByUser) {
-    const ownSelection = selectedSlotsByUser.has(this.viewId)
-      ? selectedSlotsByUser.get(this.viewId)
+    const selfId = this.identity.selfId(this.viewId);
+
+    const ownSelection = selectedSlotsByUser.has(selfId)
+      ? selectedSlotsByUser.get(selfId)
       : [];
 
     ownSelection.forEach((selection) => {

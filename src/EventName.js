@@ -42,10 +42,8 @@ export class EventNameView extends View {
       }
     );
 
-    this.subscribe(
-      "event-name",
-      "update-event-name",
-      widget.displayEventName.bind(widget)
+    this.subscribe("event-name", "update-event-name", (value) =>
+      widget.displayValue(value)
     );
   }
 }

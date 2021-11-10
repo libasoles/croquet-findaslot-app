@@ -19,7 +19,7 @@ export class InputWidget {
     this.displayedValue = this.selector.querySelector(".displayed-value");
 
     if (value) {
-      this.displayEventName(value);
+      this.displayValue(value);
     }
 
     this.subscribeToUserEvents(onChange);
@@ -52,7 +52,7 @@ export class InputWidget {
     this.input.onkeyup = (e) => this.onUserTyping(e);
 
     submitButton.onclick = () => this.onChange();
-    closeButton.onclick = () => this.onEditEventName();
+    closeButton.onclick = () => this.onEditButtonClicked();
   }
 
   onUserTyping(event) {
@@ -66,12 +66,12 @@ export class InputWidget {
 
     if (!value) return;
 
-    this.displayEventName(value);
+    this.displayValue(value);
 
     this.handleOnChange(value);
   }
 
-  onEditEventName() {
+  onEditButtonClicked() {
     hide(this.displayedValue);
 
     this.input.value = this.displayedValue
@@ -81,7 +81,7 @@ export class InputWidget {
     display(this.form);
   }
 
-  displayEventName(name) {
+  displayValue(name) {
     hide(this.form);
 
     render(this.formatValue(name), this.displayedValue.querySelector(".value"));

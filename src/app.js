@@ -11,9 +11,9 @@ import { config } from "./config";
 
 class Main extends Model {
   init() {
+    this.identity = Identity.create();
     this.calendar = Calendar.create();
     this.configuration = Configuration.create();
-    this.identity = Identity.create();
     this.eventName = EventName.create();
   }
 }
@@ -26,11 +26,11 @@ class MainView extends View {
     this.i18n();
 
     this.views = [
-      new CalendarView(model.calendar, model.configuration),
+      new IdentityView(model.identity),
+      new CalendarView(model.calendar, model.identity, model.configuration),
       new ConfigurationView(model.configuration),
       new EventNameView(model.eventName),
       new BestResultsView(model.calendar),
-      new IdentityView(model.identity),
     ];
   }
 

@@ -37,3 +37,15 @@ export function formatDate(date) {
     locale: config.locale,
   });
 }
+
+export function readCookie(name) {
+  const result = document.cookie
+    .split(";")
+    .map((rawCookie) => rawCookie.split("="))
+    .map(([key, value]) => [key.trim(), value])
+    .find((cookie) => cookie[0] === name);
+
+  if (!result) return;
+
+  return result.reduce((_, value) => value);
+}
