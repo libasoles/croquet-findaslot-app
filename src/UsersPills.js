@@ -2,13 +2,14 @@ import { View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 
 export class PillsView extends View {
-  constructor(identity) {
+  constructor(identity, calendar) {
     super(identity);
     this.identity = identity;
+    this.calendar = calendar;
 
     this.subscribe("identity", "established", this.init);
-
-    // this.subscribe("calendar", "selected-slots", this.render);
+    this.subscribe("identity", "update-name", this.render);
+    this.subscribe("calendar", "selected-slots-updated", this.render);
   }
 
   init() {
@@ -22,10 +23,9 @@ export class PillsView extends View {
   }
 
   render() {
-    // TODO: display only the ones who actually selected something
     const toPill = (user, index) => {
       const isSelected = this.selected.has(user.userId);
-      const isChecked = false;
+      const isChecked = this.calendar.userHasAnySelection(user.userId);
 
       return (
         <button

@@ -185,6 +185,7 @@ input {
     display: flex;
     gap: .5em;
     margin: 1em 0;
+    flex-wrap: wrap;
 }
 
 .pill {

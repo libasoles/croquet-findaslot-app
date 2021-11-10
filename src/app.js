@@ -29,7 +29,7 @@ class MainView extends View {
     this.views = [
       new IdentityView(model.identity),
       new CalendarView(model.calendar, model.identity, model.configuration),
-      new PillsView(model.identity),
+      new PillsView(model.identity, model.calendar),
       new ConfigurationView(model.configuration),
       new EventNameView(model.eventName),
       new BestResultsView(model.calendar),

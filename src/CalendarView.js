@@ -52,7 +52,7 @@ export default class CalendarView extends View {
   subscribeToEvents() {
     this.subscribe("identity", "established", this.hydrate);
 
-    this.subscribe("calendar", "selected-slots", this.displayVotes);
+    this.subscribe("calendar", "selected-slots-updated", this.displayVotes);
 
     this.subscribe("configuration", "update-days-range", this.updateDaysRange);
     this.subscribe("configuration", "update-time-range", this.updateTimeRange);

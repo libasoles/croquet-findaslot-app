@@ -10,7 +10,7 @@ export default class Calendar extends Model {
   storeSelection({ userId, slots }) {
     this.selectedSlotsByUser.set(userId, slots);
 
-    this.publish("calendar", "selected-slots", {
+    this.publish("calendar", "selected-slots-updated", {
       selectedSlotsByUser: this.selectedSlotsByUser,
       countedSlots: this.countedSlots(),
     });
@@ -31,6 +31,13 @@ export default class Calendar extends Model {
         slotsCounted.set(slot, count);
       });
     });
+
     return slotsCounted;
+  }
+
+  userHasAnySelection(userId) {
+    if (!this.selectedSlotsByUser.has(userId)) return false;
+
+    return this.selectedSlotsByUser.get(userId).length > 0;
   }
 }

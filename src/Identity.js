@@ -55,7 +55,7 @@ export default class Identity extends Model {
       userName,
     });
 
-    this.publish(this.id, "update-name", { userId, userName });
+    this.publish("identity", "update-name", { userId, userName });
   }
 
   name(userId) {
@@ -89,7 +89,7 @@ export class IdentityView extends View {
 
     this.initForm();
 
-    this.subscribe(this.model.id, "update-name", this.updateName);
+    this.subscribe("identity", "update-name", this.updateName);
   }
 
   hydrate() {
