@@ -188,10 +188,9 @@ input {
     font-size: 1em;
     font-weight: normal;
     cursor: pointer;
-
 }
 
-.pill::before {
+.pill.checked::before {
     content: '';
     display: inline-block;
     transform: rotate(45deg);
@@ -200,6 +199,10 @@ input {
     border-bottom: .15em solid var(--secondaryColor);
     border-right: .15em solid var(--secondaryColor);
     margin: 0 .5em 0 .25em
+}
+
+.pill.selected.checked::before {
+    border-color: var(--primaryDark);
 }
 
 .pill.selected {
