@@ -52,6 +52,7 @@ export class PillsView extends View {
     this.subscribe("pills", "init", this.render);
     this.subscribe("identity", "update-name", this.render);
     this.subscribe("calendar", "selected-slots-updated", this.render);
+    this.subscribe("calendar", "user-pills-selection", this.render);
   }
 
   render() {
