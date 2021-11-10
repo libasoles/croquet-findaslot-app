@@ -12,22 +12,22 @@ export default class Identity extends Model {
     this.subscribe(this.id, "name-changed", this.updateUser);
   }
 
-  registerUser(viewId) {
+  registerUser({ viewId, userName }) {
     if (this.connectedUsers.has(viewId)) return;
 
     this.connectedUsers.set(viewId, {
       start: this.now(),
       userId: viewId,
-      userName: "",
+      userName: userName || "",
       views: [viewId],
     });
 
-    this.identityEstablished();
+    this.identityEstablished(viewId);
   }
 
   registerUserView({ userId, viewId, userName }) {
     if (!this.connectedUsers.has(userId)) {
-      this.registerUser(userId);
+      this.registerUser({ viewId, userName });
 
       return;
     }
@@ -71,12 +71,10 @@ export default class Identity extends Model {
   }
 
   allUsers() {
-    return Array.from(this.connectedUsers).map(([userId, user]) => {
-      return {
-        userId,
-        userName: user.userName,
-      };
-    });
+    return Array.from(this.connectedUsers).map(([userId, user]) => ({
+      userId,
+      userName: user.userName,
+    }));
   }
 }
 
@@ -105,7 +103,7 @@ export class IdentityView extends View {
   register() {
     document.cookie = `userId=${this.viewId}`;
 
-    this.publish(this.model.id, "register-user", this.viewId);
+    this.publish(this.model.id, "register-user", { viewId: this.viewId });
   }
 
   login(userId) {
