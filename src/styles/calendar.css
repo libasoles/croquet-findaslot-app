@@ -1,5 +1,6 @@
 .calendar {
     display: flex;
+    flex-direction: column;
     height: fit-content;
     user-select: none;
     justify-content: center;
@@ -7,6 +8,7 @@
     padding: 1em 0;
     color: var(--primaryGrayscaleColor);
     background-color: var(--primaryDark);
+    width: 100%;
 }
 
 .calendar .calendar-columns {
@@ -43,6 +45,7 @@
     flex-direction: column;
     position: relative;
 }
+
 .calendar .time-slot .dots {
     position: absolute;
     top: 2px;
@@ -73,6 +76,13 @@
     min-width: 300px;
 }
 
-@media (max-width: 600px) {
+aside.left {
+    max-width: 300px;
+}
 
+
+@media (max-width: 600px) {
+    .calendar {
+        margin-bottom: 0;
+    }
 }

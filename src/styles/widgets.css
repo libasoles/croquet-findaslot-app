@@ -146,6 +146,7 @@ input {
 /* event name form */
 .event-name-widget {
     width: 100%;
+    max-width: 580px;
 }
 
 .event-name-widget input {
