@@ -170,3 +170,41 @@ input {
         max-width: 100%;
     }
 }
+
+/* Pills */
+.users-pills {
+    display: flex;
+    gap: .5em
+}
+
+.pill {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primaryGrayscaleColor);
+    background: var(--secondaryDark);
+    border: 1px solid var(--secondaryColor);
+    border-radius: 1em;
+    width: fit-content;
+    padding: .25em .5em;
+    font-size: 1em;
+    font-weight: normal;
+    cursor: pointer;
+
+}
+
+.pill::before {
+    content: '';
+    display: inline-block;
+    transform: rotate(45deg);
+    height: .8em;
+    width: .3em;
+    border-bottom: .15em solid var(--secondaryColor);
+    border-right: .15em solid var(--secondaryColor);
+    margin: 0 .5em 0 .25em
+}
+
+.pill.selected {
+    background: var(--tertiaryColor);
+    border: 2px solid rgba(0, 0, 0, 0.075);
+    color: var(--primaryDark);
+    font-weight: bold;
+}

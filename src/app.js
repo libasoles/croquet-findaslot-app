@@ -8,6 +8,7 @@ import Identity, { IdentityView } from "./Identity";
 import i18next from "i18next";
 import { locales } from "./locales";
 import { config } from "./config";
+import { PillsView } from "./UsersPills";
 
 class Main extends Model {
   init() {
@@ -28,6 +29,7 @@ class MainView extends View {
     this.views = [
       new IdentityView(model.identity),
       new CalendarView(model.calendar, model.identity, model.configuration),
+      new PillsView(model.identity),
       new ConfigurationView(model.configuration),
       new EventNameView(model.eventName),
       new BestResultsView(model.calendar),

@@ -69,6 +69,15 @@ export default class Identity extends Model {
       }
     }
   }
+
+  allUsers() {
+    return Array.from(this.connectedUsers).map(([userId, user]) => {
+      return {
+        userId,
+        userName: user.userName,
+      };
+    });
+  }
 }
 
 export class IdentityView extends View {
