@@ -12,9 +12,8 @@
   "event_name": "Nombre del evento",
   "your_name": "Tu nombre",
   "instructions": "Instrucciones",
-  "click_to_select": "Clickea un horario para seleccionarlo o deseleccionarlo.",
-  "how_to_multi_select": "Podes pintar varios horarios a la vez manteniendo la tecla ctrl (cmd en macOS).",
-  "drag_to_select": "Podes arrastrar y soltar en vez de clickear para seleccion multiple.",
+  "how_to_select": "Click o arrastra para seleccionar.",
+  "how_to_invite": "Comparte el link.",
   "participants": "Participantes",
   "include_weekends": "Incluir fines de semana"
 }

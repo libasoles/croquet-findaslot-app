@@ -12,9 +12,8 @@
   "event_name": "Event name",
   "your_name": "Your name",
   "instructions": "Instructions",
-  "click_to_select": "<b>Click</b> a time slot to select/deselect it.",
-  "how_to_multi_select": "You can paint several slots holding <b>ctrl</b> key (<b>cmd</b> in macOS).",
-  "drag_to_select": "<b>Drag</b> instead of clicking for multiple selection.",
+  "how_to_select": "<b>Click</b> or <b>Drag</b> to select/deselect.",
+  "how_to_invite": "Share the link.",
   "participants": "Participants",
   "include_weekends": "Include weekends"
 }
