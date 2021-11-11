@@ -37,6 +37,16 @@ body > header {
     padding: 1em 2em;
     text-align: center;
     display: flex;
+    align-items: center;
+}
+
+
+.logo {
+    width: 2em;
+    height: 2em;
+    background: var(--primaryGrayscaleColor);
+    border-radius: 50%;
+    margin-right: .5em;
 }
 
 h2 {
@@ -129,6 +139,7 @@ li {
 .hidden {
     display: none !important;
 }
+
 
 @media (max-width: 1200px) {
     .content .right {
