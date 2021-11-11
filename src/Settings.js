@@ -44,16 +44,21 @@ export class ConfigurationView extends View {
 
     this.subscribe("settings", "update-days-range", this.updateDaysRange);
     this.subscribe("settings", "update-time-range", this.updateTimeRange);
+    this.subscribe(
+      "settings",
+      "update-allow-weekends",
+      this.updateWeekendsCheckbox
+    );
 
     this.initWeekendsCheckbox();
   }
 
   initWeekendsCheckbox() {
-    const includeWeekends = document.querySelector(".include-weekends input");
+    this.includeWeekends = document.querySelector(".include-weekends input");
 
-    includeWeekends.checked = this.model.allowWeekends;
+    this.includeWeekends.checked = this.model.allowWeekends;
 
-    includeWeekends.onchange = (event) => {
+    this.includeWeekends.onchange = (event) => {
       this.publish(
         "settings",
         "allow-weekends-change",
@@ -115,5 +120,9 @@ export class ConfigurationView extends View {
 
   updateTimeRange({ lower, upper }) {
     this.hoursRangeSlider.update(lower, upper);
+  }
+
+  updateWeekendsCheckbox(checked) {
+    this.includeWeekends.checked = checked;
   }
 }
