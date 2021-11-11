@@ -7,9 +7,13 @@
     "build": "npm run i18n && parcel build",
     "postinstall": "cd node_modules/@itsjavi/jsx-runtime && npm install && npm run build:micro",
     "i18n": "static-i18n -l es -i en -i es src -o public",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "cypress:open": "cypress open"
   },
-  "source": ["public/index.html", "public/en/index.html"],
+  "source": [
+    "public/index.html",
+    "public/en/index.html"
+  ],
   "author": "Guillermo Perez",
   "license": "ISC",
   "dependencies": {
@@ -24,6 +28,7 @@
     "@babel/plugin-transform-react-jsx": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "babel-jest": "^27.3.1",
+    "cypress": "^9.0.0",
     "jest": "^27.3.1",
     "parcel": "^2.0.0",
     "prettier": "2.4.1",
