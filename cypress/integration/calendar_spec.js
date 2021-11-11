@@ -49,7 +49,7 @@ describe("Calendar", () => {
         .should("not.have.class", "selected");
     });
 
-    it("displays a single dot when clicked", () => {
+    it("displays a single dot when slot clicked", () => {
       cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'] .dots")
         .find(".dot")
         .should("have.length", 0);
@@ -61,7 +61,67 @@ describe("Calendar", () => {
         .should("have.length", 1);
     });
 
-    // TODO: test drag selection
+    it("selects multiple slots by dragging", () => {
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+        .trigger("mousedown", { which: 1 })
+        .trigger("mousemove", { clientX: 600, clientY: 100 })
+        .trigger("mouseup", { force: true });
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'").should(
+        "have.class",
+        "selected"
+      );
+      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z'").should(
+        "have.class",
+        "selected"
+      );
+      cy.get(".calendar [data-slot='2021-11-12T12:00:00.000Z'").should(
+        "have.class",
+        "selected"
+      );
+      cy.get(".calendar [data-slot='2021-11-12T13:00:00.000Z'").should(
+        "have.class",
+        "selected"
+      );
+    });
+
+    it.only("deselects slots by dragging", () => {
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+        .trigger("mousedown", { which: 1 })
+        .trigger("mousemove", { clientX: 0, clientY: 100 })
+        .trigger("mouseup", { force: true });
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'").should(
+        "have.class",
+        "selected"
+      );
+      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z'").should(
+        "have.class",
+        "selected"
+      );
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+        .trigger("mousedown", { which: 1 })
+        .trigger("mousemove", { clientX: 600, clientY: 100 })
+        .trigger("mouseup", { force: true });
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'").should(
+        "not.have.class",
+        "selected"
+      );
+      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z'").should(
+        "not.have.class",
+        "selected"
+      );
+      cy.get(".calendar [data-slot='2021-11-12T12:00:00.000Z'").should(
+        "have.class",
+        "selected"
+      );
+      cy.get(".calendar [data-slot='2021-11-12T13:00:00.000Z'").should(
+        "have.class",
+        "selected"
+      );
+    });
   });
 
   // TODO:
