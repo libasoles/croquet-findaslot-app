@@ -7,11 +7,11 @@ describe("Settings", () => {
         cy.visit("localhost:1234/en");
       });
 
-      it("display the title", () => {
+      it("displays the title", () => {
         cy.contains("Settings");
       });
 
-      it("display all controls", () => {
+      it("displays all controls", () => {
         cy.contains("Include weekends");
         cy.contains("Days range");
         cy.contains("Time range");
@@ -19,7 +19,7 @@ describe("Settings", () => {
     });
 
     context("Mobile, 600px width resolution", () => {
-      it("display the title", () => {
+      it("shouldn't be visible", () => {
         cy.viewport(320, 480);
 
         cy.visit("localhost:1234/en");
