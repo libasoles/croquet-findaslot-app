@@ -77,11 +77,6 @@ export default class CalendarView extends View {
       lower: this.configuration.daysRange[0],
       upper: this.configuration.daysRange[1],
     });
-
-    this.displayVotes({
-      selectedSlotsByUser: this.model.selectedSlotsByUser,
-      countedSlots: this.model.countedSlots(),
-    });
   }
 
   generateListOfDates(date, length) {
@@ -139,6 +134,27 @@ export default class CalendarView extends View {
     this.displaySlotsState();
   }
 
+  displaySlotsState() {
+    const selfId = this.me();
+
+    this.highlightSelectionForUsers({
+      userId: selfId,
+      selectedUsersIds: this.pills.pillsForUser(selfId),
+    });
+
+    this.displayVotes({ countedSlots: this.model.countedSlots() });
+  }
+
+  displayVotes({ countedSlots }) {
+    const slotElement = Array.from(
+      document.getElementsByClassName("time-slot")
+    );
+
+    slotElement.forEach((cell) => {
+      this.addDotsToCalendarSlot(countedSlots, cell);
+    });
+  }
+
   beforeSelectionStarts() {
     let timeout = null;
 
@@ -176,42 +192,29 @@ export default class CalendarView extends View {
     }
   }
 
-  onSelectionEnd() {
-    const slots = Array.from(
-      document.querySelectorAll(".calendar .selected")
-    ).map((slot) => slot.dataset.slot);
+  onSelectionEnd({ store }) {
+    const selfId = this.me();
 
-    const selfId = this.identity.selfId(this.viewId);
+    const previousSelection = this.model.userSelection(selfId);
+    const added = store.changed.added.map((added) => added.dataset.slot);
+    const selected = store.selected.map((selected) => selected.dataset.slot);
+    const removed = store.changed.removed.map(
+      (removed) => removed.dataset.slot
+    );
+
+    const selection = previousSelection
+      .filter((slot) => !removed.includes(slot))
+      .concat(added)
+      .concat(selected);
 
     this.publish("calendar", "selection", {
       userId: selfId,
-      slots,
-    });
-  }
-
-  displaySlotsState() {
-    const selfId = this.identity.selfId(this.viewId);
-
-    this.highlightSelectionForUsers({
-      userId: selfId,
-      selectedUsersIds: this.pills.pillsForUser(selfId),
-    });
-
-    this.displayVotes({ countedSlots: this.model.countedSlots() });
-  }
-
-  displayVotes({ countedSlots }) {
-    const slotElement = Array.from(
-      document.getElementsByClassName("time-slot")
-    );
-
-    slotElement.forEach((cell) => {
-      this.addDotsToCalendarSlot(countedSlots, cell);
+      slots: Array.from(new Set(selection)),
     });
   }
 
   highlightSelectionForUsers({ userId, selectedUsersIds }) {
-    const selfId = this.identity.selfId(this.viewId);
+    const selfId = this.me();
     if (userId !== selfId) return;
 
     this.clearHighlights();
@@ -237,10 +240,11 @@ export default class CalendarView extends View {
       : [];
 
     slotSelection.forEach((selection) => {
-      document
-        .querySelectorAll(`[data-slot="${selection}"]`)
-        .forEach((element) => element.classList.add("selected"));
+      const slot = document.querySelector(`[data-slot="${selection}"]`);
+      slot.classList.add("selected");
     });
+
+    this.selection.select(".calendar .selected");
   }
 
   addDotsToCalendarSlot(countedSlots, cell) {
@@ -258,5 +262,9 @@ export default class CalendarView extends View {
     const dots = createDotElements(votes);
 
     render(<>{dots}</>, dotsElement);
+  }
+
+  me() {
+    return this.identity.selfId(this.viewId);
   }
 }

@@ -41,4 +41,10 @@ export default class Calendar extends Model {
 
     return this.selectedSlotsByUser.get(userId).length > 0;
   }
+
+  userSelection(userId) {
+    if (!this.selectedSlotsByUser.has(userId)) return [];
+
+    return Array.from(this.selectedSlotsByUser.get(userId));
+  }
 }

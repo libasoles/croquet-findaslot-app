@@ -3,23 +3,22 @@ import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 
 export default class Pills extends Model {
   init() {
-    this.subscribe("identity", "established", this.preselectUser);
+    this.subscribe("identity", "established", this.preselectSelf);
     this.subscribe("pills", "toggle", this.toggle);
-    this.subscribe("calendar", "selected-slots-updated", this.enableSelf);
+    this.subscribe("calendar", "selected-slots-updated", this.enableSelfOnly);
 
     this.selectedPillsByUser = new Map();
   }
 
-  preselectUser(self) {
+  preselectSelf(self) {
     const selection = new Set([self.userId]);
     this.selectedPillsByUser.set(self.userId, selection);
 
     this.publish("pills", "init");
   }
 
-  enableSelf({ triggeredBy }) {
-    const selection = this.selectedPillsByUser.get(triggeredBy);
-    selection.add(triggeredBy);
+  enableSelfOnly({ triggeredBy }) {
+    const selection = new Set([triggeredBy]);
     this.selectedPillsByUser.set(triggeredBy, selection);
 
     this.publish("calendar", "user-pills-selection", {
@@ -63,7 +62,6 @@ export class PillsView extends View {
 
     this.subscribe("pills", "init", this.render);
     this.subscribe("identity", "update-name", this.render);
-    this.subscribe("calendar", "selected-slots-updated", this.render);
     this.subscribe("calendar", "user-pills-selection", this.render);
   }
 
