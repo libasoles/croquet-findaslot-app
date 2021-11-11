@@ -5,6 +5,7 @@ export default class Pills extends Model {
   init() {
     this.subscribe("identity", "established", this.preselectUser);
     this.subscribe("pills", "toggle", this.toggle);
+    this.subscribe("calendar", "selected-slots-updated", this.enableSelf);
 
     this.selectedPillsByUser = new Map();
   }
@@ -14,6 +15,17 @@ export default class Pills extends Model {
     this.selectedPillsByUser.set(self.userId, selection);
 
     this.publish("pills", "init");
+  }
+
+  enableSelf({ triggeredBy }) {
+    const selection = this.selectedPillsByUser.get(triggeredBy);
+    selection.add(triggeredBy);
+    this.selectedPillsByUser.set(triggeredBy, selection);
+
+    this.publish("calendar", "user-pills-selection", {
+      userId: triggeredBy,
+      selectedUsersIds: Array.from(selection),
+    });
   }
 
   toggle({ userId, clickedUserId }) {

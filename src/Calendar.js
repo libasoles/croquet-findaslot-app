@@ -11,6 +11,7 @@ export default class Calendar extends Model {
     this.selectedSlotsByUser.set(userId, slots);
 
     this.publish("calendar", "selected-slots-updated", {
+      triggeredBy: userId,
       selectedSlotsByUser: this.selectedSlotsByUser,
       countedSlots: this.countedSlots(),
     });

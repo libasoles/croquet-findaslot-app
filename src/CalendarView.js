@@ -210,12 +210,6 @@ export default class CalendarView extends View {
     });
   }
 
-  highlightSelfSelection() {
-    const selfId = this.identity.selfId(this.viewId);
-
-    this.highlightSelectionForUser(selfId);
-  }
-
   highlightSelectionForUsers({ userId, selectedUsersIds }) {
     const selfId = this.identity.selfId(this.viewId);
     if (userId !== selfId) return;
