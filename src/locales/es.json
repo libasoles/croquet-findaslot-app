@@ -2,7 +2,7 @@
   "lang": "es",
   "title": "Sale o sale",
   "description": "Combina reuniones y ensayos en tiempo real.",
-  "configuration": "Configuracion",
+  "settings": "Configuracion",
   "days_range": "Rango de dias",
   "time_range": "Rango de horas",
   "best_results": "Mejores horarios",
@@ -15,5 +15,6 @@
   "click_to_select": "Clickea un horario para seleccionarlo o deseleccionarlo.",
   "how_to_multi_select": "Podes pintar varios horarios a la vez manteniendo la tecla ctrl (cmd en macOS).",
   "drag_to_select": "Podes arrastrar y soltar en vez de clickear para seleccion multiple.",
-  "participants": "Participantes"
+  "participants": "Participantes",
+  "include_weekends": "Incluir fines de semana"
 }

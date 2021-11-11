@@ -2,25 +2,36 @@ import { Model, View } from "@croquet/croquet";
 import { RangeSlider } from "./RangeSlider";
 import i18next from "i18next";
 
-export default class Configuration extends Model {
+export default class Settings extends Model {
   init() {
     this.daysRange = [0, 4];
     this.daysRangeMinMax = [0, 14];
     this.timeRange = [9, 18];
     this.timeRangeMinMax = [0, 24]; // TODO: constants should be in Q
+    this.allowWeekends = false;
 
-    this.subscribe("configuration", "days-range-change", this.daysRangeChange);
-    this.subscribe("configuration", "time-range-change", this.timeRangeChange);
+    this.subscribe("settings", "days-range-change", this.daysRangeChange);
+    this.subscribe("settings", "time-range-change", this.timeRangeChange);
+    this.subscribe(
+      "settings",
+      "allow-weekends-change",
+      this.allowWeekendsChange
+    );
   }
 
   daysRangeChange(values) {
     this.daysRange = [values.lower, values.upper];
-    this.publish("configuration", "update-days-range", values);
+    this.publish("settings", "update-days-range", values);
   }
 
   timeRangeChange(values) {
     this.timeRange = [values.lower, values.upper];
-    this.publish("configuration", "update-time-range", values);
+    this.publish("settings", "update-time-range", values);
+  }
+
+  allowWeekendsChange(value) {
+    this.allowWeekends = value;
+    this.publish("settings", "update-allow-weekends", value);
   }
 }
 
@@ -31,8 +42,18 @@ export class ConfigurationView extends View {
 
     this.initRangeSliders();
 
-    this.subscribe("configuration", "update-days-range", this.updateDaysRange);
-    this.subscribe("configuration", "update-time-range", this.updateTimeRange);
+    this.subscribe("settings", "update-days-range", this.updateDaysRange);
+    this.subscribe("settings", "update-time-range", this.updateTimeRange);
+
+    // TODO: hydrate this value
+    const includeWeekends = document.querySelector(".include-weekends input");
+    includeWeekends.onchange = (event) => {
+      this.publish(
+        "settings",
+        "allow-weekends-change",
+        event.currentTarget.checked
+      );
+    };
   }
 
   initRangeSliders() {
@@ -41,13 +62,13 @@ export class ConfigurationView extends View {
   }
 
   initDaysRangeSlider() {
-    let selector = document.querySelector(".days-range");
+    const selector = document.querySelector(".days-range");
 
     const [min, max] = this.model.daysRangeMinMax;
     const [lower, upper] = this.model.daysRange;
 
     const onChange = (values) => {
-      this.publish("configuration", "days-range-change", values);
+      this.publish("settings", "days-range-change", values);
     };
 
     const formatValue = (value) => {
@@ -68,7 +89,7 @@ export class ConfigurationView extends View {
     const [lower, upper] = this.model.timeRange;
 
     const onChange = (values) => {
-      this.publish("configuration", "time-range-change", values);
+      this.publish("settings", "time-range-change", values);
     };
 
     const formatValue = (value) => {

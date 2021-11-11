@@ -1,7 +1,7 @@
 import { App, Model, View, Session } from "@croquet/croquet";
 import Calendar from "./Calendar";
 import CalendarView from "./CalendarView";
-import Configuration, { ConfigurationView } from "./Configuration";
+import Settings, { ConfigurationView } from "./Settings";
 import EventName, { EventNameView } from "./EventName";
 import BestResultsView from "./BestResults";
 import Identity, { IdentityView } from "./Identity";
@@ -14,7 +14,7 @@ class Main extends Model {
   init() {
     this.identity = Identity.create();
     this.calendar = Calendar.create();
-    this.configuration = Configuration.create();
+    this.configuration = Settings.create();
     this.eventName = EventName.create();
     this.pills = Pills.create();
   }
@@ -68,7 +68,7 @@ Main.register("Main");
 Identity.register("Identity");
 EventName.register("EventName");
 Calendar.register("Calendar");
-Configuration.register("Configuration");
+Settings.register("Settings");
 Pills.register("Pills");
 
 Session.join({

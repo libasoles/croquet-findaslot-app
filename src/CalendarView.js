@@ -1,7 +1,13 @@
 import { View } from "@croquet/croquet";
 import SelectionArea from "@viselect/vanilla";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
-import { addHours, addDays, startOfToday, intlFormat } from "date-fns";
+import {
+  addHours,
+  addDays,
+  startOfToday,
+  intlFormat,
+  isWeekend,
+} from "date-fns";
 import { range, target } from "./utils";
 import { config } from "./config";
 import createDotElements from "./Dots";
@@ -40,9 +46,6 @@ export default class CalendarView extends View {
   }
 
   init() {
-    this.daysRange = this.configuration.daysRange;
-    this.timeRange = this.configuration.timeRange;
-
     this.selection = new SelectionArea(selectableOptions)
       //.on("beforestart", this.beforeSelectionStarts.bind(this)())
       .on("move", this.whileSelecting.bind(this))
@@ -58,8 +61,9 @@ export default class CalendarView extends View {
       this.displaySlotsState
     );
 
-    this.subscribe("configuration", "update-days-range", this.updateDaysRange);
-    this.subscribe("configuration", "update-time-range", this.updateTimeRange);
+    this.subscribe("settings", "update-days-range", this.render);
+    this.subscribe("settings", "update-time-range", this.render);
+    this.subscribe("settings", "update-allow-weekends", this.render);
 
     this.subscribe(
       "calendar",
@@ -70,8 +74,8 @@ export default class CalendarView extends View {
 
   hydrate() {
     this.render({
-      lower: this.daysRange[0],
-      upper: this.daysRange[1],
+      lower: this.configuration.daysRange[0],
+      upper: this.configuration.daysRange[1],
     });
 
     this.displayVotes({
@@ -80,25 +84,27 @@ export default class CalendarView extends View {
     });
   }
 
-  updateDaysRange({ lower, upper }) {
-    this.daysRange = [lower, upper];
-    this.render();
-  }
+  generateListOfDates(date, length) {
+    if (length === 0) return [date];
 
-  updateTimeRange({ lower, upper }) {
-    this.timeRange = [lower, upper];
-    this.render();
+    const nextDay = addDays(date, 1);
+
+    const allowWeekends = this.configuration.allowWeekends;
+
+    if (!allowWeekends && isWeekend(date))
+      return [...this.generateListOfDates(nextDay, length)];
+
+    return [date, ...this.generateListOfDates(nextDay, --length)];
   }
 
   render() {
-    const [startDay, endDay] = this.daysRange;
-    const [startTime, endTime] = this.timeRange;
+    const [startDay, endDay] = this.configuration.daysRange;
+    const [startTime, endTime] = this.configuration.timeRange;
 
     const today = new Date(startOfToday());
+    const firstDay = addDays(today, startDay);
 
-    const daysRange = range(startDay, endDay).map((numberOfDays) => {
-      return addDays(today, numberOfDays);
-    });
+    const daysRange = this.generateListOfDates(firstDay, endDay - startDay);
 
     const columns = (
       <>
