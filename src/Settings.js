@@ -45,8 +45,14 @@ export class ConfigurationView extends View {
     this.subscribe("settings", "update-days-range", this.updateDaysRange);
     this.subscribe("settings", "update-time-range", this.updateTimeRange);
 
-    // TODO: hydrate this value
+    this.initWeekendsCheckbox();
+  }
+
+  initWeekendsCheckbox() {
     const includeWeekends = document.querySelector(".include-weekends input");
+
+    includeWeekends.checked = this.model.allowWeekends;
+
     includeWeekends.onchange = (event) => {
       this.publish(
         "settings",
