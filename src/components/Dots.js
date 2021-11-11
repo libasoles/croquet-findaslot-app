@@ -1,4 +1,4 @@
-import { range } from "./utils";
+import { range } from "../utils";
 
 export default function createDotElements(count) {
   return count > 0

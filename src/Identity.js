@@ -1,5 +1,5 @@
 import { Model, View } from "@croquet/croquet";
-import { InputWidget } from "./InputWidget";
+import { InputWidget } from "./components/InputWidget";
 import i18next from "i18next";
 import { readCookie } from "./utils";
 

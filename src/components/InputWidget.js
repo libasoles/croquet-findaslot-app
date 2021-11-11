@@ -1,4 +1,4 @@
-import { display, hide } from "./utils";
+import { display, hide } from "../utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 
 export class InputWidget {

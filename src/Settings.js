@@ -1,5 +1,5 @@
 import { Model, View } from "@croquet/croquet";
-import { RangeSlider } from "./RangeSlider";
+import { RangeSlider } from "./components/RangeSlider";
 import i18next from "i18next";
 
 export default class Settings extends Model {

@@ -1,7 +1,7 @@
 import { View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { formatDate, target } from "./utils";
-import createDotElements from "./Dots";
+import createDotElements from "./components/Dots";
 import i18next from "i18next";
 
 export default class BestResultsView extends View {

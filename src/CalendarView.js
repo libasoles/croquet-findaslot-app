@@ -10,7 +10,7 @@ import {
 } from "date-fns";
 import { range, target } from "./utils";
 import { config } from "./config";
-import createDotElements from "./Dots";
+import createDotElements from "./components/Dots";
 
 const selectableOptions = {
   selectables: ["section.calendar .time-slot"],
