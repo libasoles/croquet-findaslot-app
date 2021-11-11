@@ -13,7 +13,7 @@ export default class BestResultsView extends View {
 
     this.subscribe(
       "calendar",
-      "selected-slots",
+      "selected-slots-updated",
       this.renderMoreVotedResults.bind(this)
     );
   }

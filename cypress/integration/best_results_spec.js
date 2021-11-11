@@ -20,11 +20,11 @@ describe("Best results", () => {
         );
       });
 
-      it("displays best result when user first click", () => {
+      it.only("displays best result when user first click", () => {
         cy.get(".calendar [data-slot='2021-11-11T16:00:00.000Z'").click();
 
         cy.get(".results.block li")
-          .should("contain", "Thursday, Nov 11 - 16hs")
+          .should("contain", "Thursday, Nov 11 - 13hs")
           .should("contain", "1 votes");
       });
 
