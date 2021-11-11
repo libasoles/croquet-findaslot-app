@@ -90,9 +90,11 @@ input {
     border-radius: 28px;
     border: none;
     pointer-events: auto;
+    cursor: pointer;
 }
 
 .multi-range input[type=range]::-ms-thumb {
+    cursor: pointer;
     pointer-events: auto;
     position: relative;
 }

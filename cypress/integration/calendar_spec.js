@@ -85,7 +85,7 @@ describe("Calendar", () => {
       );
     });
 
-    it.only("deselects slots by dragging", () => {
+    it("deselects slots by dragging", () => {
       cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
         .trigger("mousedown", { which: 1 })
         .trigger("mousemove", { clientX: 0, clientY: 100 })
