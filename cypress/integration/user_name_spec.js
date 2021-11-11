@@ -37,6 +37,24 @@ describe("User name widget", () => {
 
       cy.get(".identity input").should("have.value", "Guille");
     });
+
+    it("displays the name from a previous cookie", () => {
+      cy.setCookie("userName", "Guille");
+
+      cy.get(".identity .displayed-value")
+        .should("be.visible")
+        .should("contain", "Guille");
+    });
+
+    it("update the cookie when user name edited", () => {
+      cy.setCookie("userName", "Guille");
+
+      cy.get(".identity .displayed-value button.close").click();
+
+      cy.get(".identity input").clear().type("Agustin").type("{enter}");
+
+      cy.getCookie("userName").should("have.property", "value", "Agustin");
+    });
   });
 
   // TODO:
