@@ -88,12 +88,16 @@ describe("Pills", () => {
       cy.setCookie("userId", Cypress.config("test_user_cookie"));
     });
 
-    it("looks blue when two or more pills are selected", () => {
+    // TODO: test other user slots
+    it("display the other user selection", () => {
       cy.viewport(1280, 720);
 
       cy.get(".participants .pill").first().click(); // select the other user
 
-      cy.get(".participants .pill").should("have.class", "compared");
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").should(
+        "have.class",
+        "selected"
+      );
     });
 
     it("display a message explaining there are no matches if schedules don't overlap", () => {

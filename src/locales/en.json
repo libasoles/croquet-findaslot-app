@@ -19,9 +19,11 @@
   "feedback_github": "For bugs and feature requests please create a ticket <a target=\"_blank\" href=\"https://github.com/libasoles/croquet-whenisgood-app/issues\">here</a>.",
   "feedback_mail": "For any other kind of comment drop me a line at gperez78*gmail.com",
   "feedback_thanks": "Thanks for taking the time for this.",
-  "your_available_spots": "Your available slots",
+  "your_available_slots": "Your available slots",
   "nothing_selected_yet": "Nothing selected yet",
-  "other_user_selection": "{{otherUser} selection",
+  "select_a_participant": "Select a participant",
+  "check_mark_hint": "They have a check mark if they already selected time slots",
+  "other_user_selection": "{{otherUser}} selection",
   "comparing": "Comparing",
   "no_overlap": "No overlap",
   "you_have_common_slots": "Hurray! You have common slots"

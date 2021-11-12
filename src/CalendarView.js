@@ -220,7 +220,7 @@ export default class CalendarView extends View {
     this.clearHighlights();
 
     if (selectedUsersIds.length === 1) {
-      this.highlightSelectionForUser(userId);
+      this.highlightSelectionForUser(selectedUsersIds.pop());
 
       return;
     }

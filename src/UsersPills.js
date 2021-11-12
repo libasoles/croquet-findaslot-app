@@ -1,6 +1,6 @@
 import { Model, View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
-import i18next from "i18next";
+import { StatusView } from "./Status";
 
 export default class Pills extends Model {
   init() {
@@ -76,11 +76,11 @@ export class PillsView extends View {
     this.identity = identity;
     this.calendar = calendar;
 
+    this.status = new StatusView(model, identity, calendar);
+
     this.subscribe("pills", "init", this.render);
     this.subscribe("identity", "update-name", this.render);
     this.subscribe("calendar", "user-pills-selection", this.render);
-    this.subscribe("calendar", "selecting", this.renderMessage);
-    this.subscribe("calendar", "comparison", this.renderMessage);
   }
 
   render() {
@@ -115,7 +115,7 @@ export class PillsView extends View {
 
     render(<>{pills}</>, document.querySelector(".participants .pills"));
 
-    this.renderMessage();
+    this.status.render(selfId);
   }
 
   toggle(event) {
@@ -127,87 +127,5 @@ export class PillsView extends View {
       userId: this.identity.selfId(this.viewId),
       clickedUserId,
     });
-  }
-
-  renderMessage() {
-    const selfId = this.identity.selfId(this.viewId);
-
-    const noPillSelected = !this.model.userHasAnyPillSelected(selfId);
-    if (noPillSelected) {
-      this.dotType("selecting");
-
-      document.querySelector(".participants .title").textContent =
-        "Select a participant";
-      document.querySelector(".participants .content").textContent =
-        "They have a check mark if they already selected time slots";
-
-      return;
-    }
-
-    const onlySelfPillIsSelected = this.model.onlySelfPillIsSelected(selfId);
-    if (onlySelfPillIsSelected) {
-      this.dotType("selecting");
-
-      document.querySelector(".participants .title").textContent = i18next.t(
-        "your_available_spots"
-      );
-
-      if (this.calendar.userHasAnySelection(selfId))
-        document.querySelector(".participants .content").textContent = "";
-      else
-        document.querySelector(".participants .content").textContent =
-          i18next.t("nothing_selected_yet");
-
-      return;
-    }
-
-    const onlyOneOtherPillSelected =
-      !this.model.selectionCountIsEqualOrBiggerThan(selfId, 2);
-    if (onlyOneOtherPillSelected) {
-      this.dotType("selecting");
-
-      const otherUserId = this.model.pillsForUser(selfId).pop();
-      const otherUserName = this.identity.name(otherUserId);
-
-      document.querySelector(".participants .title").textContent = i18next.t(
-        "other_user_selection",
-        { otherUser: otherUserName }
-      );
-
-      if (this.calendar.userHasAnySelection(otherUserId))
-        document.querySelector(".participants .content").textContent = "";
-      else
-        document.querySelector(".participants .content").textContent =
-          i18next.t("nothing_selected_yet");
-
-      return;
-    }
-
-    const usersCommonSlots = this.calendar.usersCommonSlots(
-      this.model.pillsForUser(selfId)
-    );
-    if (usersCommonSlots.length === 0) {
-      this.dotType("comparing");
-
-      document.querySelector(".participants .title").textContent =
-        i18next.t("comparing");
-      document.querySelector(".participants .content").textContent =
-        i18next.t("no_overlap");
-    } else {
-      this.dotType("comparing");
-
-      document.querySelector(".participants .title").textContent =
-        i18next.t("comparing");
-      document.querySelector(".participants .content").textContent = i18next.t(
-        "you_have_common_slots"
-      );
-    }
-  }
-
-  dotType(type) {
-    document
-      .querySelector(".participants .dot")
-      .classList.remove("selecting", "comparing");
-    document.querySelector(".participants .dot").classList.add(type);
   }
 }
