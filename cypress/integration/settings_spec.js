@@ -57,7 +57,8 @@ describe("Settings", () => {
       it("shouldn't be visible", () => {
         cy.viewport(320, 480);
 
-        cy.visit("localhost:1234/en");
+        cy.visit(Cypress.config("test_uri"));
+        cy.setCookie("userId", Cypress.config("test_user_cookie"));
 
         cy.get(".settings").should("not.be.visible");
       });

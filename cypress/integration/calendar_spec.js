@@ -3,8 +3,7 @@ describe("Calendar", () => {
     beforeEach(() => {
       cy.viewport(1280, 720);
 
-      const thursday = 1636641230277;
-      cy.clock(thursday);
+      cy.clock(Cypress.config("thursday_nov_11"));
 
       cy.visit("localhost:1234/en");
     });

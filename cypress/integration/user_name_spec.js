@@ -3,7 +3,8 @@ describe("User name widget", () => {
     beforeEach(() => {
       cy.viewport(1280, 720);
 
-      cy.visit("localhost:1234/en");
+      cy.visit("localhost:1234/en?q=gr2ca75q75#pw=p0-EGfqV-1ZxJJ4_vsD34g");
+      cy.setCookie("userId", Cypress.config("test_user_cookie"));
     });
 
     it("displays the placeholder", () => {
