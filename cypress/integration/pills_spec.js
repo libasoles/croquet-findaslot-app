@@ -13,31 +13,31 @@ describe("Pills", () => {
       });
 
       it("displays the section title and one default pill", () => {
-        cy.get(".users-pills.block h3").should("contain", "Participants");
-        cy.get(".users-pills.block .pill").should("have.length", 1);
+        cy.get(".participants.block h3").should("contain", "Participants");
+        cy.get(".participants.block .pill").should("have.length", 1);
       });
 
       it("displays the user name (Anonymous #1) selected by default, with no check mark", () => {
-        cy.get(".users-pills .pill:first")
+        cy.get(".participants .pill:first")
           .should("contain", "Anonymous #1")
           .should("have.class", "selected")
           .should("not.have.class", "checked");
       });
 
       it("displays the real user name when user writes it", () => {
-        cy.get(".users-pills .pill:first").should("contain", "Anonymous #1");
+        cy.get(".participants .pill:first").should("contain", "Anonymous #1");
 
         cy.get(".identity input").type("Guille").type("{enter}");
 
-        cy.get(".users-pills .pill:first").should("contain", "Guille");
+        cy.get(".participants .pill:first").should("contain", "Guille");
       });
 
       it("gets check when user selects some time slot", () => {
-        cy.get(".users-pills .pill:first").should("not.have.class", "checked");
+        cy.get(".participants .pill:first").should("not.have.class", "checked");
 
         cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").click();
 
-        cy.get(".users-pills .pill:first").should("have.class", "checked");
+        cy.get(".participants .pill:first").should("have.class", "checked");
       });
     });
 
@@ -48,7 +48,7 @@ describe("Pills", () => {
         cy.visit(Cypress.config("test_uri"));
         cy.setCookie("userId", Cypress.config("test_user_cookie"));
 
-        cy.get(".users-pills.block").should("not.be.visible");
+        cy.get(".participants.block").should("not.be.visible");
       });
     });
   });

@@ -113,20 +113,6 @@ body > footer {
     text-align: center;
 }
 
-.dots {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-end;
-}
-
-.dot {
-    height: 5px;
-    width: 5px;
-    background-color: var(--primaryGrayscaleColor);
-    border-radius: 50%;
-    display: inline-block;
-    margin: 2px;
-}
 
 ul {
     list-style-type: none;
@@ -140,6 +126,9 @@ li {
     display: none !important;
 }
 
+.instructions {
+    margin-top: .75em;
+}
 
 @media (max-width: 1200px) {
     .content .right {

@@ -39,27 +39,27 @@ describe("Session", () => {
       cy.visit(testURI);
       cy.setCookie("userId", "another_coOkie");
 
-      cy.get(".users-pills .pill").should("be.visible");
+      cy.get(".participants .pill").should("be.visible");
 
       cy.reload();
       cy.setCookie("userId", Cypress.config("test_user_cookie"));
 
-      cy.get(".users-pills .pill").first().click(); // deselect self
+      cy.get(".participants .pill").first().click(); // deselect self
 
-      cy.get(".users-pills .pill:nth-child(2)").click(); // select the other user
+      cy.get(".participants .pill:nth-child(2)").click(); // select the other user
     });
 
     it("preselects the previously selected pills", () => {
       cy.reload();
 
       // self
-      cy.get(".users-pills .pill")
+      cy.get(".participants .pill")
         .first()
         .should("contain", "Anonymous #1")
         .should("not.have.class", "selected");
 
       // another user
-      cy.get(".users-pills .pill:nth-child(2)")
+      cy.get(".participants .pill:nth-child(2)")
         .should("contain", "Anonymous #2")
         .should("have.class", "selected");
     });

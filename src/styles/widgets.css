@@ -29,6 +29,53 @@ input {
     margin-bottom: 2em;
 }
 
+/* dots */
+.dots {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    position: relative;
+}
+
+.dot {
+    height: 5px;
+    width: 5px;
+    background-color: var(--primaryGrayscaleColor);
+    border-radius: 50%;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* tooltip */
+.tooltip {
+    display: inline-block;
+    text-align: center;
+    padding: .5em;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.tooltip .content {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    background-color: var(--secondaryGrayscaleColor);
+    color: var(--primaryDark);
+    bottom: 1.5em;
+    left: -4px;
+    padding: .5em;
+    border-radius: 6px;
+    max-width: 8em;
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: normal;
+}
+
+.tooltip:hover .content {
+    visibility: visible;
+}
+
 /* multi range sliders */
 .multi-range {
     margin: 1em 0;
@@ -184,7 +231,11 @@ input {
 }
 
 /* Pills */
-.users-pills .pills {
+.participants {
+    margin-top: 3em
+}
+
+.participants .pills {
     display: flex;
     gap: .5em;
     margin: 1em 0;

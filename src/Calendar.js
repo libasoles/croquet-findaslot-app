@@ -47,4 +47,10 @@ export default class Calendar extends Model {
 
     return Array.from(this.selectedSlotsByUser.get(userId));
   }
+
+  usersWhoSelectedSlot(slot) {
+    return Array.from(this.selectedSlotsByUser)
+      .filter(([_, slots]) => slots.includes(slot))
+      .map(([userId, _]) => userId);
+  }
 }

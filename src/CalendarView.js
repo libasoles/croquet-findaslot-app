@@ -247,19 +247,22 @@ export default class CalendarView extends View {
     this.selection.select(".calendar .selected");
   }
 
-  addDotsToCalendarSlot(countedSlots, cell) {
-    const votes = countedSlots.get(cell.dataset.slot) || 0;
+  addDotsToCalendarSlot(countedSlots, timeSlot) {
+    const votes = countedSlots.get(timeSlot.dataset.slot) || 0;
 
-    const dotsElement = cell.querySelector(".dots");
+    const dotsElement = timeSlot.querySelector(".dots");
 
     if (votes === 0) {
-      while (dotsElement.firstChild) {
-        dotsElement.removeChild(dotsElement.firstChild);
-      }
+      render(<></>, dotsElement);
       return;
     }
 
-    const dots = createDotElements(votes);
+    const usersList = this.model
+      .usersWhoSelectedSlot(timeSlot.dataset.slot)
+      .map((userId) => this.identity.name(userId))
+      .join(", ");
+
+    const dots = createDotElements(votes, usersList);
 
     render(<>{dots}</>, dotsElement);
   }

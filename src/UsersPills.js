@@ -87,7 +87,7 @@ export class PillsView extends View {
 
     const pills = this.identity.allUsers().map(toPill);
 
-    render(<>{pills}</>, document.querySelector(".users-pills .pills"));
+    render(<>{pills}</>, document.querySelector(".participants .pills"));
   }
 
   toggle(event) {
