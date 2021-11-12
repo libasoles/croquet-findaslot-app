@@ -18,5 +18,11 @@
   "include_weekends": "Incluir fines de semana",
   "feedback_github": "Por errores o pedidos de funcionalidad por favor crea un ticket <a target=\"_blank\" href=\"https://github.com/libasoles/croquet-whenisgood-app/issues\">aca</a>.",
   "feedback_mail": "Cualquier otro tipo de comentarios a gperez78*gmail.com",
-  "feedback_thanks": "Gracias."
+  "feedback_thanks": "Gracias.",
+  "your_available_spots": "Tu disponibilidad",
+  "nothing_selected_yet": "Aun no marcaste horarios",
+  "other_user_selection": "La selección de {{otherUser}",
+  "comparing": "Comparando",
+  "no_overlap": "No hay coincidencias",
+  "you_have_common_slots": "Bien! Tienen horarios en común"
 }

@@ -219,17 +219,35 @@ export default class CalendarView extends View {
 
     this.clearHighlights();
 
-    selectedUsersIds.forEach((userId) => {
+    if (selectedUsersIds.length === 1) {
       this.highlightSelectionForUser(userId);
-    });
+
+      return;
+    }
+
+    const commonSlots = this.model.usersCommonSlots(selectedUsersIds);
+    if (commonSlots.length > 0) {
+      this.highlightSlots(commonSlots, true);
+    }
   }
 
   clearHighlights() {
     document.querySelectorAll(".calendar .selected").forEach((slot) => {
-      slot.classList.remove("selected");
+      slot.classList.remove("selected", "match");
     });
 
     this.selection.clearSelection();
+  }
+
+  highlightSlots(slots, isAMatch = false) {
+    slots.forEach((selection) => {
+      const slot = document.querySelector(`[data-slot="${selection}"]`);
+      if (!slot) return;
+
+      slot.classList.add("selected");
+
+      if (isAMatch) slot.classList.add("match");
+    });
   }
 
   highlightSelectionForUser(userId) {
@@ -239,10 +257,7 @@ export default class CalendarView extends View {
       ? selectedSlotsByUser.get(userId)
       : [];
 
-    slotSelection.forEach((selection) => {
-      const slot = document.querySelector(`[data-slot="${selection}"]`);
-      if (slot) slot.classList.add("selected");
-    });
+    this.highlightSlots(slotSelection);
 
     this.selection.select(".calendar .selected");
   }

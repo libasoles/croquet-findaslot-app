@@ -59,6 +59,10 @@
     font-weight: bold;
 }
 
+.calendar .day .time-slot.selected.match {
+    background: var(--primaryComplementaryColor);
+}
+
 .calendar .time-slot.selected .dot {
     background-color: var(--secondaryDark);
 }

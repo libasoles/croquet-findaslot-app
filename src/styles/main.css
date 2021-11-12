@@ -11,6 +11,7 @@
     --primaryGrayscaleColor: white;
     --secondaryGrayscaleColor: #c2c2c2;
     --tertiaryGrayscaleColor: #939393;
+    --primaryComplementaryColor: #5b9dff;
 }
 
 * {
@@ -78,7 +79,8 @@ p {
 /* Left and right column */
 .content .column.side {
     flex: 1;
-    margin: 2em
+    margin: 2em;
+    max-width: 340px;
 }
 
 .content main {

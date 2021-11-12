@@ -276,6 +276,40 @@ input {
     font-weight: bold;
 }
 
+.pill.selected.compared {
+    background: var(--primaryComplementaryColor);
+    border: 2px solid var(--secondaryGrayscaleColor);
+    color: var(--primaryDark);
+}
+
+.participants .message {
+    display: flex;
+    margin-top: 1.5em;
+}
+
+.participants .message .content {
+    color: var(--secondaryGrayscaleColor);
+}
+
+.participants .message .dot {
+    content: '';
+    height: 1em;
+    width: 1em;
+    background: none;
+    border-radius: 50%;
+    display: block;
+    margin-right: .5em;
+    flex-shrink: 0;
+}
+
+.participants .message .dot.selecting {
+    background: var(--tertiaryColor);
+}
+
+.participants .message .dot.comparing {
+    background: var(--primaryComplementaryColor);
+}
+
 /* feedback */
 .feedback {
     background: none;

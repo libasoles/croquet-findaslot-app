@@ -53,4 +53,13 @@ export default class Calendar extends Model {
       .filter(([_, slots]) => slots.includes(slot))
       .map(([userId, _]) => userId);
   }
+
+  usersCommonSlots(users) {
+    const sampleUser = users.shift();
+    return this.userSelection(sampleUser).filter((slot) => {
+      return users.every((userId) => {
+        return this.userSelection(userId).includes(slot);
+      });
+    });
+  }
 }
