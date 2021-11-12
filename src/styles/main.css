@@ -110,9 +110,14 @@ p {
 body > footer {
     background-color: var(--primaryColor);
     padding: 10px;
-    text-align: center;
+    display: flex;
+    justify-content: flex-end;
 }
 
+a {
+    color: var(--primaryColor);
+    font-weight: bold;
+}
 
 ul {
     list-style-type: none;

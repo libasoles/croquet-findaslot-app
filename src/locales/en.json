@@ -15,5 +15,8 @@
   "how_to_select": "<b>Click</b> or <b>Drag</b> to select/deselect.",
   "how_to_invite": "Share the link.",
   "participants": "Participants",
-  "include_weekends": "Include weekends"
+  "include_weekends": "Include weekends",
+  "feedback_github": "For bugs and feature requests please create a ticket <a target=\"_blank\" href=\"https://github.com/libasoles/croquet-whenisgood-app/issues\">here</a>.",
+  "feedback_mail": "For any other kind of comment drop me a line at gperez78*gmail.com",
+  "feedback_thanks": "Thanks for taking the time for this."
 }

@@ -9,6 +9,7 @@ import i18next from "i18next";
 import { locales } from "./locales";
 import { config } from "./config";
 import Pills, { PillsView } from "./UsersPills";
+import { FeedbackView } from "./Feedback";
 
 class Main extends Model {
   init() {
@@ -39,6 +40,7 @@ class MainView extends View {
       new ConfigurationView(model.configuration),
       new EventNameView(model.eventName),
       new BestResultsView(model.calendar),
+      new FeedbackView(),
     ];
   }
 

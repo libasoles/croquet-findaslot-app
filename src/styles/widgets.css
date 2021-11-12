@@ -57,7 +57,6 @@ input {
 }
 
 .tooltip .content {
-    visibility: hidden;
     position: absolute;
     z-index: 1;
     background-color: var(--secondaryGrayscaleColor);
@@ -67,13 +66,13 @@ input {
     padding: .5em;
     border-radius: 6px;
     max-width: 8em;
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     font-weight: normal;
 }
 
 .tooltip:hover .content {
-    visibility: visible;
+    display: flex;
 }
 
 /* multi range sliders */
@@ -275,4 +274,66 @@ input {
     border: 2px solid rgba(0, 0, 0, 0.075);
     color: var(--primaryDark);
     font-weight: bold;
+}
+
+/* feedback */
+.feedback {
+    background: none;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    color: var(--primaryGrayscaleColor);
+    font-size: .95em;
+}
+
+.heart {
+    position: relative;
+    width: 1em;
+    float: left;
+    margin: 0 10px;
+}
+
+.heart:before,
+.heart:after {
+    position: absolute;
+    content: "";
+    width: 9px;
+    height: 16px;
+    background: var(--tertiaryColor);
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.heart:after {
+    left: -1px;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+.feedback-modal {
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
+    display: flex;
+    border-radius: 50% 0 50% 50%;
+}
+
+.feedback-modal .content{
+    width: 100%;
+    height: 100%;
+    background: var(--primaryGrayscaleColor);
+    color: var(--primaryDark);
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    border-radius: .5em 0 2em 2em;
+}
+
+.feedback-modal .close{
+    width: 1.5em;
+    height: 2em;
+    cursor: pointer;
 }

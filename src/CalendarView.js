@@ -241,7 +241,7 @@ export default class CalendarView extends View {
 
     slotSelection.forEach((selection) => {
       const slot = document.querySelector(`[data-slot="${selection}"]`);
-      slot.classList.add("selected");
+      if (slot) slot.classList.add("selected");
     });
 
     this.selection.select(".calendar .selected");
