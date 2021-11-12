@@ -17,7 +17,7 @@ describe("Session", () => {
       cy.visit(testURI);
       cy.setCookie("userId", "xYzUiCv");
 
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']")
         .should("not.have.class", "selected")
         .click();
     });
@@ -29,7 +29,7 @@ describe("Session", () => {
     });
 
     it("preselects the previously selected slots", () => {
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").should(
         "have.class",
         "selected"
       );
@@ -49,7 +49,7 @@ describe("Session", () => {
     });
 
     after(() => {
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']")
         .click()
         .should("not.have.class", "selected");
     });

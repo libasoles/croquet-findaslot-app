@@ -35,7 +35,7 @@ describe("Pills", () => {
       it("gets check when user selects some time slot", () => {
         cy.get(".users-pills .pill:first").should("not.have.class", "checked");
 
-        cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'").click();
+        cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").click();
 
         cy.get(".users-pills .pill:first").should("have.class", "checked");
       });

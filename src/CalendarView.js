@@ -203,9 +203,9 @@ export default class CalendarView extends View {
     );
 
     const selection = previousSelection
-      .filter((slot) => !removed.includes(slot))
+      .concat(selected)
       .concat(added)
-      .concat(selected);
+      .filter((slot) => !removed.includes(slot));
 
     this.publish("calendar", "selection", {
       userId: selfId,

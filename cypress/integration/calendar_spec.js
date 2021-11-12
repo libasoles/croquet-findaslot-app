@@ -34,14 +34,14 @@ describe("Calendar", () => {
     });
 
     it("selects a slot when clicked", () => {
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']")
         .should("not.have.class", "selected")
         .click()
         .should("have.class", "selected");
     });
 
     it("deselects a slot when clicked", () => {
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']")
         .should("not.have.class", "selected")
         .click()
         .should("have.class", "selected")
@@ -62,62 +62,64 @@ describe("Calendar", () => {
     });
 
     it("selects multiple slots by dragging", () => {
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']")
         .trigger("mousedown", { which: 1 })
         .trigger("mousemove", { clientX: 600, clientY: 100 })
         .trigger("mouseup", { force: true });
 
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").should(
         "have.class",
         "selected"
       );
-      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z']").should(
         "have.class",
         "selected"
       );
-      cy.get(".calendar [data-slot='2021-11-12T12:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-12T12:00:00.000Z']").should(
         "have.class",
         "selected"
       );
-      cy.get(".calendar [data-slot='2021-11-12T13:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-12T13:00:00.000Z']").should(
         "have.class",
         "selected"
       );
     });
 
     it("deselects slots by dragging", () => {
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']")
         .trigger("mousedown", { which: 1 })
         .trigger("mousemove", { clientX: 0, clientY: 100 })
         .trigger("mouseup", { force: true });
 
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").should(
         "have.class",
         "selected"
       );
-      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z']").should(
         "have.class",
         "selected"
       );
 
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'")
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']")
         .trigger("mousedown", { which: 1 })
         .trigger("mousemove", { clientX: 600, clientY: 100 })
         .trigger("mouseup", { force: true });
 
-      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'").should(
+      cy.wait(100);
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").should(
         "not.have.class",
         "selected"
       );
-      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-11T13:00:00.000Z']").should(
         "not.have.class",
         "selected"
       );
-      cy.get(".calendar [data-slot='2021-11-12T12:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-12T12:00:00.000Z']").should(
         "have.class",
         "selected"
       );
-      cy.get(".calendar [data-slot='2021-11-12T13:00:00.000Z'").should(
+      cy.get(".calendar [data-slot='2021-11-12T13:00:00.000Z']").should(
         "have.class",
         "selected"
       );
