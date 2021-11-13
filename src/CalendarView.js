@@ -72,6 +72,8 @@ export default class CalendarView extends View {
       "user-pills-selection",
       this.highlightSelectionForUsers
     );
+
+    this.initColumnTitleSelection();
   }
 
   hydrate() {
@@ -79,6 +81,60 @@ export default class CalendarView extends View {
       lower: this.configuration.daysRange[0],
       upper: this.configuration.daysRange[1],
     });
+  }
+
+  initColumnTitleSelection() {
+    const targetNode = element(".calendar-columns");
+
+    const config = { attributes: false, childList: true, subtree: false };
+
+    const selectAll = (slot) => {
+      slot.classList.add("selected");
+    };
+
+    const deselectAll = (slot) => {
+      slot.classList.remove("selected");
+    };
+
+    const bindToggleOnClick = (title) => {
+      title.onclick = () => {
+        const slots = title.nextSibling.childNodes;
+
+        const isAnySlotSelected = Array.from(slots).some((slot) =>
+          slot.classList.contains("selected")
+        );
+
+        const previousSelection = this.selection
+          .getSelection()
+          .map((slot) => slot.dataset.slot);
+
+        const selection = Array.from(slots).map((slot) => slot.dataset.slot);
+
+        if (isAnySlotSelected) {
+          slots.forEach(deselectAll);
+          this.publishSelection(
+            previousSelection.filter((slot) => !selection.includes(slot))
+          );
+        } else {
+          slots.forEach(selectAll);
+          this.publishSelection([...previousSelection, ...selection]);
+        }
+      };
+    };
+
+    const whenColumnsRender = (mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === "childList") {
+          const columnTitles = document.querySelectorAll(".day .title.cell");
+
+          columnTitles.forEach(bindToggleOnClick);
+        }
+      }
+    };
+
+    const observer = new MutationObserver(whenColumnsRender);
+
+    observer.observe(targetNode, config);
   }
 
   generateListOfDates(date, length) {
@@ -218,9 +274,7 @@ export default class CalendarView extends View {
   }
 
   onSelectionEnd({ store }) {
-    const selfId = this.me();
-
-    const previousSelection = this.model.userSelection(selfId);
+    const previousSelection = this.model.userSelection(this.me());
     const added = store.changed.added.map((added) => added.dataset.slot);
     const selected = store.selected.map((selected) => selected.dataset.slot);
     const removed = store.changed.removed.map(
@@ -232,9 +286,13 @@ export default class CalendarView extends View {
       .concat(added)
       .filter((slot) => !removed.includes(slot));
 
+    this.publishSelection(Array.from(new Set(selection)));
+  }
+
+  publishSelection(selection) {
     this.publish("calendar", "selection", {
-      userId: selfId,
-      slots: Array.from(new Set(selection)),
+      userId: this.me(),
+      slots: selection,
     });
   }
 

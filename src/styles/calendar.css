@@ -39,6 +39,7 @@
     min-width: 7em;
     background: rgba(66, 68, 90, 0.075);
     font-weight: bold;
+    cursor: pointer;
 }
 
 .calendar .time-slot {
