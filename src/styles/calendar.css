@@ -32,7 +32,7 @@
 }
 
 .calendar .half-hour-intervals .cell {
-    height: 2em;
+    height: 2.3em;
 }
 
 .calendar .title {
@@ -61,8 +61,8 @@
 }
 
 .calendar .half-hour-intervals .dots {
-    top: -2px;
-    left: -2px;
+    top: 0px;
+    left: 0px;
 }
 
 .calendar .day .time-slot.selected {

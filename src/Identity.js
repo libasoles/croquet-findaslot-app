@@ -1,7 +1,7 @@
 import { Model, View } from "@croquet/croquet";
 import { InputWidget } from "./components/InputWidget";
 import i18next from "i18next";
-import { readCookie } from "./utils";
+import { element, readCookie } from "./utils";
 
 export default class Identity extends Model {
   init() {
@@ -76,6 +76,10 @@ export default class Identity extends Model {
       userName: user.userName,
     }));
   }
+
+  numberOfUsers() {
+    return this.connectedUsers.size;
+  }
 }
 
 export class IdentityView extends View {
@@ -117,7 +121,7 @@ export class IdentityView extends View {
   }
 
   initForm() {
-    const selector = document.querySelector(".identity");
+    const selector = element(".identity");
 
     const userName = readCookie("userName");
 

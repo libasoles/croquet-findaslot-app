@@ -1,6 +1,7 @@
 import { Model, View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { StatusView } from "./Status";
+import { element } from "./utils";
 
 export default class Pills extends Model {
   init() {
@@ -113,7 +114,7 @@ export class PillsView extends View {
     };
     const pills = allUsers.map(toPill);
 
-    render(<>{pills}</>, document.querySelector(".participants .pills"));
+    render(<>{pills}</>, element(".participants .pills"));
 
     this.status.render(selfId);
   }

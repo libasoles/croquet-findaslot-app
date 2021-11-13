@@ -1,6 +1,7 @@
 import { Model, View } from "@croquet/croquet";
 import { RangeSlider } from "./components/RangeSlider";
 import i18next from "i18next";
+import { element } from "./utils";
 
 export default class Settings extends Model {
   init() {
@@ -42,12 +43,14 @@ export default class Settings extends Model {
 }
 
 export class ConfigurationView extends View {
-  constructor(model) {
+  constructor(model, identity) {
     super(model);
     this.model = model;
+    this.identity = identity;
 
     this.initRangeSliders();
 
+    this.subscribe("identity", "established", this.collapse);
     this.subscribe("settings", "update-days-range", this.updateDaysRange);
     this.subscribe("settings", "update-time-range", this.updateTimeRange);
     this.subscribe(
@@ -67,14 +70,24 @@ export class ConfigurationView extends View {
     this.initHafHoursCheckbox();
   }
 
+  collapse({ userId }) {
+    const selfId = this.identity.selfId(this.viewId);
+
+    const collapsedByDefault =
+      userId === selfId && this.identity.numberOfUsers() > 1;
+
+    if (collapsedByDefault)
+      element(".column.side.left").classList.add("collapsed");
+  }
+
   initToggleChevron() {
-    document.querySelector(".toggle-settings").onclick = () => {
-      document.querySelector(".column.side.left").classList.toggle("collapsed");
+    element(".toggle-settings").onclick = () => {
+      element(".column.side.left").classList.toggle("collapsed");
     };
   }
 
   initWeekendsCheckbox() {
-    this.includeWeekends = document.querySelector(".include-weekends input");
+    this.includeWeekends = element(".include-weekends input");
 
     this.includeWeekends.checked = this.model.allowWeekends;
 
@@ -88,7 +101,7 @@ export class ConfigurationView extends View {
   }
 
   initHafHoursCheckbox() {
-    this.halfHourIntervals = document.querySelector(".half-hours input");
+    this.halfHourIntervals = element(".half-hours input");
 
     this.halfHourIntervals.checked = this.model.halfHourIntervals;
 
@@ -107,7 +120,7 @@ export class ConfigurationView extends View {
   }
 
   initDaysRangeSlider() {
-    const selector = document.querySelector(".days-range");
+    const selector = element(".days-range");
 
     const [min, max] = this.model.daysRangeMinMax;
     const [lower, upper] = this.model.daysRange;
@@ -128,7 +141,7 @@ export class ConfigurationView extends View {
   }
 
   initTimeRangeSlider() {
-    let selector = document.querySelector(".time-range");
+    let selector = element(".time-range");
 
     const [min, max] = this.model.timeRangeMinMax;
     const [lower, upper] = this.model.timeRange;

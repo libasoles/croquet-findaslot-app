@@ -37,7 +37,7 @@ class MainView extends View {
         model.pills
       ),
       new PillsView(model.pills, model.identity, model.calendar),
-      new ConfigurationView(model.configuration),
+      new ConfigurationView(model.configuration, model.identity),
       new EventNameView(model.eventName),
       new BestResultsView(model.calendar),
       new FeedbackView(),

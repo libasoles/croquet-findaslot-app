@@ -1,6 +1,7 @@
 import { Model, View } from "@croquet/croquet";
 import { InputWidget } from "./components/InputWidget";
 import i18next from "i18next";
+import { element } from "./utils";
 
 export default class EventName extends Model {
   init() {
@@ -21,7 +22,7 @@ export class EventNameView extends View {
     super(model);
     this.model = model;
 
-    const selector = document.querySelector(".event-name-widget");
+    const selector = element(".event-name-widget");
 
     const onChange = (eventName) => {
       this.publish("event-name", "name-changed", eventName);

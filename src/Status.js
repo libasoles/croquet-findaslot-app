@@ -1,4 +1,5 @@
 import i18next from "i18next";
+import { element } from "./utils";
 
 export class StatusView {
   constructor(pills, identity, calendar) {
@@ -9,14 +10,14 @@ export class StatusView {
 
   setText(selector, i18nKey, i18nReplacements = {}) {
     const newTextContent = i18next.t(i18nKey, i18nReplacements);
-    if (document.querySelector(selector).textContent === newTextContent) return;
+    if (element(selector).textContent === newTextContent) return;
 
-    document.querySelector(selector).style.display = "none";
+    element(selector).style.display = "none";
 
-    document.querySelector(selector).textContent = newTextContent;
+    element(selector).textContent = newTextContent;
 
     setTimeout(() => {
-      document.querySelector(selector).style.display = "block";
+      element(selector).style.display = "block";
     }, 0);
   }
 
@@ -84,6 +85,6 @@ export class StatusView {
       .querySelector(".participants .dot")
       .classList.remove("selecting", "comparing");
 
-    document.querySelector(".participants .dot").classList.add(type);
+    element(".participants .dot").classList.add(type);
   }
 }

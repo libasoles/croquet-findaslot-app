@@ -9,7 +9,7 @@ import {
   isWeekend,
   addMinutes,
 } from "date-fns";
-import { isMobile, range, target } from "./utils";
+import { element, isMobile, range, target } from "./utils";
 import { config } from "./config";
 import createDotElements from "./components/Dots";
 
@@ -266,7 +266,7 @@ export default class CalendarView extends View {
 
   highlightSlots(slots, isAMatch = false) {
     slots.forEach((selection) => {
-      const slot = document.querySelector(`[data-slot="${selection}"]`);
+      const slot = element(`[data-slot="${selection}"]`);
       if (!slot) return;
 
       slot.classList.add("selected");

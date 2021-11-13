@@ -1,15 +1,16 @@
 import { View } from "@croquet/croquet";
+import { element } from "./utils";
 
 export class FeedbackView extends View {
   constructor() {
     super();
 
-    document.querySelector(".feedback").onclick = () => {
-      document.querySelector(".feedback-modal").classList.remove("hidden");
+    element(".feedback").onclick = () => {
+      element(".feedback-modal").classList.remove("hidden");
     };
 
-    document.querySelector(".feedback-modal .close").onclick = () => {
-      document.querySelector(".feedback-modal").classList.add("hidden");
+    element(".feedback-modal .close").onclick = () => {
+      element(".feedback-modal").classList.add("hidden");
     };
   }
 }

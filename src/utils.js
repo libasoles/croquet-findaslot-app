@@ -29,7 +29,11 @@ export function hide(domNode) {
 }
 
 export function target(name) {
-  return document.querySelector(name);
+  return element(name);
+}
+
+export function element(selector) {
+  return document.querySelector(selector);
 }
 
 export function formatDate(date) {
