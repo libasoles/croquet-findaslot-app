@@ -113,7 +113,12 @@ body > footer {
     background-color: var(--primaryColor);
     padding: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+body > footer a {
+    color: var(--primaryGrayscaleColor);
+    text-decoration: none;
 }
 
 a {

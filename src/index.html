@@ -92,18 +92,27 @@
 </div>
 
 <footer class="footer">
+    <div>
+        <a href="/en">EN</a>
+        /
+        <a href="/">ES</a>
+    </div>
+
     <button class="feedback">
         <span class="heart"></span> Feedback
     </button>
 </footer>
 
 <div class="feedback-modal hidden">
-    <div class="content">
-        <p data-t>feedback_github</p>
-        <p data-t>feedback_mail</p>
-        <p data-t>feedback_thanks</p>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="content">
+            <p data-t>feedback_github</p>
+            <p data-t>feedback_mail</p>
+            <p data-t>feedback_thanks</p>
+        </div>
+        <button class="close button">x</button>
     </div>
-    <button class="close button">x</button>
 </div>
 
 <script type="module" src="../src/app.js"></script>

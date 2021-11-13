@@ -170,6 +170,10 @@ input {
     justify-content: space-between;
 }
 
+.input-widget input {
+    border-radius: 0.25em 0 0 0.25em;
+}
+
 .input-widget .displayed-value {
     display: flex;
     justify-content: space-between;
@@ -350,26 +354,35 @@ input {
     transform-origin: 100% 100%;
 }
 
-.feedback-modal {
-    width: 400px;
-    height: 300px;
+.feedback-modal .overlay {
     position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--secondaryDark);
+    opacity: .5;
+}
+
+.feedback-modal .container {
+    width: 400px;
+    position: absolute;
+    z-index: 2;
     top: calc(50% - 200px);
     left: calc(50% - 200px);
     display: flex;
-    border-radius: 50% 0 50% 50%;
     animation: fadeIn .25s ease;
 }
 
 .feedback-modal .content {
     width: 100%;
-    height: 100%;
     background: var(--primaryGrayscaleColor);
     color: var(--primaryDark);
     padding: 2em;
     display: flex;
     flex-direction: column;
-    border-radius: .5em 0 2em 2em;
+    border-radius: 1.5em 0 1.5em 1.5em;
 }
 
 .feedback-modal .close {
