@@ -50,7 +50,15 @@ export class ConfigurationView extends View {
       this.updateWeekendsCheckbox
     );
 
+    this.initToggleChevron();
+
     this.initWeekendsCheckbox();
+  }
+
+  initToggleChevron() {
+    document.querySelector(".toggle-settings").onclick = () => {
+      document.querySelector(".column.side.left").classList.toggle("collapsed");
+    };
   }
 
   initWeekendsCheckbox() {

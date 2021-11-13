@@ -49,3 +49,14 @@ export function readCookie(name) {
 
   return result.reduce((_, value) => value);
 }
+
+export function isMobile() {
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ) ||
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.platform
+    )
+  );
+}

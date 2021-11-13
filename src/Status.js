@@ -8,10 +8,16 @@ export class StatusView {
   }
 
   setText(selector, i18nKey, i18nReplacements = {}) {
-    document.querySelector(selector).textContent = i18next.t(
-      i18nKey,
-      i18nReplacements
-    );
+    const newTextContent = i18next.t(i18nKey, i18nReplacements);
+    if (document.querySelector(selector).textContent === newTextContent) return;
+
+    document.querySelector(selector).style.display = "none";
+
+    document.querySelector(selector).textContent = newTextContent;
+
+    setTimeout(() => {
+      document.querySelector(selector).style.display = "block";
+    }, 0);
   }
 
   render(selfId) {
@@ -47,7 +53,7 @@ export class StatusView {
       const otherUserName = this.identity.name(otherUserId);
 
       this.setText(".participants .title", "other_user_selection", {
-        otherUser: otherUserName,
+        otherUser: otherUserName || "Anonymous", // TODO: add #number
       });
 
       if (this.calendar.userHasAnySelection(otherUserId))
@@ -77,6 +83,7 @@ export class StatusView {
     document
       .querySelector(".participants .dot")
       .classList.remove("selecting", "comparing");
+
     document.querySelector(".participants .dot").classList.add(type);
   }
 }
