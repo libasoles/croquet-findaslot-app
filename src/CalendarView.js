@@ -48,7 +48,7 @@ export default class CalendarView extends View {
 
   init() {
     this.selection = new SelectionArea(selectableOptions)
-      .on("beforestart", this.beforeSelectionStarts.bind(this)())
+      .on("beforestart", this.beforeSelectionStarts.bind(this))
       .on("move", this.whileSelecting.bind(this))
       .on("stop", this.onSelectionEnd.bind(this));
   }
