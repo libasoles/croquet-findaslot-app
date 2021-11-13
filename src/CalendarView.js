@@ -7,6 +7,7 @@ import {
   startOfToday,
   intlFormat,
   isWeekend,
+  addMinutes,
 } from "date-fns";
 import { isMobile, range, target } from "./utils";
 import { config } from "./config";
@@ -64,6 +65,7 @@ export default class CalendarView extends View {
     this.subscribe("settings", "update-days-range", this.render);
     this.subscribe("settings", "update-time-range", this.render);
     this.subscribe("settings", "update-allow-weekends", this.render);
+    this.subscribe("settings", "update-half-hours", this.render);
 
     this.subscribe(
       "calendar",
@@ -108,17 +110,29 @@ export default class CalendarView extends View {
             locale: config.locale,
           });
 
+          const timeRange = range(startTime, endTime);
+          const halfHourIntervals = this.configuration.halfHourIntervals;
+
           return (
             <div className="day">
               <div className="title cell">{formattedDate}</div>
               <div className="day-schedule">
-                {range(startTime, endTime).map((hours) => {
+                {timeRange.map((hours, i) => {
                   const timestamp = addHours(day, hours).toISOString();
 
+                  let plainHour = this.timeSlot(timestamp, hours);
+
+                  if (!halfHourIntervals) return plainHour;
+
+                  const withMinutes = addMinutes(
+                    new Date(timestamp),
+                    30
+                  ).toISOString();
+
                   return (
-                    <div className="time-slot cell" data-slot={timestamp}>
-                      <div className="dots"></div>
-                      {hours + "hs"}
+                    <div className="half-hour-intervals">
+                      {plainHour}
+                      {this.timeSlot(withMinutes, hours + ":30", "half-hour")}
                     </div>
                   );
                 })}
@@ -132,6 +146,15 @@ export default class CalendarView extends View {
     render(columns, target(".calendar-columns"));
 
     this.displaySlotsState();
+  }
+
+  timeSlot(timestamp, readableTime, className) {
+    return (
+      <div className={`time-slot cell ${className}`} data-slot={timestamp}>
+        <div className="dots"></div>
+        {readableTime + "hs"}
+      </div>
+    );
   }
 
   displaySlotsState() {

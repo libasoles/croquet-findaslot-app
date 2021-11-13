@@ -31,6 +31,10 @@
     background: var(--secondaryDark);
 }
 
+.calendar .half-hour-intervals .cell {
+    height: 2em;
+}
+
 .calendar .title {
     min-width: 7em;
     background: rgba(66, 68, 90, 0.075);
@@ -46,10 +50,19 @@
     position: relative;
 }
 
+.calendar .time-slot.half-hour {
+    color: var(--tertiaryGrayscaleColor);
+}
+
 .calendar .time-slot .dots {
     position: absolute;
     top: 2px;
     left: 2px;
+}
+
+.calendar .half-hour-intervals .dots {
+    top: -2px;
+    left: -2px;
 }
 
 .calendar .day .time-slot.selected {
