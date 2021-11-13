@@ -391,13 +391,13 @@ input {
     margin-bottom: 3.3em;
 }
 
-.content .settings .include-weekends {
+.content .settings .input-label {
     display: block;
     margin-bottom: 1.5em;
     cursor: pointer;
 }
 
-.content .settings .include-weekends input {
+.content .settings .input-label input {
     margin-right: .5em;
     width: 1em;
     height: 1em;

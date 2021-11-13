@@ -17,6 +17,7 @@ export default class Settings extends Model {
       "allow-weekends-change",
       this.allowWeekendsChange
     );
+    this.subscribe("settings", "half-hours-change", this.halfHoursChange);
   }
 
   daysRangeChange(values) {
@@ -32,6 +33,11 @@ export default class Settings extends Model {
   allowWeekendsChange(value) {
     this.allowWeekends = value;
     this.publish("settings", "update-allow-weekends", value);
+  }
+
+  halfHoursChange(value) {
+    this.halfHourIntervals = value;
+    this.publish("settings", "update-half-hours", value);
   }
 }
 
@@ -49,10 +55,16 @@ export class ConfigurationView extends View {
       "update-allow-weekends",
       this.updateWeekendsCheckbox
     );
+    this.subscribe(
+      "settings",
+      "update-half-hours",
+      this.updateHalfHoursCheckbox
+    );
 
     this.initToggleChevron();
 
     this.initWeekendsCheckbox();
+    this.initHafHoursCheckbox();
   }
 
   initToggleChevron() {
@@ -70,6 +82,20 @@ export class ConfigurationView extends View {
       this.publish(
         "settings",
         "allow-weekends-change",
+        event.currentTarget.checked
+      );
+    };
+  }
+
+  initHafHoursCheckbox() {
+    this.halfHourIntervals = document.querySelector(".half-hours input");
+
+    this.halfHourIntervals.checked = this.model.halfHourIntervals;
+
+    this.halfHourIntervals.onchange = (event) => {
+      this.publish(
+        "settings",
+        "half-hours-change",
         event.currentTarget.checked
       );
     };
@@ -132,5 +158,9 @@ export class ConfigurationView extends View {
 
   updateWeekendsCheckbox(checked) {
     this.includeWeekends.checked = checked;
+  }
+
+  updateHalfHoursCheckbox(checked) {
+    this.halfHourIntervals.checked = checked;
   }
 }
