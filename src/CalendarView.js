@@ -8,7 +8,7 @@ import {
   intlFormat,
   isWeekend,
 } from "date-fns";
-import { range, target } from "./utils";
+import { isMobile, range, target } from "./utils";
 import { config } from "./config";
 import createDotElements from "./components/Dots";
 
@@ -47,7 +47,7 @@ export default class CalendarView extends View {
 
   init() {
     this.selection = new SelectionArea(selectableOptions)
-      //.on("beforestart", this.beforeSelectionStarts.bind(this)())
+      .on("beforestart", this.beforeSelectionStarts.bind(this)())
       .on("move", this.whileSelecting.bind(this))
       .on("stop", this.onSelectionEnd.bind(this));
   }
@@ -156,6 +156,8 @@ export default class CalendarView extends View {
   }
 
   beforeSelectionStarts() {
+    if (!isMobile) return;
+
     let timeout = null;
 
     return ({ event }) => {
