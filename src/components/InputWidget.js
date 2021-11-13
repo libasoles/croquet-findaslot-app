@@ -53,6 +53,7 @@ export class InputWidget {
 
     submitButton.onclick = () => this.onChange();
     closeButton.onclick = () => this.onEditButtonClicked();
+    this.displayedValue.onclick = () => this.onEditButtonClicked();
   }
 
   onUserTyping(event) {
@@ -79,6 +80,8 @@ export class InputWidget {
       .textContent.trim();
 
     display(this.form);
+
+    this.input.focus();
   }
 
   displayValue(name) {
