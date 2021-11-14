@@ -1,9 +1,14 @@
 import { intlFormat } from "date-fns";
 import { config } from "./config";
 
-const dateTimeFormat = {
+export const longDateFormat = {
   weekday: "long",
   month: "short",
+  day: "numeric",
+};
+
+export const dayFormat = {
+  weekday: "long",
   day: "numeric",
 };
 
@@ -36,8 +41,10 @@ export function element(selector) {
   return document.querySelector(selector);
 }
 
-export function formatDate(date) {
-  return intlFormat(new Date(date), dateTimeFormat, {
+export function formatDate(date, format = longDateFormat) {
+  const dateObject = typeof date === "string" ? new Date(date) : date;
+
+  return intlFormat(dateObject, format, {
     locale: config.locale,
   });
 }

@@ -5,12 +5,17 @@ import {
   addHours,
   addDays,
   startOfToday,
-  intlFormat,
   isWeekend,
   addMinutes,
 } from "date-fns";
-import { element, isMobile, range, target } from "./utils";
-import { config } from "./config";
+import {
+  dayFormat,
+  element,
+  formatDate,
+  isMobile,
+  range,
+  target,
+} from "./utils";
 import createDotElements from "./components/Dots";
 
 const selectableOptions = {
@@ -24,13 +29,6 @@ const selectableOptions = {
       intersect: "native",
     },
   },
-};
-
-// TODO: constants should be in Q
-const dateFormat = {
-  weekday: "long",
-  // month: "short",
-  day: "numeric",
 };
 
 export default class CalendarView extends View {
@@ -162,9 +160,7 @@ export default class CalendarView extends View {
     const columns = (
       <>
         {daysRange.map((day) => {
-          const formattedDate = intlFormat(day, dateFormat, {
-            locale: config.locale,
-          });
+          const formattedDate = formatDate(day, dayFormat);
 
           const timeRange = range(startTime, endTime);
           const halfHourIntervals = this.configuration.halfHourIntervals;

@@ -494,6 +494,173 @@ input {
     transform: rotate(45deg);
 }
 
+/* history menu */
+
+nav .menuToggle {
+    display: block;
+    position: relative;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+nav .menuToggle a {
+    text-decoration: none;
+    color: var(--primaryDark);
+    transition: color 0.3s ease;
+}
+
+nav .menuToggle a:hover {
+    color: var(--primaryColor);
+}
+
+
+nav .menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    cursor: pointer;
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+    -webkit-touch-callout: none;
+}
+
+nav .menuToggle span.hamburger {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: var(--primaryGrayscaleColor);
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+    opacity 0.55s ease;
+}
+
+nav .menuToggle span.hamburger:first-child {
+    transform-origin: 0% 0%;
+}
+
+nav .menuToggle span.hamburger:nth-last-child(2) {
+    transform-origin: 0% 100%;
+}
+
+
+nav .menuToggle input:checked ~ span.hamburger {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: var(--primaryDark);
+}
+
+nav .menuToggle input:checked ~ span.hamburger:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+
+nav .menuToggle input:checked ~ span.hamburger:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+nav .menu {
+    position: absolute;
+    width: 300px;
+    margin: -100px 0 0 -230px;
+    padding: 125px 20px 20px;
+
+    background: var(--primaryGrayscaleColor);
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+
+    transform-origin: 0% 0%;
+    transform: translate(100%, 0);
+
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+}
+
+nav .menu li {
+    padding: .5em 0;
+    font-size: 1.05em;
+    color: var(--primaryDark);
+    margin: 0;
+}
+
+
+nav .menuToggle input:checked ~ ul {
+    transform: none;
+    text-align: left;
+}
+
+nav .menu .new-event {
+    border-bottom: 1px solid var(--tertiaryGrayscaleColor);
+    margin-bottom: 1em;
+    padding-bottom: 1.5em;
+}
+
+nav .menu li a {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+nav li:hover a {
+    color: var(--primaryColor);
+    font-weight: bold;
+    transition: all 0.15s ease-in;
+}
+
+nav li.other-event a::before {
+    content: '';
+    width: .65em;
+    height: .65em;
+    background: var(--primaryDark);
+    border-radius: 50%;
+    margin-right: .8em;
+    display: block;
+}
+
+nav .menu .new-event a {
+    font-weight: bold;
+    display: flex;
+}
+
+nav .menu .new-event .plus-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 1.4em
+}
+
+.plus-icon::before, .plus-icon::after {
+    content: " ";
+    width: .9em;
+    margin-left: .45em;
+    height: 3px;
+    background-color: var(--primaryDark);
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    border-radius: 2px;
+}
+
+.plus-icon::before {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.plus-icon::after {
+    transform: translate(-50%, -50%);
+}
+
+
 @media (max-width: 600px) {
     .feedback {
         display: none;

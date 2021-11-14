@@ -27,7 +27,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4F9N1LSSP6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-4F9N1LSSP6');
@@ -37,8 +41,27 @@
 <body>
 
 <header class="header">
-    <div class="logo"></div>
-    <h2 data-t>title</h2>
+    <div class="brand">
+        <div class="logo"></div>
+        <h2 data-t>title</h2>
+    </div>
+
+    <div>
+        <!--    Made by Erik Terwan    -->
+        <!--   24th of November 2015   -->
+        <!--        MIT License        -->
+        <nav role="navigation">
+            <div class="menuToggle">
+                <input type="checkbox"/>
+
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+
+                <ul class="menu"> </ul>
+            </div>
+        </nav>
+    </div>
 </header>
 
 <div class="content">

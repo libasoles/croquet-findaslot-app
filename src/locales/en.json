@@ -27,5 +27,7 @@
   "other_user_selection": "{{otherUser}} selection",
   "comparing": "Comparing",
   "no_overlap": "No overlap",
-  "you_have_common_slots": "Hurray! You have common slots"
+  "you_have_common_slots": "Hurray! You have common slots",
+  "new_event": "New event",
+  "no_other_events_yet": "You don't have other events to display yet"
 }

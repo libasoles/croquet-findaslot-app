@@ -10,6 +10,7 @@ import { locales } from "./locales";
 import { config } from "./config";
 import Pills, { PillsView } from "./UsersPills";
 import { FeedbackView } from "./Feedback";
+import { HistoryMenu } from "./HistoryMenu";
 
 class Main extends Model {
   init() {
@@ -36,6 +37,7 @@ class MainView extends View {
         model.configuration,
         model.pills
       ),
+      new HistoryMenu(model.eventName),
       new PillsView(model.pills, model.identity, model.calendar),
       new ConfigurationView(model.configuration, model.identity),
       new EventNameView(model.eventName),
