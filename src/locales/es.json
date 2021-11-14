@@ -29,5 +29,8 @@
   "no_overlap": "No hay coincidencias",
   "you_have_common_slots": "Bien! Tienen horarios en común",
   "new_event": "Nuevo evento",
-  "no_other_events_yet": "Aún no hay otros eventos para mostrar"
+  "no_other_events_yet": "Aún no hay otros eventos para mostrar",
+  "schedule": "Agendar:",
+  "schedule_call_to_action": "Pueden agendar la reunión:",
+  "history": "Historial"
 }

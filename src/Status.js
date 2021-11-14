@@ -1,11 +1,14 @@
 import i18next from "i18next";
-import { element } from "./utils";
+import { element, target } from "./utils";
+import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
+import { scheduleLinks } from "./components/CalendarsLink";
 
 export class StatusView {
-  constructor(pills, identity, calendar) {
+  constructor(pills, identity, calendar, eventName) {
     this.pills = pills;
     this.identity = identity;
     this.calendar = calendar;
+    this.eventName = eventName;
   }
 
   setText(selector, i18nKey, i18nReplacements = {}) {
@@ -76,7 +79,23 @@ export class StatusView {
       this.dotType("comparing");
 
       this.setText(".participants .title", "comparing");
-      this.setText(".participants .content", "you_have_common_slots");
+
+      const bestSlot = this.calendar.takeBest(1)[0][0];
+
+      const schedule = scheduleLinks(
+        this.eventName.eventName, // TODO: fresh event name
+        bestSlot,
+        bestSlot, // TODO: calculated end date
+        "schedule_call_to_action"
+      );
+
+      render(
+        <div className="schedule">
+          {i18next.t("you_have_common_slots")}
+          {schedule}
+        </div>,
+        target(".participants .content")
+      );
     }
   }
 

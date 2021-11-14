@@ -38,10 +38,15 @@ class MainView extends View {
         model.pills
       ),
       new HistoryMenu(model.eventName),
-      new PillsView(model.pills, model.identity, model.calendar),
+      new PillsView(
+        model.pills,
+        model.identity,
+        model.calendar,
+        model.eventName
+      ),
       new ConfigurationView(model.configuration, model.identity),
       new EventNameView(model.eventName),
-      new BestResultsView(model.calendar),
+      new BestResultsView(model.calendar, model.eventName, model.identity),
       new FeedbackView(),
     ];
   }

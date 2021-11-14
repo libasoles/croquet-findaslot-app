@@ -147,6 +147,10 @@ li {
     margin-top: .75em;
 }
 
+.instructions p {
+    color: var(--secondaryGrayscaleColor);
+}
+
 @media (max-width: 1200px) {
     .content .right {
         display: none;

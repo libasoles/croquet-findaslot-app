@@ -29,5 +29,8 @@
   "no_overlap": "No overlap",
   "you_have_common_slots": "Hurray! You have common slots",
   "new_event": "New event",
-  "no_other_events_yet": "You don't have other events to display yet"
+  "no_other_events_yet": "You don't have other events to display yet",
+  "schedule": "Schedule:",
+  "schedule_call_to_action": "Go ahead and schedule:",
+  "history": "History"
 }

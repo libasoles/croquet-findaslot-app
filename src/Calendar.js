@@ -21,6 +21,12 @@ export default class Calendar extends Model {
     return this.mapToCountedSlots(this.selectedSlotsByUser);
   }
 
+  takeBest(amount) {
+    return Array.from(this.countedSlots())
+      .sort(([slotA, countA], [slotB, countB]) => countB - countA)
+      .slice(0, amount);
+  }
+
   mapToCountedSlots(slotsByUser) {
     const slotsCounted = new Map();
 

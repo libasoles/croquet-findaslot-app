@@ -68,6 +68,9 @@ export class HistoryMenu extends View {
     render(
       <>
         <NewEvent />
+        <li className="history">
+          <h3>{i18next.t("history")}</h3>
+        </li>
         <>{menuItems}</>
       </>,
       target("nav .menu")

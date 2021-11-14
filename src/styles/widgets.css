@@ -162,6 +162,7 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--secondaryGrayscaleColor);
 }
 
 /* input widget */
@@ -197,12 +198,13 @@ input {
 
 /* event name form */
 .event-name-widget {
-    width: 100%;
-    max-width: 580px;
+    width: fit-content;
+    max-width: 1000px
 }
 
 .event-name-widget input {
     width: 100%;
+    min-width: 18em;
     font-size: 2em;
     padding: .25em;
 }
@@ -319,6 +321,18 @@ input {
     background: var(--primaryComplementaryColor);
 }
 
+.participants .schedule .calendars {
+    margin-top: 1.5em;
+    font-size: .9em;
+}
+
+.participants .schedule .calendars a {
+    margin: .15em 1em 0 0;
+    display: inline-block;
+    text-decoration: none;
+    font-size: .9em;
+}
+
 /* feedback */
 .feedback {
     background: none;
@@ -394,6 +408,37 @@ input {
 /* settings */
 .content .results {
     margin-top: .5em;
+}
+
+.best-results li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.best-results .votes-count {
+    color: var(--secondaryGrayscaleColor);
+}
+
+.best-results .calendars {
+    display: flex;
+    flex-direction: column;
+    font-size: .9em;
+    font-weight: normal;
+    align-items: flex-end;
+}
+
+.best-results .calendars .title {
+    color: var(--secondaryGrayscaleColor);
+}
+
+.best-results .calendars a {
+    text-decoration: none;
+    font-size: .9em;
+    padding-top: .1em;
+}
+
+.best-results .calendars a:hover {
+    color: var(--tertiaryColor)
 }
 
 .content .settings {
@@ -591,6 +636,14 @@ nav .menu li {
     margin: 0;
 }
 
+nav .menu li.history {
+    margin: 0;
+}
+
+nav .menu li h3 {
+    margin-left: 1.2em;
+    margin-bottom: 0;
+}
 
 nav .menuToggle input:checked ~ ul {
     transform: none;

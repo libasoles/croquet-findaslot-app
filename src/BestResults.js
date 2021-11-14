@@ -3,11 +3,14 @@ import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { formatDate, target } from "./utils";
 import createDotElements from "./components/Dots";
 import i18next from "i18next";
+import { scheduleLinks } from "./components/CalendarsLink";
 
 export default class BestResultsView extends View {
-  constructor(model) {
-    super(model);
-    this.model = model;
+  constructor(calendar, eventName, identity) {
+    super(calendar);
+    this.calendar = calendar;
+    this.eventName = eventName;
+    this.identity = identity;
 
     this.hydrate();
 
@@ -20,7 +23,7 @@ export default class BestResultsView extends View {
 
   hydrate() {
     this.renderMoreVotedResults({
-      countedSlots: this.model.countedSlots(),
+      countedSlots: this.calendar.countedSlots(),
     });
   }
 
@@ -30,22 +33,36 @@ export default class BestResultsView extends View {
       return;
     }
 
-    const bestFiveOrderedByCount = this.takeBest(countedSlots, 5);
+    const bestFiveOrderedByCount = this.calendar.takeBest(5);
 
     const results = (
       <ul>
-        {bestFiveOrderedByCount.map(([timeSlot, votes]) => {
+        {bestFiveOrderedByCount.map(([timeSlot, votes], i) => {
           const date = formatDate(timeSlot);
           const time = new Date(timeSlot).getHours();
           const dots = createDotElements(votes);
 
+          const schedule = scheduleLinks(
+            this.eventName.eventName, // TODO: fresh event name
+            timeSlot,
+            timeSlot // TODO: calculated end time
+          );
+
+          const shouldOfferScheduleLinks =
+            this.identity.numberOfUsers() > 1 && votes > 1 && i < 2;
+
           return (
             <li>
-              {date} - {time}hs
-              <div className="dots">{dots}</div>
-              <p>
-                {votes} {i18next.t("votes")}
-              </p>
+              <div className="event">
+                <span>
+                  {date} - {time}hs
+                </span>
+                <div className="dots">{dots}</div>
+                <p className="votes-count">
+                  {votes} {i18next.t("votes")}
+                </p>
+              </div>
+              {shouldOfferScheduleLinks ? schedule : ""}
             </li>
           );
         })}
@@ -53,11 +70,5 @@ export default class BestResultsView extends View {
     );
 
     render(results, target(".best-results"));
-  }
-
-  takeBest(countedSlots, amount) {
-    return Array.from(countedSlots)
-      .sort(([slotA, countA], [slotB, countB]) => countB - countA)
-      .slice(0, amount);
   }
 }
