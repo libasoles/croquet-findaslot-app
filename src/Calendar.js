@@ -26,9 +26,9 @@ export default class Calendar extends Model {
   storeSelection({ userId, slots }) {
     this.selectedSlotsByUser.set(userId, slots);
 
-    this.publishSelectedSlots(userId);
-
     this.save();
+
+    this.publishSelectedSlots(userId);
   }
 
   publishSelectedSlots(userId = null) {

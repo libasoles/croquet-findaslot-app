@@ -25,9 +25,9 @@ export default class EventName extends Model {
   setEventName(name) {
     this.eventName = name;
 
-    this.publish("event-name", "update-event-name", name);
-
     this.save();
+    
+    this.publish("event-name", "update-event-name", name);
   }
 }
 

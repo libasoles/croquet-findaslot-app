@@ -47,30 +47,33 @@ export default class Settings extends Model {
 
   daysRangeChange(values) {
     this.daysRange = [values.lower, values.upper];
-    this.publish("settings", "update-days-range", values);
-
     this.save();
+
+    this.publish("settings", "update-days-range", values);
   }
 
   timeRangeChange(values) {
     this.timeRange = [values.lower, values.upper];
-    this.publish("settings", "update-time-range", values);
 
     this.save();
+
+    this.publish("settings", "update-time-range", values);
   }
 
   allowWeekendsChange(value) {
     this.allowWeekends = value;
-    this.publish("settings", "update-allow-weekends", value);
 
     this.save();
+
+    this.publish("settings", "update-allow-weekends", value);
   }
 
   halfHoursChange(value) {
     this.halfHourIntervals = value;
-    this.publish("settings", "update-half-hours", value);
 
     this.save();
+
+    this.publish("settings", "update-half-hours", value);
   }
 }
 

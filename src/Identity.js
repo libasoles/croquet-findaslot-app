@@ -58,9 +58,9 @@ export default class Identity extends Model {
   }
 
   identityEstablished(userId) {
-    this.publish("identity", "established", this.connectedUsers.get(userId));
-
     this.save();
+
+    this.publish("identity", "established", this.connectedUsers.get(userId));
   }
 
   updateUser({ userId, userName }) {
@@ -71,9 +71,9 @@ export default class Identity extends Model {
       userName,
     });
 
-    this.publish("identity", "update-name", { userId, userName });
-
     this.save();
+
+    this.publish("identity", "update-name", { userId, userName });
   }
 
   name(userId) {

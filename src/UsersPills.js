@@ -46,8 +46,6 @@ export default class Pills extends Model {
       userId,
       selectedUsersIds: Array.from(selection),
     });
-
-    this.save();
   }
 
   onlySelfPillIsSelected(userId) {

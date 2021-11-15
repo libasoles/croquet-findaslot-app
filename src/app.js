@@ -55,7 +55,6 @@ class Main extends Model {
         calendar: this.calendar.serialize(),
         settings: this.settings.serialize(),
         eventName: this.eventName.serialize(),
-        pills: this.pills.serialize(),
       },
     };
   }
