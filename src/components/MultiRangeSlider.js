@@ -1,6 +1,6 @@
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 
-export class RangeSlider {
+export class MultiRangeSlider {
   constructor(selector, { min, max, lower, upper }, { onChange, formatValue }) {
     this.selector = selector;
     this.formatValue = formatValue ? formatValue : (value) => value;
@@ -92,19 +92,19 @@ export class RangeSlider {
     this.renderValues();
   }
 
-  update(lower, upper) {
-    this.lowerSlider.value = lower;
-    this.upperSlider.value = upper;
-
-    this.renderValues();
-  }
-
   renderValues() {
     const lowerOutput = this.selector.getElementsByClassName("range-value")[0];
     const upperOutput = this.selector.getElementsByClassName("range-value")[1];
 
     render(<>{this.formatValue(this.lowerValue())}</>, lowerOutput);
     render(<>{this.formatValue(this.upperValue())}</>, upperOutput);
+  }
+
+  update(lower, upper) {
+    this.lowerSlider.value = lower;
+    this.upperSlider.value = upper;
+
+    this.renderValues();
   }
 
   minValue() {

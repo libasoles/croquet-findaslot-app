@@ -1,7 +1,7 @@
 import { App, Model, View, Session } from "@croquet/croquet";
 import Calendar from "./Calendar";
 import CalendarView from "./CalendarView";
-import Settings, { ConfigurationView } from "./Settings";
+import Settings, { SettingsView } from "./Settings";
 import EventName, { EventNameView } from "./EventName";
 import BestResultsView from "./BestResults";
 import Identity, { IdentityView } from "./Identity";
@@ -83,7 +83,7 @@ class MainView extends View {
         model.calendar,
         model.eventName
       ),
-      new ConfigurationView(model.settings, model.identity),
+      new SettingsView(model.settings, model.identity),
       new EventNameView(model.eventName, model.identity),
       new BestResultsView(model.calendar, model.eventName, model.identity),
       new FeedbackView(model),

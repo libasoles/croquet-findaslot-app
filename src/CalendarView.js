@@ -32,11 +32,11 @@ const selectableOptions = {
 };
 
 export default class CalendarView extends View {
-  constructor(model, identity, configuration, pills) {
+  constructor(model, identity, settings, pills) {
     super(model);
     this.model = model;
     this.identity = identity;
-    this.configuration = configuration;
+    this.settings = settings;
     this.pills = pills;
 
     this.init();
@@ -76,8 +76,8 @@ export default class CalendarView extends View {
 
   hydrate() {
     this.render({
-      lower: this.configuration.daysRange[0],
-      upper: this.configuration.daysRange[1],
+      lower: this.settings.daysRange[0],
+      upper: this.settings.daysRange[1],
     });
   }
 
@@ -140,7 +140,7 @@ export default class CalendarView extends View {
 
     const nextDay = addDays(date, 1);
 
-    const allowWeekends = this.configuration.allowWeekends;
+    const allowWeekends = this.settings.allowWeekends;
 
     if (!allowWeekends && isWeekend(date))
       return [...this.generateListOfDates(nextDay, length)];
@@ -149,8 +149,8 @@ export default class CalendarView extends View {
   }
 
   render() {
-    const [startDay, endDay] = this.configuration.daysRange;
-    const [startTime, endTime] = this.configuration.timeRange;
+    const [startDay, endDay] = this.settings.daysRange;
+    const [startTime, endTime] = this.settings.timeRange;
 
     const today = new Date(startOfToday());
     const firstDay = addDays(today, startDay);
@@ -163,7 +163,7 @@ export default class CalendarView extends View {
           const formattedDate = formatDate(day, dayFormat);
 
           const timeRange = range(startTime, endTime);
-          const halfHourIntervals = this.configuration.halfHourIntervals;
+          const halfHourIntervals = this.settings.halfHourIntervals;
 
           return (
             <div className="day">

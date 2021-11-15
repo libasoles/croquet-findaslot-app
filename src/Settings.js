@@ -1,5 +1,6 @@
 import { Model, View, Constants } from "@croquet/croquet";
-import { RangeSlider } from "./components/RangeSlider";
+import { MultiRangeSlider } from "./components/MultiRangeSlider";
+import { SingleRangeSlider } from "./components/SingleRangeSlider";
 import i18next from "i18next";
 import { element } from "./utils";
 
@@ -14,6 +15,7 @@ export default class Settings extends Model {
     // TODO: constants should be in Q
     this.daysRangeMinMax = [0, 14];
     this.timeRangeMinMax = [0, 24];
+    this.durationMinMax = [1, 5];
 
     this.subscribe("settings", "days-range-change", this.daysRangeChange);
     this.subscribe("settings", "time-range-change", this.timeRangeChange);
@@ -23,13 +25,15 @@ export default class Settings extends Model {
       this.allowWeekendsChange
     );
     this.subscribe("settings", "half-hours-change", this.halfHoursChange);
+    this.subscribe("settings", "duration-change", this.durationChange);
   }
 
   hydrate(persistedState) {
-    const { daysRange, timeRange, allowWeekends } = persistedState;
+    const { daysRange, timeRange, allowWeekends, duration } = persistedState;
 
     this.daysRange = daysRange ? daysRange : [0, 4];
     this.timeRange = timeRange ? timeRange : [9, 18];
+    this.duration = duration ? duration : 1;
     this.allowWeekends = allowWeekends ? allowWeekends : false;
   }
 
@@ -42,6 +46,7 @@ export default class Settings extends Model {
       daysRange: this.daysRange,
       timeRange: this.timeRange,
       allowWeekends: this.allowWeekends,
+      duration: this.duration,
     };
   }
 
@@ -58,6 +63,14 @@ export default class Settings extends Model {
     this.save();
 
     this.publish("settings", "update-time-range", values);
+  }
+
+  durationChange(value) {
+    this.duration = value;
+
+    this.save();
+
+    this.publish("settings", "update-duration", value);
   }
 
   allowWeekendsChange(value) {
@@ -77,13 +90,11 @@ export default class Settings extends Model {
   }
 }
 
-export class ConfigurationView extends View {
+export class SettingsView extends View {
   constructor(model, identity) {
     super(model);
     this.model = model;
     this.identity = identity;
-
-    this.initRangeSliders();
 
     this.subscribe("identity", "established", this.collapse);
     this.subscribe("settings", "update-days-range", this.updateDaysRange);
@@ -98,6 +109,9 @@ export class ConfigurationView extends View {
       "update-half-hours",
       this.updateHalfHoursCheckbox
     );
+    this.subscribe("settings", "update-duration", this.updateDuration);
+
+    this.initRangeSliders();
 
     this.initToggleChevron();
 
@@ -152,6 +166,7 @@ export class ConfigurationView extends View {
   initRangeSliders() {
     this.initDaysRangeSlider();
     this.initTimeRangeSlider();
+    this.initDurationSlider();
   }
 
   initDaysRangeSlider() {
@@ -168,7 +183,7 @@ export class ConfigurationView extends View {
       return value === 0 ? i18next.t("today") : value + 1;
     };
 
-    this.daysRangeSlider = new RangeSlider(
+    this.daysRangeSlider = new MultiRangeSlider(
       selector,
       { min, max, lower, upper },
       { onChange, formatValue }
@@ -189,10 +204,33 @@ export class ConfigurationView extends View {
       return value + "hs";
     };
 
-    this.hoursRangeSlider = new RangeSlider(
+    this.hoursRangeSlider = new MultiRangeSlider(
       selector,
       { min, max, lower, upper },
       { onChange, formatValue }
+    );
+  }
+
+  initDurationSlider() {
+    let selector = element(".duration");
+
+    const [min, max] = this.model.durationMinMax;
+    const duration = this.model.duration;
+
+    const onChange = ({ value }) => {
+      this.publish("settings", "duration-change", value);
+    };
+
+    // TODO: react to 30mins settings
+    this.durationSlider = new SingleRangeSlider(
+      selector,
+      { min, max, initialValue: duration },
+      {
+        onChange,
+        formatValue: (value) => {
+          return value + "hs"; // TODO: mins if less than 1hs
+        },
+      }
     );
   }
 
@@ -210,5 +248,9 @@ export class ConfigurationView extends View {
 
   updateHalfHoursCheckbox(checked) {
     this.halfHourIntervals.checked = checked;
+  }
+
+  updateDuration(value) {
+    this.durationSlider.update(value);
   }
 }

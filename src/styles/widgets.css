@@ -76,7 +76,7 @@ input {
 }
 
 /* multi range sliders */
-.multi-range {
+.multi-range, .single-range {
     margin: 1em 0;
     display: flex;
     flex-direction: column;
@@ -84,7 +84,7 @@ input {
     align-items: center;
 }
 
-.multi-range .controls {
+.multi-range .controls, .single-range .controls {
     position: relative;
     flex: 1;
     height: fit-content;
@@ -93,14 +93,14 @@ input {
     width: 100%;
 }
 
-.multi-range .values {
+.multi-range .values, .single-range .values {
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin-top: .5em;
 }
 
-.multi-range input[type=range] {
+.multi-range input[type=range], .single-range input[type=range] {
     box-sizing: border-box;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -120,7 +120,9 @@ input {
     background: none;
 }
 
-.multi-range input[type=range]::-webkit-slider-thumb {
+.multi-range input[type=range]::-webkit-slider-thumb,
+.single-range input[type=range]::-webkit-slider-thumb
+{
     height: 1em;
     width: 1em;
     border-radius: 28px;
@@ -132,30 +134,39 @@ input {
     pointer-events: auto;
 }
 
-.multi-range input[type=range]::-moz-range-thumb {
+.multi-range input[type=range]::-moz-range-thumb,
+.single-range input[type=range]::-moz-range-thumb
+{
     border-radius: 28px;
     border: none;
     pointer-events: auto;
     cursor: pointer;
 }
 
-.multi-range input[type=range]::-ms-thumb {
+.multi-range input[type=range]::-ms-thumb,
+.single-range input[type=range]::-ms-thumb
+{
     cursor: pointer;
     pointer-events: auto;
     position: relative;
 }
 
-.multi-range input[type="range"]::-webkit-slider-thumb:active {
+.multi-range input[type="range"]::-webkit-slider-thumb:active,
+.singe-range input[type="range"]::-webkit-slider-thumb:active
+{
     transform: scale(1.6);
     border: 2px solid var(--primaryDark);
 }
 
-.multi-range input[type="range"]::-moz-range-thumb:active {
+.multi-range input[type="range"]::-moz-range-thumb:active,
+.single-range input[type="range"]::-moz-range-thumb:active
+{
     transform: scale(1.2);
     border: 2px solid var(--primaryDark);
 }
 
-.range-value {
+.multi-range .range-value,
+.single-range .range-value {
     margin: 0 5px;
     height: 2em;
     font-size: 1em;
