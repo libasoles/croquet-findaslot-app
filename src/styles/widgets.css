@@ -616,8 +616,9 @@ nav .menuToggle input:checked ~ span.hamburger:nth-last-child(2) {
 nav .menu {
     position: absolute;
     width: 300px;
-    margin: -100px 0 0 -230px;
-    padding: 125px 20px 20px;
+    margin: -54px 0 0 -235px;
+    padding: 70px 20px 20px;
+    border-radius: 0.5em;
 
     background: var(--primaryGrayscaleColor);
     list-style-type: none;

@@ -11,6 +11,7 @@ import { config } from "./config";
 import Pills, { PillsView } from "./UsersPills";
 import { FeedbackView } from "./Feedback";
 import { HistoryMenu } from "./HistoryMenu";
+import { LanguageSwitch } from "./LanguageSwitch";
 
 class Main extends Model {
   init(options, persistedState) {
@@ -86,6 +87,7 @@ class MainView extends View {
       new EventNameView(model.eventName, model.identity),
       new BestResultsView(model.calendar, model.eventName, model.identity),
       new FeedbackView(model),
+      new LanguageSwitch(model),
     ];
   }
 

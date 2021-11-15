@@ -2,14 +2,19 @@ import { View } from "@croquet/croquet";
 import { target } from "./utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import i18next from "i18next";
+import { config } from "./config";
 
-const NewEvent = () => (
-  <li className="new-event">
-    <a href="/">
-      <span className="plus-icon"></span> {i18next.t("new_event")}
-    </a>
-  </li>
-);
+const NewEvent = () => {
+  const lang = config.locale.lang;
+
+  return (
+    <li className="new-event">
+      <a href={"/" + lang}>
+        <span className="plus-icon"></span> {i18next.t("new_event")}
+      </a>
+    </li>
+  );
+};
 
 export class HistoryMenu extends View {
   constructor(eventName) {
