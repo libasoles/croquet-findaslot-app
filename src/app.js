@@ -68,7 +68,7 @@ class MainView extends View {
     this.i18n();
 
     this.views = [
-      new IdentityView(model.identity),
+      new IdentityView(model.identity, model.identity),
       new CalendarView(
         model.calendar,
         model.identity,
@@ -83,9 +83,9 @@ class MainView extends View {
         model.eventName
       ),
       new ConfigurationView(model.settings, model.identity),
-      new EventNameView(model.eventName),
+      new EventNameView(model.eventName, model.identity),
       new BestResultsView(model.calendar, model.eventName, model.identity),
-      new FeedbackView(),
+      new FeedbackView(model),
     ];
   }
 

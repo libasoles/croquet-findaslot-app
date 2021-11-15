@@ -26,25 +26,30 @@ export default class EventName extends Model {
     this.eventName = name;
 
     this.save();
-    
+
     this.publish("event-name", "update-event-name", name);
   }
 }
 
 export class EventNameView extends View {
-  constructor(model) {
+  constructor(model, identity) {
     super(model);
     this.model = model;
+    this.identity = identity;
 
+    this.init();
+
+    this.subscribe("identity", "established", this.focus);
+
+    this.subscribe("event-name", "update-event-name", (value) =>
+      this.widget.displayValue(value)
+    );
+  }
+
+  init() {
     const selector = element(".event-name-widget");
 
-    const onChange = (eventName) => {
-      this.publish("event-name", "name-changed", eventName);
-    };
-
-    const formatValue = (value) => <h2>{value}</h2>;
-
-    const widget = new InputWidget(
+    this.widget = new InputWidget(
       selector,
       {
         name: "eventName",
@@ -52,13 +57,18 @@ export class EventNameView extends View {
         value: this.model.eventName,
       },
       {
-        onChange,
-        formatValue,
+        onChange: this.onChange,
+        formatValue: (value) => <h2>{value}</h2>,
       }
     );
+  }
 
-    this.subscribe("event-name", "update-event-name", (value) =>
-      widget.displayValue(value)
-    );
+  onChange = (eventName) => {
+    this.publish("event-name", "name-changed", eventName);
+  };
+
+  focus() {
+    const shouldFocusEventName = this.identity.numberOfUsers() === 1;
+    if (shouldFocusEventName) this.widget.focus();
   }
 }

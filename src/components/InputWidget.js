@@ -91,4 +91,8 @@ export class InputWidget {
 
     display(this.displayedValue);
   }
+
+  focus() {
+    this.input.focus();
+  }
 }

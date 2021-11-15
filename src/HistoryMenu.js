@@ -13,7 +13,7 @@ const NewEvent = () => (
 
 export class HistoryMenu extends View {
   constructor(eventName) {
-    super();
+    super(eventName);
     this.eventName = eventName;
 
     this.subscribe("identity", "established", this.createOrUpdateSession);

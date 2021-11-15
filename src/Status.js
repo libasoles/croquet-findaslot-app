@@ -24,13 +24,34 @@ export class StatusView {
     }, 0);
   }
 
+  setTitle( i18nKey, i18nReplacements) {
+    this.setText(".participants .title", i18nKey, i18nReplacements)
+  }
+
+  setDescription( i18nKey, i18nReplacements) {
+    this.setText(".participants .content", i18nKey, i18nReplacements)
+  }
+
+  setText(selector, i18nKey, i18nReplacements = {}) {
+    const newTextContent = i18next.t(i18nKey, i18nReplacements);
+    if (element(selector).textContent === newTextContent) return;
+
+    element(selector).style.display = "none";
+
+    element(selector).textContent = newTextContent;
+
+    setTimeout(() => {
+      element(selector).style.display = "block";
+    }, 0);
+  }
+
   render(selfId) {
     const noPillSelected = !this.pills.userHasAnyPillSelected(selfId);
     if (noPillSelected) {
       this.dotType("selecting");
 
-      this.setText(".participants .title", "select_a_participant");
-      this.setText(".participants .content", "check_mark_hint");
+      this.setTitle("select_a_participant");
+      this.setDescription("check_mark_hint");
 
       return;
     }
@@ -39,11 +60,11 @@ export class StatusView {
     if (onlySelfPillIsSelected) {
       this.dotType("selecting");
 
-      this.setText(".participants .title", "your_available_slots");
+      this.setTitle("your_available_slots");
 
       if (this.calendar.userHasAnySelection(selfId))
-        this.setText(".participants .content", "");
-      else this.setText(".participants .content", "nothing_selected_yet");
+        this.setDescription("");
+      else this.setDescription("nothing_selected_yet");
 
       return;
     }
@@ -56,13 +77,13 @@ export class StatusView {
       const otherUserId = this.pills.pillsForUser(selfId).pop();
       const otherUserName = this.identity.name(otherUserId);
 
-      this.setText(".participants .title", "other_user_selection", {
+      this.setTitle("other_user_selection", {
         otherUser: otherUserName || "Anonymous", // TODO: add #number
       });
 
       if (this.calendar.userHasAnySelection(otherUserId))
-        this.setText(".participants .content", "");
-      else this.setText(".participants .content", "nothing_selected_yet");
+        this.setDescription("");
+      else this.setDescription("nothing_selected_yet");
 
       return;
     }
@@ -73,12 +94,12 @@ export class StatusView {
     if (usersCommonSlots.length === 0) {
       this.dotType("comparing");
 
-      this.setText(".participants .title", "comparing");
-      this.setText(".participants .content", "no_overlap");
+      this.setTitle("comparing");
+      this.setDescription("no_overlap");
     } else {
       this.dotType("comparing");
 
-      this.setText(".participants .title", "comparing");
+      this.setTitle("comparing");
 
       // TODO: find better slot for selected users only
       const bestSlot = this.calendar.takeBest(1)[0][0];

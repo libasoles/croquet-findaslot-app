@@ -101,13 +101,16 @@ export default class Identity extends Model {
 }
 
 export class IdentityView extends View {
-  constructor(model) {
+  constructor(model, identity) {
     super(model);
     this.model = model;
+    this.identity = identity;
 
     this.hydrate();
 
     this.initForm();
+
+    this.subscribe("identity", "established", this.focus);
 
     this.subscribe("identity", "update-name", this.updateName);
   }
@@ -151,23 +154,29 @@ export class IdentityView extends View {
         value: userName,
       },
       {
-        onChange: (userName) => this.userNameChanged(userName),
+        onChange: this.userNameChanged,
         formatValue: (value) => <h3>{value}</h3>,
       }
     );
   }
 
-  userNameChanged(userName) {
+  userNameChanged = (userName) => {
     const userId = readCookie("userId");
 
     document.cookie = `userName=${userName}`;
 
     this.publish(this.model.id, "name-changed", { userId, userName });
-  }
+  };
 
   updateName({ userId, userName }) {
     const selfId = readCookie("userId");
 
     if (userId === selfId) this.widget.displayValue(userName);
+  }
+
+  focus() {
+    // TODO: check if username was already defined
+    const shouldFocusUserName = this.identity.numberOfUsers() > 1;
+    if (shouldFocusUserName) this.widget.focus();
   }
 }
