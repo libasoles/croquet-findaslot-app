@@ -4,12 +4,26 @@ import i18next from "i18next";
 import { element, readCookie } from "./utils";
 
 export default class Identity extends Model {
-  init() {
-    this.connectedUsers = new Map();
+  init(_, persistedState = {}) {
+    this.hydrate(persistedState);
 
     this.subscribe(this.id, "register-user", this.registerUser);
     this.subscribe(this.id, "register-user-view", this.registerUserView);
     this.subscribe(this.id, "name-changed", this.updateUser);
+  }
+
+  hydrate(persistedState) {
+    this.connectedUsers = persistedState.connectedUsers
+      ? new Map(persistedState.connectedUsers)
+      : new Map();
+  }
+
+  save() {
+    this.wellKnownModel("modelRoot").save();
+  }
+
+  serialize() {
+    return { connectedUsers: Array.from(this.connectedUsers) };
   }
 
   registerUser({ viewId, userName, views }) {
@@ -45,6 +59,8 @@ export default class Identity extends Model {
 
   identityEstablished(userId) {
     this.publish("identity", "established", this.connectedUsers.get(userId));
+
+    this.save();
   }
 
   updateUser({ userId, userName }) {
@@ -56,6 +72,8 @@ export default class Identity extends Model {
     });
 
     this.publish("identity", "update-name", { userId, userName });
+
+    this.save();
   }
 
   name(userId) {

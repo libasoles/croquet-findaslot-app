@@ -20,6 +20,8 @@ export default class Pills extends Model {
   }
 
   enableSelfOnly({ triggeredBy }) {
+    if (!triggeredBy) return;
+
     const selection = new Set([triggeredBy]);
     this.selectedPillsByUser.set(triggeredBy, selection);
 
@@ -44,6 +46,8 @@ export default class Pills extends Model {
       userId,
       selectedUsersIds: Array.from(selection),
     });
+
+    this.save();
   }
 
   onlySelfPillIsSelected(userId) {

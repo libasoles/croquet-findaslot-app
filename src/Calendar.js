@@ -1,17 +1,39 @@
 import { Model } from "@croquet/croquet";
 
 export default class Calendar extends Model {
-  init() {
-    this.selectedSlotsByUser = new Map();
+  init(_, persistedState = {}) {
+    this.hydrate(persistedState);
 
     this.subscribe("calendar", "selection", this.storeSelection);
+  }
+
+  hydrate(persistedState) {
+    this.selectedSlotsByUser = persistedState.selectedSlotsByUser
+      ? new Map(persistedState.selectedSlotsByUser)
+      : new Map();
+
+    this.publishSelectedSlots();
+  }
+
+  save() {
+    this.wellKnownModel("modelRoot").save();
+  }
+
+  serialize() {
+    return { selectedSlotsByUser: Array.from(this.selectedSlotsByUser) };
   }
 
   storeSelection({ userId, slots }) {
     this.selectedSlotsByUser.set(userId, slots);
 
+    this.publishSelectedSlots(userId);
+
+    this.save();
+  }
+
+  publishSelectedSlots(userId = null) {
     this.publish("calendar", "selected-slots-updated", {
-      triggeredBy: userId,
+      triggeredBy: userId, // TODO: avoid passing this, that can be null. Why is needed?
       selectedSlotsByUser: this.selectedSlotsByUser,
       countedSlots: this.countedSlots(),
     });

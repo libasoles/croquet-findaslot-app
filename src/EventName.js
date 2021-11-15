@@ -4,16 +4,30 @@ import i18next from "i18next";
 import { element } from "./utils";
 
 export default class EventName extends Model {
-  init() {
-    this.eventName = "";
+  init(_, persistedState = {}) {
+    this.hydrate(persistedState);
 
     this.subscribe("event-name", "name-changed", this.setEventName);
+  }
+
+  hydrate(persistedState) {
+    this.eventName = persistedState.eventName ? persistedState.eventName : "";
+  }
+
+  save() {
+    this.wellKnownModel("modelRoot").save();
+  }
+
+  serialize() {
+    return { eventName: this.eventName };
   }
 
   setEventName(name) {
     this.eventName = name;
 
     this.publish("event-name", "update-event-name", name);
+
+    this.save();
   }
 }
 

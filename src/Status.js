@@ -80,6 +80,7 @@ export class StatusView {
 
       this.setText(".participants .title", "comparing");
 
+      // TODO: find better slot for selected users only
       const bestSlot = this.calendar.takeBest(1)[0][0];
 
       const schedule = scheduleLinks(

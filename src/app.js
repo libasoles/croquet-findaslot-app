@@ -13,12 +13,51 @@ import { FeedbackView } from "./Feedback";
 import { HistoryMenu } from "./HistoryMenu";
 
 class Main extends Model {
-  init() {
+  init(options, persistedState) {
+    if (persistedState && persistedState.documents) {
+      this.hydrate(options, persistedState);
+    } else {
+      this.createSession();
+    }
+  }
+
+  hydrate(options, persistedState) {
+    switch (persistedState.version) {
+      case 1:
+      default:
+        const { documents } = persistedState;
+        this.identity = Identity.create(options, documents.identity);
+        this.calendar = Calendar.create(options, documents.calendar);
+        this.settings = Settings.create(options, documents.settings);
+        this.eventName = EventName.create(options, documents.eventName);
+        this.pills = Pills.create();
+        break;
+    }
+  }
+
+  createSession() {
     this.identity = Identity.create();
     this.calendar = Calendar.create();
-    this.configuration = Settings.create();
+    this.settings = Settings.create();
     this.eventName = EventName.create();
     this.pills = Pills.create();
+  }
+
+  save() {
+    this.persistSession(this.serialize);
+  }
+
+  serialize() {
+    return {
+      version: 1,
+      documents: {
+        identity: this.identity.serialize(),
+        calendar: this.calendar.serialize(),
+        settings: this.settings.serialize(),
+        eventName: this.eventName.serialize(),
+        pills: this.pills.serialize(),
+      },
+    };
   }
 }
 
@@ -34,7 +73,7 @@ class MainView extends View {
       new CalendarView(
         model.calendar,
         model.identity,
-        model.configuration,
+        model.settings,
         model.pills
       ),
       new HistoryMenu(model.eventName),
@@ -44,7 +83,7 @@ class MainView extends View {
         model.calendar,
         model.eventName
       ),
-      new ConfigurationView(model.configuration, model.identity),
+      new ConfigurationView(model.settings, model.identity),
       new EventNameView(model.eventName),
       new BestResultsView(model.calendar, model.eventName, model.identity),
       new FeedbackView(),

@@ -1,15 +1,19 @@
-import { Model, View } from "@croquet/croquet";
+import { Model, View, Constants } from "@croquet/croquet";
 import { RangeSlider } from "./components/RangeSlider";
 import i18next from "i18next";
 import { element } from "./utils";
 
+const Q = Constants;
+// Q.daysRangeMinMax = [0, 14];
+// Q.timeRangeMinMax = [0, 24];
+
 export default class Settings extends Model {
-  init() {
-    this.daysRange = [0, 4];
+  init(_, persistedState = {}) {
+    this.hydrate(persistedState);
+
+    // TODO: constants should be in Q
     this.daysRangeMinMax = [0, 14];
-    this.timeRange = [9, 18];
-    this.timeRangeMinMax = [0, 24]; // TODO: constants should be in Q
-    this.allowWeekends = false;
+    this.timeRangeMinMax = [0, 24];
 
     this.subscribe("settings", "days-range-change", this.daysRangeChange);
     this.subscribe("settings", "time-range-change", this.timeRangeChange);
@@ -21,24 +25,52 @@ export default class Settings extends Model {
     this.subscribe("settings", "half-hours-change", this.halfHoursChange);
   }
 
+  hydrate(persistedState) {
+    const { daysRange, timeRange, allowWeekends } = persistedState;
+
+    this.daysRange = daysRange ? daysRange : [0, 4];
+    this.timeRange = timeRange ? timeRange : [9, 18];
+    this.allowWeekends = allowWeekends ? allowWeekends : false;
+  }
+
+  save() {
+    this.wellKnownModel("modelRoot").save();
+  }
+
+  serialize() {
+    return {
+      daysRange: this.daysRange,
+      timeRange: this.timeRange,
+      allowWeekends: this.allowWeekends,
+    };
+  }
+
   daysRangeChange(values) {
     this.daysRange = [values.lower, values.upper];
     this.publish("settings", "update-days-range", values);
+
+    this.save();
   }
 
   timeRangeChange(values) {
     this.timeRange = [values.lower, values.upper];
     this.publish("settings", "update-time-range", values);
+
+    this.save();
   }
 
   allowWeekendsChange(value) {
     this.allowWeekends = value;
     this.publish("settings", "update-allow-weekends", value);
+
+    this.save();
   }
 
   halfHoursChange(value) {
     this.halfHourIntervals = value;
     this.publish("settings", "update-half-hours", value);
+
+    this.save();
   }
 }
 
