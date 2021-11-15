@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { element, target } from "./utils";
+import { element, formatDate, target } from "./utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { scheduleLinks } from "./components/CalendarsLink";
 
@@ -24,25 +24,12 @@ export class StatusView {
     }, 0);
   }
 
-  setTitle( i18nKey, i18nReplacements) {
-    this.setText(".participants .title", i18nKey, i18nReplacements)
+  setTitle(i18nKey, i18nReplacements) {
+    this.setText(".participants .title", i18nKey, i18nReplacements);
   }
 
-  setDescription( i18nKey, i18nReplacements) {
-    this.setText(".participants .content", i18nKey, i18nReplacements)
-  }
-
-  setText(selector, i18nKey, i18nReplacements = {}) {
-    const newTextContent = i18next.t(i18nKey, i18nReplacements);
-    if (element(selector).textContent === newTextContent) return;
-
-    element(selector).style.display = "none";
-
-    element(selector).textContent = newTextContent;
-
-    setTimeout(() => {
-      element(selector).style.display = "block";
-    }, 0);
+  setDescription(i18nKey, i18nReplacements) {
+    this.setText(".participants .content", i18nKey, i18nReplacements);
   }
 
   render(selfId) {
@@ -62,8 +49,7 @@ export class StatusView {
 
       this.setTitle("your_available_slots");
 
-      if (this.calendar.userHasAnySelection(selfId))
-        this.setDescription("");
+      if (this.calendar.userHasAnySelection(selfId)) this.setDescription("");
       else this.setDescription("nothing_selected_yet");
 
       return;
@@ -88,9 +74,8 @@ export class StatusView {
       return;
     }
 
-    const usersCommonSlots = this.calendar.usersCommonSlots(
-      this.pills.pillsForUser(selfId)
-    );
+    const selectedUsers = this.pills.pillsForUser(selfId);
+    const usersCommonSlots = this.calendar.usersCommonSlots(selectedUsers);
     if (usersCommonSlots.length === 0) {
       this.dotType("comparing");
 
@@ -102,7 +87,7 @@ export class StatusView {
       this.setTitle("comparing");
 
       // TODO: find better slot for selected users only
-      const bestSlot = this.calendar.takeBest(1)[0][0];
+      const bestSlot = this.calendar.bestSlotForUsers(selectedUsers);
 
       const schedule = scheduleLinks(
         this.eventName.eventName, // TODO: fresh event name
@@ -111,9 +96,15 @@ export class StatusView {
         "schedule_call_to_action"
       );
 
+      const date = formatDate(bestSlot);
+      const time = new Date(bestSlot).getHours();
+
       render(
         <div className="schedule">
           {i18next.t("you_have_common_slots")}
+          <div className="best-slot">
+            {date} - {time}hs
+          </div>
           {schedule}
         </div>,
         target(".participants .content")

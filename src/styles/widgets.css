@@ -326,6 +326,10 @@ input {
     font-size: .9em;
 }
 
+.participants .schedule .best-slot {
+    color: var(--primaryComplementaryColor);
+}
+
 .participants .schedule .calendars a {
     margin: .15em 1em 0 0;
     display: inline-block;

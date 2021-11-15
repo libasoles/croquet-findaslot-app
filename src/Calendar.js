@@ -44,9 +44,9 @@ export default class Calendar extends Model {
   }
 
   takeBest(amount) {
-    return Array.from(this.countedSlots())
-      .sort(([slotA, countA], [slotB, countB]) => countB - countA)
-      .slice(0, amount);
+    const slots = Array.from(this.countedSlots());
+
+    return slots.sort(this.byVotes).slice(0, amount);
   }
 
   mapToCountedSlots(slotsByUser) {
@@ -80,6 +80,23 @@ export default class Calendar extends Model {
     return Array.from(this.selectedSlotsByUser)
       .filter(([_, slots]) => slots.includes(slot))
       .map(([userId, _]) => userId);
+  }
+
+  everybodyCanAttendTo(slot) {
+    const identity = this.wellKnownModel("identity");
+    const numberOfUsers = identity.numberOfUsers();
+
+    return this.usersWhoSelectedSlot(slot).length === numberOfUsers;
+  }
+
+  bestSlotForUsers(users) {
+    const slots = this.usersCommonSlots(users);
+
+    return slots.sort(this.byVotes).pop();
+  }
+
+  byVotes([_, votesA], [__, votesB]) {
+    return votesB - votesA;
   }
 
   usersCommonSlots(users) {

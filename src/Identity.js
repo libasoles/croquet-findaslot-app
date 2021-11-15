@@ -5,6 +5,8 @@ import { element, readCookie } from "./utils";
 
 export default class Identity extends Model {
   init(_, persistedState = {}) {
+    this.beWellKnownAs("identity");
+
     this.hydrate(persistedState);
 
     this.subscribe(this.id, "register-user", this.registerUser);

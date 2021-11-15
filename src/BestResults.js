@@ -48,8 +48,11 @@ export default class BestResultsView extends View {
             timeSlot // TODO: calculated end time
           );
 
+          const bestTwo = i < 2;
           const shouldOfferScheduleLinks =
-            this.identity.numberOfUsers() > 1 && votes > 1 && i < 2;
+            this.identity.numberOfUsers() > 1 &&
+            this.calendar.everybodyCanAttendTo(timeSlot) &&
+            bestTwo;
 
           return (
             <li>
