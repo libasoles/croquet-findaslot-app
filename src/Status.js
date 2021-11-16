@@ -2,7 +2,7 @@ import i18next from "i18next";
 import { element, formatDate, target } from "./utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { scheduleLinks } from "./components/CalendarsLink";
-import { addHours } from "date-fns";
+import { addMinutes } from "date-fns";
 
 export class StatusView {
   constructor(pills, identity, calendar, eventName, settings) {
@@ -90,9 +90,9 @@ export class StatusView {
 
       const bestSlot = this.calendar.bestSlotForUsers(selectedUsers);
 
-      const endTime = addHours(
+      const endTime = addMinutes(
         new Date(bestSlot),
-        this.settings.duration
+        this.settings.duration * 60
       ).toISOString();
 
       const schedule = scheduleLinks(

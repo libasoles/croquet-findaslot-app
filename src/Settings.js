@@ -125,9 +125,11 @@ export class SettingsView extends View {
     this.subscribe("settings", "update-duration", this.updateDuration);
 
     this.initToggleChevron();
-    this.initRangeSliders();
+    this.initDaysRangeSlider();
+    this.initTimeRangeSlider();
     this.initWeekendsCheckbox();
     this.initHafHoursCheckbox();
+    this.initDurationSlider();
   }
 
   collapse({ userId }) {
@@ -172,12 +174,6 @@ export class SettingsView extends View {
         event.currentTarget.checked
       );
     };
-  }
-
-  initRangeSliders() {
-    this.initDaysRangeSlider();
-    this.initTimeRangeSlider();
-    this.initDurationSlider();
   }
 
   initDaysRangeSlider() {
@@ -248,10 +244,16 @@ export class SettingsView extends View {
       return value + "hs"; // TODO: mins if less than 1hs
     };
 
-    // TODO: react to 30mins settings
+    const step = this.halfHourIntervals.checked ? 0.5 : 1;
+
     this.durationSlider = new SingleRangeSlider(
       selector,
-      { min, max, initialValue: duration },
+      {
+        min,
+        max,
+        initialValue: duration,
+        step,
+      },
       {
         onChange,
         formatValue,
@@ -275,6 +277,8 @@ export class SettingsView extends View {
 
   updateHalfHoursCheckbox(checked) {
     this.halfHourIntervals.checked = checked;
+
+    this.durationSlider.step = checked ? 0.5 : 1;
   }
 
   updateDuration(value) {
@@ -283,6 +287,7 @@ export class SettingsView extends View {
     this.durationSlider.update(value);
   }
 
+  // TODO: move this to Event view (aka EventName view)
   renderDuration(value) {
     element(".calendar .duration").textContent = `${i18next.t(
       "duration"

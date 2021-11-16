@@ -1,20 +1,33 @@
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 
 export class SingleRangeSlider {
-  constructor(selector, { min, max, initialValue }, { onChange, formatValue }) {
+  constructor(
+    selector,
+    { min, max, initialValue, step },
+    { onChange, formatValue }
+  ) {
     this.selector = selector;
     this.formatValue = formatValue ? formatValue : (value) => value;
 
-    this.render(parseInt(min), parseInt(max), parseInt(initialValue));
+    this.render(
+      parseInt(min),
+      parseInt(max),
+      Number(initialValue),
+      Number(step)
+    );
 
     this.slider = selector.querySelector(".slider");
 
     this.slider.oninput = () => {
-      this.handleSlider(onChange);
+      onChange({
+        value: this.value(),
+      });
+
+      this.renderValue();
     };
   }
 
-  render(min, max, value) {
+  render(min, max, value, step) {
     const content = (
       <>
         <div className="controls">
@@ -24,7 +37,7 @@ export class SingleRangeSlider {
             max={max}
             value={value}
             className="slider"
-            // TODO: support steps
+            step={step}
           />
         </div>
         <div className="values">
@@ -34,14 +47,6 @@ export class SingleRangeSlider {
     );
 
     render(content, this.selector);
-  }
-
-  handleSlider(onChange) {
-    onChange({
-      value: this.value(),
-    });
-
-    this.renderValue();
   }
 
   renderValue() {
@@ -57,6 +62,6 @@ export class SingleRangeSlider {
   }
 
   value() {
-    return parseInt(this.slider.value);
+    return Number(this.slider.value);
   }
 }

@@ -4,7 +4,7 @@ import { formatDate, target } from "./utils";
 import createDotElements from "./components/Dots";
 import i18next from "i18next";
 import { scheduleLinks } from "./components/CalendarsLink";
-import { addHours } from "date-fns";
+import { addMinutes } from "date-fns";
 
 export default class BestResultsView extends View {
   constructor(calendar, eventName, identity, settings) {
@@ -48,9 +48,9 @@ export default class BestResultsView extends View {
           const time = new Date(timeSlot).getHours();
           const dots = createDotElements(votes);
 
-          const endTime = addHours(
+          const endTime = addMinutes(
             new Date(timeSlot),
-            this.settings.duration
+            this.settings.duration * 60
           ).toISOString();
           const schedule = scheduleLinks(
             this.eventName.eventName, // TODO: fresh event name
