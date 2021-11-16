@@ -4,7 +4,6 @@ export function scheduleLinks(eventName, start, end, messageKey = "schedule") {
   const simplifiedStart = simplifiedDateFormat(start);
   const simplifiedEnd = simplifiedDateFormat(end);
 
-  // TODO: dates are fine but hours are wrong in both cases
   const googleCalendar = `http://www.google.com/calendar/event?action=TEMPLATE&dates=${simplifiedStart}%2F${simplifiedEnd}&text=${eventName}&location=&details=`;
   const outlookCalendar = `https://outlook.office.com/calendar/0/deeplink/compose?body=${eventName}&location=&path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&startdt=${start}&enddt=${end}&subject=${eventName}`;
 
@@ -18,5 +17,5 @@ export function scheduleLinks(eventName, start, end, messageKey = "schedule") {
 }
 
 function simplifiedDateFormat(isoDate) {
-  return isoDate.replaceAll("-", "");
+  return isoDate.replaceAll("-", "").replaceAll(":", "");
 }
