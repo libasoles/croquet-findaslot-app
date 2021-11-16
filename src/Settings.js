@@ -259,8 +259,6 @@ export class SettingsView extends View {
         formatValue,
       }
     );
-
-    this.renderDuration(duration);
   }
 
   updateDaysRange({ lower, upper }) {
@@ -282,15 +280,6 @@ export class SettingsView extends View {
   }
 
   updateDuration(value) {
-    this.renderDuration(value);
-
     this.durationSlider.update(value);
-  }
-
-  // TODO: move this to Event view (aka EventName view)
-  renderDuration(value) {
-    element(".calendar .duration").textContent = `${i18next.t(
-      "duration"
-    )}: ${value}hs`;
   }
 }

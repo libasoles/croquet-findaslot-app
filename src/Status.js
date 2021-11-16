@@ -5,11 +5,11 @@ import { scheduleLinks } from "./components/CalendarsLink";
 import { addMinutes } from "date-fns";
 
 export class StatusView {
-  constructor(pills, identity, calendar, eventName, settings) {
+  constructor(pills, identity, calendar, event, settings) {
     this.pills = pills;
     this.identity = identity;
     this.calendar = calendar;
-    this.eventName = eventName;
+    this.event = event;
     this.settings = settings;
   }
 
@@ -96,7 +96,7 @@ export class StatusView {
       ).toISOString();
 
       const schedule = scheduleLinks(
-        this.eventName.eventName, // TODO: fresh event name
+        this.event.eventName, // TODO: fresh event name
         bestSlot,
         endTime,
         "schedule_call_to_action"

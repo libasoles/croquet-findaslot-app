@@ -7,10 +7,10 @@ import { scheduleLinks } from "./components/CalendarsLink";
 import { addMinutes } from "date-fns";
 
 export default class BestResultsView extends View {
-  constructor(calendar, eventName, identity, settings) {
+  constructor(calendar, event, identity, settings) {
     super(calendar);
     this.calendar = calendar;
-    this.eventName = eventName;
+    this.event = event;
     this.identity = identity;
     this.settings = settings;
 
@@ -53,7 +53,7 @@ export default class BestResultsView extends View {
             this.settings.duration * 60
           ).toISOString();
           const schedule = scheduleLinks(
-            this.eventName.eventName, // TODO: fresh event name
+            this.event.eventName, // TODO: fresh event name
             timeSlot,
             endTime
           );

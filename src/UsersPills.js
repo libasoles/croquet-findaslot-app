@@ -73,19 +73,13 @@ export default class Pills extends Model {
 }
 
 export class PillsView extends View {
-  constructor(model, identity, calendar, eventName, settings) {
+  constructor(model, identity, calendar, event, settings) {
     super(model);
     this.model = model;
     this.identity = identity;
     this.calendar = calendar;
 
-    this.status = new StatusView(
-      model,
-      identity,
-      calendar,
-      eventName,
-      settings
-    );
+    this.status = new StatusView(model, identity, calendar, event, settings);
 
     this.subscribe("pills", "init", this.render);
     this.subscribe("identity", "update-name", this.render);

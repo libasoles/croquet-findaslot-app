@@ -3,7 +3,7 @@ import { InputWidget } from "./components/InputWidget";
 import i18next from "i18next";
 import { element } from "./utils";
 
-export default class EventName extends Model {
+export default class Event extends Model {
   init(_, persistedState = {}) {
     this.hydrate(persistedState);
 
@@ -31,8 +31,8 @@ export default class EventName extends Model {
   }
 }
 
-export class EventNameView extends View {
-  constructor(model, identity) {
+export class EventView extends View {
+  constructor(model, identity, settings) {
     super(model);
     this.model = model;
     this.identity = identity;
@@ -44,6 +44,10 @@ export class EventNameView extends View {
     this.subscribe("event-name", "update-event-name", (value) =>
       this.widget.displayValue(value)
     );
+
+    this.subscribe("settings", "update-duration", this.renderDuration);
+
+    this.renderDuration(settings.duration);
   }
 
   init() {
@@ -70,5 +74,11 @@ export class EventNameView extends View {
   focus() {
     const shouldFocusEventName = this.identity.numberOfUsers() === 1;
     if (shouldFocusEventName) this.widget.focus();
+  }
+
+  renderDuration(value) {
+    element(".calendar .duration").textContent = `${i18next.t(
+      "duration"
+    )}: ${value}hs`;
   }
 }

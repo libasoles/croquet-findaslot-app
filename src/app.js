@@ -2,7 +2,7 @@ import { App, Model, View, Session } from "@croquet/croquet";
 import Calendar from "./Calendar";
 import CalendarView from "./CalendarView";
 import Settings, { SettingsView } from "./Settings";
-import EventName, { EventNameView } from "./EventName";
+import Event, { EventView } from "./Event";
 import BestResultsView from "./BestResults";
 import Identity, { IdentityView } from "./Identity";
 import i18next from "i18next";
@@ -30,7 +30,7 @@ class Main extends Model {
         this.identity = Identity.create(options, documents.identity);
         this.calendar = Calendar.create(options, documents.calendar);
         this.settings = Settings.create(options, documents.settings);
-        this.eventName = EventName.create(options, documents.eventName);
+        this.event = Event.create(options, documents.event);
         this.pills = Pills.create();
         break;
     }
@@ -40,7 +40,7 @@ class Main extends Model {
     this.identity = Identity.create();
     this.calendar = Calendar.create();
     this.settings = Settings.create();
-    this.eventName = EventName.create();
+    this.event = Event.create();
     this.pills = Pills.create();
   }
 
@@ -55,7 +55,7 @@ class Main extends Model {
         identity: this.identity.serialize(),
         calendar: this.calendar.serialize(),
         settings: this.settings.serialize(),
-        eventName: this.eventName.serialize(),
+        event: this.event.serialize(),
       },
     };
   }
@@ -76,19 +76,19 @@ class MainView extends View {
         model.settings,
         model.pills
       ),
-      new HistoryMenu(model.eventName),
+      new HistoryMenu(model.event),
       new PillsView(
         model.pills,
         model.identity,
         model.calendar,
-        model.eventName,
+        model.event,
         model.settings
       ),
       new SettingsView(model.settings, model.identity),
-      new EventNameView(model.eventName, model.identity),
+      new EventView(model.event, model.identity, model.settings),
       new BestResultsView(
         model.calendar,
-        model.eventName,
+        model.event,
         model.identity,
         model.settings
       ),
@@ -121,7 +121,7 @@ class MainView extends View {
 
 Main.register("Main");
 Identity.register("Identity");
-EventName.register("EventName");
+Event.register("Event");
 Calendar.register("Calendar");
 Settings.register("Settings");
 Pills.register("Pills");
