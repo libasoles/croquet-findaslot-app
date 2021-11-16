@@ -50,7 +50,9 @@ export class HistoryMenu extends View {
 
     const sessionsLog = this.readSessions();
 
-    sessionsLog.set(this.sessionId, session);
+    const sessionIdentifier = window.location.search + window.location.hash;
+
+    sessionsLog.set(sessionIdentifier, session);
 
     this.saveSessions(sessionsLog);
 
