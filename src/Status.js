@@ -2,13 +2,15 @@ import i18next from "i18next";
 import { element, formatDate, target } from "./utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { scheduleLinks } from "./components/CalendarsLink";
+import { addHours } from "date-fns";
 
 export class StatusView {
-  constructor(pills, identity, calendar, eventName) {
+  constructor(pills, identity, calendar, eventName, settings) {
     this.pills = pills;
     this.identity = identity;
     this.calendar = calendar;
     this.eventName = eventName;
+    this.settings = settings;
   }
 
   setText(selector, i18nKey, i18nReplacements = {}) {
@@ -86,13 +88,17 @@ export class StatusView {
 
       this.setTitle("comparing");
 
-      // TODO: find better slot for selected users only
       const bestSlot = this.calendar.bestSlotForUsers(selectedUsers);
+
+      const endTime = addHours(
+        new Date(bestSlot),
+        this.settings.duration
+      ).toISOString();
 
       const schedule = scheduleLinks(
         this.eventName.eventName, // TODO: fresh event name
         bestSlot,
-        bestSlot, // TODO: calculated end date
+        endTime,
         "schedule_call_to_action"
       );
 

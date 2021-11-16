@@ -4,13 +4,15 @@ import { formatDate, target } from "./utils";
 import createDotElements from "./components/Dots";
 import i18next from "i18next";
 import { scheduleLinks } from "./components/CalendarsLink";
+import { addHours } from "date-fns";
 
 export default class BestResultsView extends View {
-  constructor(calendar, eventName, identity) {
+  constructor(calendar, eventName, identity, settings) {
     super(calendar);
     this.calendar = calendar;
     this.eventName = eventName;
     this.identity = identity;
+    this.settings = settings;
 
     this.hydrate();
 
@@ -19,16 +21,20 @@ export default class BestResultsView extends View {
       "selected-slots-updated",
       this.renderMoreVotedResults
     );
+    this.subscribe("settings", "update-duration", this.renderMoreVotedResults);
+    this.subscribe(
+      "event-name",
+      "update-event-name",
+      this.renderMoreVotedResults
+    );
   }
 
   hydrate() {
-    this.renderMoreVotedResults({
-      countedSlots: this.calendar.countedSlots(),
-    });
+    this.renderMoreVotedResults();
   }
 
-  renderMoreVotedResults({ countedSlots }) {
-    if (countedSlots.size === 0) {
+  renderMoreVotedResults() {
+    if (this.calendar.countedSlots().size === 0) {
       render(<p>{i18next.t("no_results")}</p>, target(".best-results"));
       return;
     }
@@ -42,10 +48,14 @@ export default class BestResultsView extends View {
           const time = new Date(timeSlot).getHours();
           const dots = createDotElements(votes);
 
+          const endTime = addHours(
+            new Date(timeSlot),
+            this.settings.duration
+          ).toISOString();
           const schedule = scheduleLinks(
             this.eventName.eventName, // TODO: fresh event name
             timeSlot,
-            timeSlot // TODO: calculated end time
+            endTime
           );
 
           const bestTwo = i < 2;

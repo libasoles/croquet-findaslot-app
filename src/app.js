@@ -81,11 +81,17 @@ class MainView extends View {
         model.pills,
         model.identity,
         model.calendar,
-        model.eventName
+        model.eventName,
+        model.settings
       ),
       new SettingsView(model.settings, model.identity),
       new EventNameView(model.eventName, model.identity),
-      new BestResultsView(model.calendar, model.eventName, model.identity),
+      new BestResultsView(
+        model.calendar,
+        model.eventName,
+        model.identity,
+        model.settings
+      ),
       new FeedbackView(model),
       new LanguageSwitch(model),
     ];
