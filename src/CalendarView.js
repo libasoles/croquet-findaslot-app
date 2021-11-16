@@ -131,14 +131,15 @@ export default class CalendarView extends View {
   }
 
   generateListOfDates(date, length) {
-    if (length === 0) return [date];
-
-    const nextDay = addDays(date, 1);
-
     const allowWeekends = this.settings.allowWeekends;
+    const nextDay = addDays(date, 1);
 
     if (!allowWeekends && isWeekend(date))
       return [...this.generateListOfDates(nextDay, length)];
+
+    if (length === 0) {
+      return [date];
+    }
 
     return [date, ...this.generateListOfDates(nextDay, --length)];
   }
