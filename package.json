@@ -1,6 +1,6 @@
 {
   "name": "find-a-slot",
-  "version": "1.0.1",
+  "version": "1.1.0-beta",
   "description": "Find a slot in your calendar in real-time.",
   "scripts": {
     "start": "npm run i18n && parcel",
