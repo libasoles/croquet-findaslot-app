@@ -71,7 +71,7 @@ export class StatusView {
 
       if (this.calendar.userHasAnySelection(otherUserId))
         this.setDescription("");
-      else this.setDescription("nothing_selected_yet");
+      else this.setDescription("other_user_nothing_selected_yet");
 
       return;
     }
