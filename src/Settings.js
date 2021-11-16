@@ -221,17 +221,21 @@ export class SettingsView extends View {
       this.publish("settings", "duration-change", value);
     };
 
+    const formatValue = (value) => {
+      return value + "hs"; // TODO: mins if less than 1hs
+    };
+
     // TODO: react to 30mins settings
     this.durationSlider = new SingleRangeSlider(
       selector,
       { min, max, initialValue: duration },
       {
         onChange,
-        formatValue: (value) => {
-          return value + "hs"; // TODO: mins if less than 1hs
-        },
+        formatValue,
       }
     );
+
+    this.renderDuration(duration);
   }
 
   updateDaysRange({ lower, upper }) {
@@ -251,6 +255,14 @@ export class SettingsView extends View {
   }
 
   updateDuration(value) {
+    this.renderDuration(value);
+
     this.durationSlider.update(value);
+  }
+
+  renderDuration(value) {
+    element(".calendar .duration").textContent = `${i18next.t(
+      "duration"
+    )}: ${value}hs`;
   }
 }

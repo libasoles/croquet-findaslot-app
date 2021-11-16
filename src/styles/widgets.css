@@ -220,9 +220,15 @@ input {
     padding: .25em;
 }
 
+/* duration */
+.calendar .duration {
+    color: var(--secondaryGrayscaleColor);
+    margin-top: .5em;
+}
+
 /* identity */
 .identity {
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .identity .input-widget-form {
