@@ -1,13 +1,7 @@
 import { View } from "@croquet/croquet";
 import SelectionArea from "@viselect/vanilla";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
-import {
-  addHours,
-  addDays,
-  startOfToday,
-  isWeekend,
-  addMinutes,
-} from "date-fns";
+import { addHours, addDays, isWeekend, addMinutes, isBefore } from "date-fns";
 import {
   dayFormat,
   element,
@@ -15,6 +9,7 @@ import {
   isMobile,
   range,
   target,
+  today,
 } from "./utils";
 import createDotElements from "./components/Dots";
 
@@ -151,9 +146,9 @@ export default class CalendarView extends View {
   render() {
     const [startDay, endDay] = this.settings.daysRange;
     const [startTime, endTime] = this.settings.timeRange;
+    const createdAt = this.settings.createdAt;
 
-    const today = new Date(startOfToday());
-    const firstDay = addDays(today, startDay);
+    const firstDay = addDays(new Date(createdAt), startDay);
 
     const daysRange = this.generateListOfDates(firstDay, endDay - startDay);
 
@@ -165,8 +160,10 @@ export default class CalendarView extends View {
           const timeRange = range(startTime, endTime);
           const halfHourIntervals = this.settings.halfHourIntervals;
 
+          const disabled = isBefore(day, today());
+
           return (
-            <div className="day">
+            <div className={`day ${disabled && "disabled"}`}>
               <div className="title cell">{formattedDate}</div>
               <div className="day-schedule">
                 {timeRange.map((hours, i) => {

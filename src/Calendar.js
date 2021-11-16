@@ -43,6 +43,7 @@ export default class Calendar extends Model {
     return this.mapToCountedSlots(this.selectedSlotsByUser);
   }
 
+  // TODO: discard past dates
   takeBest(amount) {
     const slots = Array.from(this.countedSlots());
 
@@ -82,6 +83,7 @@ export default class Calendar extends Model {
       .map(([userId, _]) => userId);
   }
 
+  // TODO: discard past dates, because nobody can attend
   everybodyCanAttendTo(slot) {
     const identity = this.wellKnownModel("identity");
     const numberOfUsers = identity.numberOfUsers();
@@ -89,6 +91,7 @@ export default class Calendar extends Model {
     return this.usersWhoSelectedSlot(slot).length === numberOfUsers;
   }
 
+  // TODO: discard past dates, because nobody can attend
   bestSlotForUsers(users) {
     const slots = this.usersCommonSlots(users);
 

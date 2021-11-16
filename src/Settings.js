@@ -2,7 +2,8 @@ import { Model, View, Constants } from "@croquet/croquet";
 import { MultiRangeSlider } from "./components/MultiRangeSlider";
 import { SingleRangeSlider } from "./components/SingleRangeSlider";
 import i18next from "i18next";
-import { element } from "./utils";
+import { element, today } from "./utils";
+import { addDays, isBefore, isEqual } from "date-fns";
 
 const Q = Constants;
 // Q.daysRangeMinMax = [0, 14];
@@ -26,15 +27,26 @@ export default class Settings extends Model {
     );
     this.subscribe("settings", "half-hours-change", this.halfHoursChange);
     this.subscribe("settings", "duration-change", this.durationChange);
+    this.subscribe("settings", "created-at", this.setCreatedAt);
   }
 
   hydrate(persistedState) {
-    const { daysRange, timeRange, allowWeekends, duration } = persistedState;
+    const { createdAt, daysRange, timeRange, allowWeekends, duration } =
+      persistedState;
 
+    this.createdAt = createdAt ? createdAt : null;
     this.daysRange = daysRange ? daysRange : [0, 4];
     this.timeRange = timeRange ? timeRange : [9, 18];
     this.duration = duration ? duration : 1;
     this.allowWeekends = allowWeekends ? allowWeekends : false;
+  }
+
+  setCreatedAt(date) {
+    if (!this.createdAt) {
+      this.createdAt = date;
+
+      this.save();
+    }
   }
 
   save() {
@@ -43,6 +55,7 @@ export default class Settings extends Model {
 
   serialize() {
     return {
+      createdAt: this.createdAt,
       daysRange: this.daysRange,
       timeRange: this.timeRange,
       allowWeekends: this.allowWeekends,
@@ -111,10 +124,8 @@ export class SettingsView extends View {
     );
     this.subscribe("settings", "update-duration", this.updateDuration);
 
-    this.initRangeSliders();
-
     this.initToggleChevron();
-
+    this.initRangeSliders();
     this.initWeekendsCheckbox();
     this.initHafHoursCheckbox();
   }
@@ -180,7 +191,14 @@ export class SettingsView extends View {
     };
 
     const formatValue = (value) => {
-      return value === 0 ? i18next.t("today") : value + 1;
+      const date = addDays(new Date(this.model.createdAt), value);
+      const isPastDate = isBefore(date, today());
+
+      if (isPastDate) return <span className="past-date">{value}</span>;
+
+      if (isEqual(date, today())) return i18next.t("today");
+
+      return value + 1;
     };
 
     this.daysRangeSlider = new MultiRangeSlider(
@@ -188,6 +206,11 @@ export class SettingsView extends View {
       { min, max, lower, upper },
       { onChange, formatValue }
     );
+
+    if (!this.model.createdAt) {
+      this.publish("settings", "created-at", today().toISOString());
+      this.publish("settings", "days-range-change", { lower, upper });
+    }
   }
 
   initTimeRangeSlider() {

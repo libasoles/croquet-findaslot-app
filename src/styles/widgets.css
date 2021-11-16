@@ -176,6 +176,11 @@ input {
     color: var(--secondaryGrayscaleColor);
 }
 
+.range-value .past-date {
+    /* TODO: find better color */
+    color: #9d7676;
+}
+
 /* input widget */
 .input-widget .input-widget-form {
     display: flex;
@@ -426,7 +431,7 @@ input {
     cursor: pointer;
 }
 
-/* settings */
+/* results */
 .content .results {
     margin-top: .5em;
 }
@@ -462,6 +467,7 @@ input {
     color: var(--tertiaryColor)
 }
 
+/* settings */
 .content .settings {
     margin-top: 10.5em;
 }

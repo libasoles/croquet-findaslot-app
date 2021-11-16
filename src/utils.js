@@ -1,4 +1,4 @@
-import { intlFormat } from "date-fns";
+import { intlFormat, startOfToday } from "date-fns";
 import { config } from "./config";
 
 export const longDateFormat = {
@@ -70,4 +70,8 @@ export function isMobile() {
       navigator.platform
     )
   );
+}
+
+export function today() {
+  return new Date(startOfToday());
 }

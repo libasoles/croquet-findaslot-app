@@ -21,6 +21,10 @@
     min-width: 7em;
 }
 
+.calendar .day.disabled {
+    opacity: .5;
+}
+
 .calendar .cell {
     height: 3em;
     width: available;
