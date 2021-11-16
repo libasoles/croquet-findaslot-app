@@ -10,5 +10,4 @@ const locale = window.location.pathname.includes("en")
 
 export const config = {
   ...locale,
-  defaultDuration: 1,
 };

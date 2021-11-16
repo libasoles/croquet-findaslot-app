@@ -6,17 +6,16 @@ import { element, today } from "./utils";
 import { addDays, isBefore, isEqual } from "date-fns";
 
 const Q = Constants;
-// Q.daysRangeMinMax = [0, 14];
-// Q.timeRangeMinMax = [0, 24];
+Q.daysRangeMinMax = [0, 14];
+Q.timeRangeMinMax = [0, 24];
+Q.durationMinMax = [1, 5];
+Q.defaultDaysRange = [0, 4];
+Q.defaultTimeRange = [9, 18];
+Q.defaultDuration = 1;
 
 export default class Settings extends Model {
   init(_, persistedState = {}) {
     this.hydrate(persistedState);
-
-    // TODO: constants should be in Q
-    this.daysRangeMinMax = [0, 14];
-    this.timeRangeMinMax = [0, 24];
-    this.durationMinMax = [1, 5];
 
     this.subscribe("settings", "days-range-change", this.daysRangeChange);
     this.subscribe("settings", "time-range-change", this.timeRangeChange);
@@ -35,9 +34,9 @@ export default class Settings extends Model {
       persistedState;
 
     this.createdAt = createdAt ? createdAt : null;
-    this.daysRange = daysRange ? daysRange : [0, 4];
-    this.timeRange = timeRange ? timeRange : [9, 18];
-    this.duration = duration ? duration : 1;
+    this.daysRange = daysRange ? daysRange : Q.defaultDaysRange;
+    this.timeRange = timeRange ? timeRange : Q.defaultTimeRange;
+    this.duration = duration ? duration : Q.defaultDuration;
     this.allowWeekends = allowWeekends ? allowWeekends : false;
   }
 
@@ -65,6 +64,7 @@ export default class Settings extends Model {
 
   daysRangeChange(values) {
     this.daysRange = [values.lower, values.upper];
+
     this.save();
 
     this.publish("settings", "update-days-range", values);
@@ -179,7 +179,7 @@ export class SettingsView extends View {
   initDaysRangeSlider() {
     const selector = element(".days-range");
 
-    const [min, max] = this.model.daysRangeMinMax;
+    const [min, max] = Q.daysRangeMinMax;
     const [lower, upper] = this.model.daysRange;
 
     const onChange = (values) => {
@@ -212,7 +212,7 @@ export class SettingsView extends View {
   initTimeRangeSlider() {
     let selector = element(".time-range");
 
-    const [min, max] = this.model.timeRangeMinMax;
+    const [min, max] = Q.timeRangeMinMax;
     const [lower, upper] = this.model.timeRange;
 
     const onChange = (values) => {
@@ -233,7 +233,7 @@ export class SettingsView extends View {
   initDurationSlider() {
     let selector = element(".duration");
 
-    const [min, max] = this.model.durationMinMax;
+    const [min, max] = Q.durationMinMax;
     const duration = this.model.duration;
 
     const onChange = ({ value }) => {
