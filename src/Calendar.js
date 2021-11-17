@@ -123,6 +123,7 @@ export default class Calendar extends Model {
   filterValid(dates) {
     const validDatesWithoutTime = this.validDates().map(this.dateWithoutTime);
 
+    // TODO: when user has half hours selection but option is off, that is still counted
     return dates.filter((date) =>
       validDatesWithoutTime.includes(this.dateWithoutTime(parseISO(date)))
     );

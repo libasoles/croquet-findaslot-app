@@ -56,7 +56,8 @@
 }
 
 .calendar .time-slot.half-hour {
-    color: var(--tertiaryGrayscaleColor);
+    color: var(--secondaryGrayscaleColor);
+    background: var(--tertiaryDark);
 }
 
 .calendar .time-slot .dots {

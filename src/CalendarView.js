@@ -91,9 +91,11 @@ export default class CalendarView extends View {
 
     const bindToggleOnClick = (title) => {
       title.onclick = () => {
-        const slots = title.nextSibling.childNodes;
+        const slots = Array.from(
+          title.nextSibling.getElementsByClassName("time-slot")
+        );
 
-        const isAnySlotSelected = Array.from(slots).some((slot) =>
+        const isAnySlotSelected = slots.some((slot) =>
           slot.classList.contains("selected")
         );
 
@@ -101,7 +103,7 @@ export default class CalendarView extends View {
           .getSelection()
           .map((slot) => slot.dataset.slot);
 
-        const selection = Array.from(slots).map((slot) => slot.dataset.slot);
+        const selection = slots.map((slot) => slot.dataset.slot);
 
         if (isAnySlotSelected) {
           slots.forEach(deselectAll);
@@ -117,11 +119,12 @@ export default class CalendarView extends View {
 
     const whenColumnsRender = (mutationsList) => {
       for (const mutation of mutationsList) {
-        if (mutation.type === "childList") {
-          const columnTitles = document.querySelectorAll(".day .title.cell");
-
-          columnTitles.forEach(bindToggleOnClick);
+        if (mutation.type !== "childList") {
+          continue;
         }
+
+        const columnTitles = document.querySelectorAll(".day .title.cell");
+        columnTitles.forEach(bindToggleOnClick);
       }
     };
 

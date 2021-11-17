@@ -65,7 +65,9 @@ export default class BestResultsView extends View {
       <ul>
         {bestFiveOrderedByCount.map(([timeSlot, votes], i) => {
           const date = formatDate(timeSlot);
-          const time = new Date(timeSlot).getHours();
+          const hours = new Date(timeSlot).getHours();
+          const minutes = new Date(timeSlot).getMinutes();
+          const time = minutes ? `${hours}:${minutes}` : hours;
           const dots = createDotElements(votes);
 
           const endTime = addMinutes(

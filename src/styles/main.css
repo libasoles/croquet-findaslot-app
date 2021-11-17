@@ -7,7 +7,7 @@
     --tertiaryColor: #8eed5e;
     --primaryDark: #1a1b1a;
     --secondaryDark: #353535;
-    --tertiaryDark: #252525;
+    --tertiaryDark: #424141;
     --primaryGrayscaleColor: white;
     --secondaryGrayscaleColor: #c2c2c2;
     --tertiaryGrayscaleColor: #939393;
@@ -190,14 +190,6 @@ li {
         padding: .5em;
     }
 
-    .content main footer {
-        margin: 0;
-        padding: .5em;
-        position: sticky;
-        bottom: 0;
-        left: 0;
-        background-color: var(--tertiaryDark);
-    }
 }
 
 @keyframes fadeIn {

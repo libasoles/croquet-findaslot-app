@@ -51,8 +51,11 @@ export class StatusView {
 
       this.setTitle("your_available_slots");
 
-      if (this.calendar.userHasAnySelection(selfId)) this.setDescription("");
-      else this.setDescription("nothing_selected_yet");
+      if (this.calendar.userHasAnySelection(selfId)) {
+        this.setDescription("");
+      } else {
+        this.setDescription("nothing_selected_yet");
+      }
 
       return;
     }
@@ -69,9 +72,11 @@ export class StatusView {
         otherUser: otherUserName || "Anonymous", // TODO: add #number
       });
 
-      if (this.calendar.userHasAnySelection(otherUserId))
+      if (this.calendar.userHasAnySelection(otherUserId)) {
         this.setDescription("");
-      else this.setDescription("other_user_nothing_selected_yet");
+      } else {
+        this.setDescription("other_user_nothing_selected_yet");
+      }
 
       return;
     }

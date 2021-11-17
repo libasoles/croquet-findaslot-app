@@ -321,6 +321,7 @@ input {
 }
 
 .participants .message .content {
+    margin-top: .25em;
     color: var(--secondaryGrayscaleColor);
 }
 
