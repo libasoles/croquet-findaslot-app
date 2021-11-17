@@ -7,3 +7,11 @@ This app allows a team (or group) to explore the best possible schedule for thei
 ## How it works
 
 One of you creates a link and shares it. The you all can see in real-time what are your schedule preferences for a given event.
+
+## Demo
+
+https://whenisgood.netlify.app/
+
+![modile demo](https://github.com/libasoles/croquet-whenisgood-app/blob/main/public/screenshot.png)
+
+![modile demo](https://github.com/libasoles/croquet-whenisgood-app/blob/main/public/screenshot-2.png)
