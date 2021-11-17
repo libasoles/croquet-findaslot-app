@@ -73,17 +73,24 @@ export default class Pills extends Model {
 }
 
 export class PillsView extends View {
-  constructor(model, identity, calendar, event, settings) {
+  constructor(calendarService, model, identity, event, settings) {
     super(model);
     this.model = model;
+    this.calendarService = calendarService;
     this.identity = identity;
-    this.calendar = calendar;
 
-    this.status = new StatusView(model, identity, calendar, event, settings);
+    this.status = new StatusView(
+      model,
+      identity,
+      calendarService,
+      event,
+      settings
+    );
 
     this.subscribe("pills", "init", this.render);
     this.subscribe("identity", "update-name", this.render);
     this.subscribe("calendar", "user-pills-selection", this.render);
+    this.subscribe("settings", "update-half-hours", this.render);
   }
 
   render() {
@@ -96,7 +103,7 @@ export class PillsView extends View {
         selfId,
         user.userId
       );
-      const isChecked = this.calendar.userHasAnySelection(user.userId);
+      const isChecked = this.calendarService.userHasAnySelection(user.userId);
       const isBeingCompared = this.model.selectionCountIsEqualOrBiggerThan(
         selfId,
         2

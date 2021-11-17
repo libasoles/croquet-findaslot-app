@@ -12,6 +12,7 @@ import Pills, { PillsView } from "./UsersPills";
 import { FeedbackView } from "./Feedback";
 import { HistoryMenu } from "./HistoryMenu";
 import { LanguageSwitch } from "./LanguageSwitch";
+import { CalendarService } from "./CalendarService";
 
 class Main extends Model {
   init(options, persistedState) {
@@ -68,9 +69,16 @@ class MainView extends View {
 
     this.i18n();
 
+    const calendarService = new CalendarService(
+      model.calendar,
+      model.settings,
+      model.identity
+    );
+
     this.views = [
-      new IdentityView(model.identity, model.identity),
+      new IdentityView(model.identity),
       new CalendarView(
+        calendarService,
         model.calendar,
         model.identity,
         model.settings,
@@ -78,16 +86,16 @@ class MainView extends View {
       ),
       new HistoryMenu(model.event),
       new PillsView(
+        calendarService,
         model.pills,
         model.identity,
-        model.calendar,
         model.event,
         model.settings
       ),
       new SettingsView(model.settings, model.identity),
       new EventView(model.event, model.identity, model.settings),
       new BestResultsView(
-        model.calendar,
+        calendarService,
         model.event,
         model.identity,
         model.settings

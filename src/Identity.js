@@ -178,7 +178,7 @@ export class IdentityView extends View {
 
   focus() {
     // TODO: check if username was already defined
-    const shouldFocusUserName = this.identity.numberOfUsers() > 1;
+    const shouldFocusUserName = this.model.numberOfUsers() > 1;
     if (shouldFocusUserName) this.widget.focus();
   }
 }

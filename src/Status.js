@@ -5,10 +5,10 @@ import { scheduleLinks } from "./components/CalendarsLink";
 import { addMinutes } from "date-fns";
 
 export class StatusView {
-  constructor(pills, identity, calendar, event, settings) {
+  constructor(pills, identity, calendarService, event, settings) {
     this.pills = pills;
     this.identity = identity;
-    this.calendar = calendar;
+    this.calendarService = calendarService;
     this.event = event;
     this.settings = settings;
   }
@@ -51,7 +51,7 @@ export class StatusView {
 
       this.setTitle("your_available_slots");
 
-      if (this.calendar.userHasAnySelection(selfId)) {
+      if (this.calendarService.userHasAnySelection(selfId)) {
         this.setDescription("");
       } else {
         this.setDescription("nothing_selected_yet");
@@ -72,7 +72,7 @@ export class StatusView {
         otherUser: otherUserName || "Anonymous", // TODO: add #number
       });
 
-      if (this.calendar.userHasAnySelection(otherUserId)) {
+      if (this.calendarService.userHasAnySelection(otherUserId)) {
         this.setDescription("");
       } else {
         this.setDescription("other_user_nothing_selected_yet");
@@ -82,7 +82,8 @@ export class StatusView {
     }
 
     const selectedUsers = this.pills.pillsForUser(selfId);
-    const usersCommonSlots = this.calendar.usersCommonSlots(selectedUsers);
+    const usersCommonSlots =
+      this.calendarService.usersCommonSlots(selectedUsers);
     if (usersCommonSlots.length === 0) {
       this.dotType("comparing");
 
@@ -93,7 +94,7 @@ export class StatusView {
 
       this.setTitle("comparing");
 
-      const bestSlot = this.calendar.bestSlotForUsers(selectedUsers);
+      const bestSlot = this.calendarService.bestSlotForUsers(selectedUsers);
 
       const endTime = addMinutes(
         new Date(bestSlot),

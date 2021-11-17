@@ -12,6 +12,7 @@ import {
   today,
 } from "./utils";
 import createDotElements from "./components/Dots";
+import { DatesMatrix } from "./DatesMatrix";
 
 const selectableOptions = {
   selectables: ["section.calendar .time-slot"],
@@ -27,9 +28,10 @@ const selectableOptions = {
 };
 
 export default class CalendarView extends View {
-  constructor(model, identity, settings, pills) {
+  constructor(calendarService, model, identity, settings, pills) {
     super(model);
     this.model = model;
+    this.calendarService = calendarService;
     this.identity = identity;
     this.settings = settings;
     this.pills = pills;
@@ -136,7 +138,7 @@ export default class CalendarView extends View {
   render() {
     const [startTime, endTime] = this.settings.timeRange;
 
-    const daysRange = this.model.validDates();
+    const daysRange = DatesMatrix.generate(this.settings);
 
     const columns = (
       <>
@@ -200,7 +202,7 @@ export default class CalendarView extends View {
       selectedUsersIds: this.pills.pillsForUser(selfId),
     });
 
-    this.displayVotes({ countedSlots: this.model.countedSlots() });
+    this.displayVotes({ countedSlots: this.calendarService.countedSlots() });
   }
 
   displayVotes({ countedSlots }) {
@@ -253,7 +255,7 @@ export default class CalendarView extends View {
   }
 
   onSelectionEnd({ store }) {
-    const previousSelection = this.model.userSelection(this.me());
+    const previousSelection = this.calendarService.userRawSelection(this.me());
     const added = store.changed.added.map((added) => added.dataset.slot);
     const selected = store.selected.map((selected) => selected.dataset.slot);
     const removed = store.changed.removed.map(
@@ -287,7 +289,7 @@ export default class CalendarView extends View {
       return;
     }
 
-    const commonSlots = this.model.usersCommonSlots(selectedUsersIds);
+    const commonSlots = this.calendarService.usersCommonSlots(selectedUsersIds);
     if (commonSlots.length > 0) {
       this.highlightSlots(commonSlots, true);
     }
@@ -334,7 +336,7 @@ export default class CalendarView extends View {
       return;
     }
 
-    const usersList = this.model
+    const usersList = this.calendarService
       .usersWhoSelectedSlot(timeSlot.dataset.slot)
       .map((userId) => this.identity.name(userId))
       .join(", ");

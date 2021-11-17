@@ -7,9 +7,9 @@ import { scheduleLinks } from "./components/CalendarsLink";
 import { addMinutes } from "date-fns";
 
 export default class BestResultsView extends View {
-  constructor(calendar, event, identity, settings) {
-    super(calendar);
-    this.calendar = calendar;
+  constructor(calendarService, event, identity, settings) {
+    super(identity);
+    this.calendarService = calendarService;
     this.event = event;
     this.identity = identity;
     this.settings = settings;
@@ -54,12 +54,12 @@ export default class BestResultsView extends View {
   }
 
   renderMoreVotedResults() {
-    if (this.calendar.countedSlots().size === 0) {
+    if (this.calendarService.countedSlots().size === 0) {
       render(<p>{i18next.t("no_results")}</p>, target(".best-results"));
       return;
     }
 
-    const bestFiveOrderedByCount = this.calendar.takeBest(5);
+    const bestFiveOrderedByCount = this.calendarService.takeBest(5);
 
     const results = (
       <ul>
@@ -83,7 +83,7 @@ export default class BestResultsView extends View {
           const bestTwo = i < 2;
           const shouldOfferScheduleLinks =
             this.identity.numberOfUsers() > 1 &&
-            this.calendar.everybodyCanAttendTo(timeSlot) &&
+            this.calendarService.everybodyCanAttendTo(timeSlot) &&
             bestTwo;
 
           return (
