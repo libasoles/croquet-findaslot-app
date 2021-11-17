@@ -28,8 +28,8 @@ class Main extends Model {
       default:
         const { documents } = persistedState;
         this.identity = Identity.create(options, documents.identity);
-        this.calendar = Calendar.create(options, documents.calendar);
         this.settings = Settings.create(options, documents.settings);
+        this.calendar = Calendar.create(options, documents.calendar);
         this.event = Event.create(options, documents.event);
         this.pills = Pills.create();
         break;
@@ -38,8 +38,8 @@ class Main extends Model {
 
   createSession() {
     this.identity = Identity.create();
-    this.calendar = Calendar.create();
     this.settings = Settings.create();
+    this.calendar = Calendar.create();
     this.event = Event.create();
     this.pills = Pills.create();
   }
@@ -53,8 +53,8 @@ class Main extends Model {
       version: 1,
       documents: {
         identity: this.identity.serialize(),
-        calendar: this.calendar.serialize(),
         settings: this.settings.serialize(),
+        calendar: this.calendar.serialize(),
         event: this.event.serialize(),
       },
     };

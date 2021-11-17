@@ -1,7 +1,10 @@
 import { Model } from "@croquet/croquet";
+import { addDays, formatISO, isWeekend, parseISO, toDate } from "date-fns";
 
 export default class Calendar extends Model {
   init(_, persistedState = {}) {
+    this.settings = this.wellKnownModel("settings");
+
     this.hydrate(persistedState);
 
     this.subscribe("calendar", "selection", this.storeSelection);
@@ -43,11 +46,15 @@ export default class Calendar extends Model {
     return this.mapToCountedSlots(this.selectedSlotsByUser);
   }
 
-  // TODO: discard past dates
   takeBest(amount) {
     const slots = Array.from(this.countedSlots());
 
-    return slots.sort(this.byVotes).slice(0, amount);
+    const validDates = this.filterValid(slots.map(([slot]) => slot));
+
+    return slots
+      .filter(([slot]) => validDates.includes(slot))
+      .sort(this.byVotes) // TODO: closest dates first
+      .slice(0, amount);
   }
 
   mapToCountedSlots(slotsByUser) {
@@ -56,7 +63,7 @@ export default class Calendar extends Model {
     slotsByUser.forEach((slots) => {
       if (!slots.length) return;
 
-      slots.forEach((slot) => {
+      this.filterValid(slots).forEach((slot) => {
         const count = (slotsCounted.get(slot) || 0) + 1;
         slotsCounted.set(slot, count);
       });
@@ -68,13 +75,17 @@ export default class Calendar extends Model {
   userHasAnySelection(userId) {
     if (!this.selectedSlotsByUser.has(userId)) return false;
 
-    return this.selectedSlotsByUser.get(userId).length > 0;
+    const slots = this.selectedSlotsByUser.get(userId);
+
+    return this.filterValid(slots).length > 0;
   }
 
   userSelection(userId) {
     if (!this.selectedSlotsByUser.has(userId)) return [];
 
-    return Array.from(this.selectedSlotsByUser.get(userId));
+    const slots = Array.from(this.selectedSlotsByUser.get(userId));
+
+    return this.filterValid(slots);
   }
 
   usersWhoSelectedSlot(slot) {
@@ -83,7 +94,6 @@ export default class Calendar extends Model {
       .map(([userId, _]) => userId);
   }
 
-  // TODO: discard past dates, because nobody can attend
   everybodyCanAttendTo(slot) {
     const identity = this.wellKnownModel("identity");
     const numberOfUsers = identity.numberOfUsers();
@@ -91,11 +101,10 @@ export default class Calendar extends Model {
     return this.usersWhoSelectedSlot(slot).length === numberOfUsers;
   }
 
-  // TODO: discard past dates, because nobody can attend
   bestSlotForUsers(users) {
     const slots = this.usersCommonSlots(users);
 
-    return slots.sort(this.byVotes).pop();
+    return this.filterValid(slots).sort(this.byVotes).shift();
   }
 
   byVotes([_, votesA], [__, votesB]) {
@@ -109,5 +118,41 @@ export default class Calendar extends Model {
         return this.userSelection(userId).includes(slot);
       });
     });
+  }
+
+  filterValid(dates) {
+    const validDatesWithoutTime = this.validDates().map(this.dateWithoutTime);
+
+    return dates.filter((date) =>
+      validDatesWithoutTime.includes(this.dateWithoutTime(parseISO(date)))
+    );
+  }
+
+  dateWithoutTime(date) {
+    return formatISO(date, { representation: "date" });
+  }
+
+  validDates() {
+    const [startDay, endDay] = this.settings.daysRange;
+    const createdAt = this.settings.createdAt;
+
+    // it's ok to create a date here, dismiss croquet warning
+    const firstDay = addDays(parseISO(createdAt), startDay);
+
+    return this.validDatesRange(firstDay, endDay - startDay);
+  }
+
+  validDatesRange(date, length) {
+    const allowWeekends = this.settings.allowWeekends;
+    const nextDay = addDays(date, 1);
+
+    if (!allowWeekends && isWeekend(date))
+      return [...this.validDatesRange(nextDay, length)];
+
+    if (length === 0) {
+      return [date];
+    }
+
+    return [date, ...this.validDatesRange(nextDay, --length)];
   }
 }

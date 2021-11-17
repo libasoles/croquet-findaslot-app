@@ -130,28 +130,10 @@ export default class CalendarView extends View {
     observer.observe(targetNode, config);
   }
 
-  generateListOfDates(date, length) {
-    const allowWeekends = this.settings.allowWeekends;
-    const nextDay = addDays(date, 1);
-
-    if (!allowWeekends && isWeekend(date))
-      return [...this.generateListOfDates(nextDay, length)];
-
-    if (length === 0) {
-      return [date];
-    }
-
-    return [date, ...this.generateListOfDates(nextDay, --length)];
-  }
-
   render() {
-    const [startDay, endDay] = this.settings.daysRange;
     const [startTime, endTime] = this.settings.timeRange;
-    const createdAt = this.settings.createdAt;
 
-    const firstDay = addDays(new Date(createdAt), startDay);
-
-    const daysRange = this.generateListOfDates(firstDay, endDay - startDay);
+    const daysRange = this.model.validDates();
 
     const columns = (
       <>

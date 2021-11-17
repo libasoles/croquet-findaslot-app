@@ -15,6 +15,8 @@ Q.defaultDuration = 1;
 
 export default class Settings extends Model {
   init(_, persistedState = {}) {
+    this.beWellKnownAs("settings");
+
     this.hydrate(persistedState);
 
     this.subscribe("settings", "days-range-change", this.daysRangeChange);

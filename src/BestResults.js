@@ -21,6 +21,26 @@ export default class BestResultsView extends View {
       "selected-slots-updated",
       this.renderMoreVotedResults
     );
+    this.subscribe(
+      "settings",
+      "update-days-range",
+      this.renderMoreVotedResults
+    );
+    this.subscribe(
+      "settings",
+      "update-time-range",
+      this.renderMoreVotedResults
+    );
+    this.subscribe(
+      "settings",
+      "update-allow-weekends",
+      this.renderMoreVotedResults
+    );
+    this.subscribe(
+      "settings",
+      "update-half-hours",
+      this.renderMoreVotedResults
+    );
     this.subscribe("settings", "update-duration", this.renderMoreVotedResults);
     this.subscribe(
       "event-name",
