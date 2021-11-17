@@ -32,14 +32,21 @@ export default class Settings extends Model {
   }
 
   hydrate(persistedState) {
-    const { createdAt, daysRange, timeRange, allowWeekends, duration } =
-      persistedState;
+    const {
+      createdAt,
+      daysRange,
+      timeRange,
+      allowWeekends,
+      halfHourIntervals,
+      duration,
+    } = persistedState;
 
     this.createdAt = createdAt ? createdAt : null;
     this.daysRange = daysRange ? daysRange : Q.defaultDaysRange;
     this.timeRange = timeRange ? timeRange : Q.defaultTimeRange;
     this.duration = duration ? duration : Q.defaultDuration;
     this.allowWeekends = allowWeekends ? allowWeekends : false;
+    this.halfHourIntervals = halfHourIntervals ? halfHourIntervals : false;
   }
 
   setCreatedAt(date) {
@@ -60,6 +67,7 @@ export default class Settings extends Model {
       daysRange: this.daysRange,
       timeRange: this.timeRange,
       allowWeekends: this.allowWeekends,
+      halfHourIntervals: this.halfHourIntervals,
       duration: this.duration,
     };
   }
