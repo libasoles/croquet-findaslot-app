@@ -7,7 +7,7 @@
     "build": "npm run i18n && parcel build",
     "postinstall": "cd node_modules/@itsjavi/jsx-runtime && npm install && npm run build:micro",
     "i18n": "static-i18n -l es -i en -i es src -o public",
-    "test": "jest --watch",
+    "test": "jest --watch --verbose true",
     "cypress:open": "cypress open"
   },
   "source": [
@@ -33,5 +33,11 @@
     "parcel": "^2.0.0",
     "prettier": "2.4.1",
     "static-i18n": "^0.2.10"
+  },
+  "jest":{
+    "testEnvironment": "jsdom",
+    "modulePathIgnorePatterns": ["<rootDir>/cypress/integration/"],
+    "testRegex": ".*\\.test\\.js$",
+    "silent": false
   }
 }
