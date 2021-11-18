@@ -55,6 +55,10 @@
     position: relative;
 }
 
+.calendar .time-slot:hover {
+    background: var(--tertiaryDark)
+}
+
 .calendar .time-slot.half-hour {
     color: var(--secondaryGrayscaleColor);
     background: var(--tertiaryDark);
