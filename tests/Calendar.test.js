@@ -99,4 +99,18 @@ describe("CalendarService", () => {
     expect(slots[0]).toBe(moreVotedSlot);
     expect(slots).not.toContain(lessVotedSlot);
   });
+
+  it("should retrieves the best dates ordered by proximity", () => {
+    let closestSlot = "2021-11-17T13:00:00.000Z";
+    let farthestSlot = "2021-11-17T14:00:00.000Z";
+
+    vote(userId, [farthestSlot, closestSlot]);
+    vote(anotherUserId, [farthestSlot, closestSlot]);
+
+    const bestThree = calendarService.takeBest(2);
+
+    const slots = bestThree.map(([slot, votes]) => slot);
+
+    expect(slots[0]).toBe(closestSlot);
+  });
 });

@@ -1,4 +1,4 @@
-import { formatISO, isBefore, parseISO } from "date-fns";
+import { compareAsc, formatISO, isBefore, parseISO, toDate } from "date-fns";
 import { today } from "./utils";
 import { DatesMatrix } from "./DatesMatrix";
 
@@ -31,7 +31,7 @@ export class CalendarService {
 
     return slots
       .filter(([slot]) => validDates.includes(slot))
-      .sort(this.byVotes) // TODO: closest dates first
+      .sort(this.byVotesAndProximity)
       .slice(0, amount);
   }
 
@@ -64,11 +64,14 @@ export class CalendarService {
   bestSlotForUsers(users) {
     const slots = this.usersCommonSlots(users);
 
-    return this.filterValid(slots).sort(this.byVotes).shift();
+    return this.filterValid(slots).sort(this.byVotesAndProximity).shift();
   }
 
-  byVotes([_, votesA], [__, votesB]) {
-    return votesB - votesA;
+  byVotesAndProximity([dateA, votesA], [dateB, votesB]) {
+    const moreVoted = votesB - votesA;
+    const closestToToday = compareAsc(parseISO(dateA), parseISO(dateB));
+
+    return moreVoted || closestToToday;
   }
 
   usersCommonSlots(users) {
