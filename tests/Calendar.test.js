@@ -1,10 +1,11 @@
 import Calendar from "../src/Calendar";
 import { CalendarService } from "../src/CalendarService";
 import { addDays, parseISO, toDate } from "date-fns";
+import { DatesMatrix } from "../src/DatesMatrix";
 
 const userId = "x632kjda";
 const anotherUserId = "dHy6sFxo";
-const today = new Date("2021-11-15:00:00:00").getTime();
+const todayMonday15ofNovember = new Date("2021-11-15:00:00:00").getTime();
 const aValidDate = "2021-11-17T13:00:00.000Z";
 const outOfRangeDate = "2021-11-01T13:00:00.000Z";
 
@@ -17,7 +18,7 @@ describe("CalendarService", () => {
   };
 
   beforeEach(() => {
-    jest.useFakeTimers().setSystemTime(today);
+    jest.useFakeTimers().setSystemTime(todayMonday15ofNovember);
 
     mockSettings();
 
@@ -35,7 +36,7 @@ describe("CalendarService", () => {
       daysRange: [0, 5],
       halfHourIntervals: false,
       allowWeekends: false,
-      createdAt: toDate(today).toISOString(),
+      createdAt: toDate(todayMonday15ofNovember).toISOString(),
       ...overrides,
     };
   }
@@ -226,5 +227,53 @@ describe("CalendarService", () => {
     expect(validDates).not.toContain(invalidBecauseOutOfRange);
     expect(validDates).not.toContain(invalidBecauseIsPast);
     expect(validDates).not.toContain(invalidBecauseHasMinutes);
+  });
+});
+
+describe("CalendarService", () => {
+  let settings = {
+    daysRange: [0, 6],
+    halfHourIntervals: false,
+    allowWeekends: false,
+    createdAt: toDate(todayMonday15ofNovember).toISOString(),
+  };
+
+  it("generates a matrix without weekends", () => {
+    jest.useFakeTimers().setSystemTime(todayMonday15ofNovember);
+    const matrix = DatesMatrix.generate({
+      ...settings,
+      allowWeekends: false,
+    });
+
+    const isoDatesMatrix = matrix.map((date) => date.toISOString());
+
+    expect(isoDatesMatrix).toEqual([
+      "2021-11-15T03:00:00.000Z",
+      "2021-11-16T03:00:00.000Z",
+      "2021-11-17T03:00:00.000Z",
+      "2021-11-18T03:00:00.000Z",
+      "2021-11-19T03:00:00.000Z",
+      "2021-11-22T03:00:00.000Z",
+      "2021-11-23T03:00:00.000Z",
+    ]);
+  });
+
+  it("generates a matrix including weekends", () => {
+    const matrix = DatesMatrix.generate({
+      ...settings,
+      allowWeekends: true,
+    });
+
+    const isoDatesMatrix = matrix.map((date) => date.toISOString());
+
+    expect(isoDatesMatrix).toEqual([
+      "2021-11-15T03:00:00.000Z",
+      "2021-11-16T03:00:00.000Z",
+      "2021-11-17T03:00:00.000Z",
+      "2021-11-18T03:00:00.000Z",
+      "2021-11-19T03:00:00.000Z",
+      "2021-11-20T03:00:00.000Z",
+      "2021-11-21T03:00:00.000Z",
+    ]);
   });
 });

@@ -155,14 +155,14 @@ export default class CalendarView extends View {
               <div className="title cell">{formattedDate}</div>
               <div className="day-schedule">
                 {timeRange.map((hours, i) => {
-                  const timestamp = addHours(day, hours).toISOString();
+                  const date = addHours(day, hours).toISOString();
 
-                  let plainHour = this.timeSlot(timestamp, hours);
+                  let plainHour = this.timeSlot(date, hours);
 
                   if (!halfHourIntervals) return plainHour;
 
                   const withMinutes = addMinutes(
-                    new Date(timestamp),
+                    new Date(date),
                     30
                   ).toISOString();
 

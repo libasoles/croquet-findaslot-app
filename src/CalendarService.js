@@ -1,4 +1,4 @@
-import { compareAsc, formatISO, isBefore, parseISO, toDate } from "date-fns";
+import { compareAsc, formatISO, isBefore, parseISO } from "date-fns";
 import { today } from "./utils";
 import { DatesMatrix } from "./DatesMatrix";
 

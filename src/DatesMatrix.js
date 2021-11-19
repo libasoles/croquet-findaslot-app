@@ -1,13 +1,9 @@
 import { addDays, isWeekend, parseISO } from "date-fns";
 
 export class DatesMatrix {
-  constructor(settings) {
-    this.settings = settings;
-  }
-
   static generate(settings) {
     const [startDay, endDay] = settings.daysRange;
-    const { halfHourIntervals, allowWeekends, createdAt } = settings;
+    const { allowWeekends, createdAt } = settings;
 
     const firstDay = addDays(parseISO(createdAt), startDay);
 
@@ -15,10 +11,6 @@ export class DatesMatrix {
       length: endDay - startDay,
       allowWeekends,
     });
-
-    if (!halfHourIntervals) {
-      return range.filter((date) => date.getMinutes() === 0);
-    }
 
     return range;
   }
