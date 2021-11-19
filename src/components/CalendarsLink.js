@@ -10,8 +10,12 @@ export function scheduleLinks(eventName, start, end, messageKey = "schedule") {
   return (
     <div className="calendars">
       <div className="title">{i18next.t(messageKey)}</div>
-      <a href={googleCalendar}>Google</a>
-      <a href={outlookCalendar}>Outlook</a>
+      <a href={googleCalendar} target="_blank">
+        Google
+      </a>
+      <a href={outlookCalendar} target="_blank">
+        Outlook
+      </a>
     </div>
   );
 }
