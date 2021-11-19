@@ -31,7 +31,7 @@ export class CalendarService {
 
     return slots
       .filter(([slot]) => validDates.includes(slot))
-      .sort(this.byVotesAndProximity)
+      .sort(this.byVotesAndProximity.bind(this))
       .slice(0, amount);
   }
 
@@ -69,9 +69,8 @@ export class CalendarService {
 
   byVotesAndProximity([dateA, votesA], [dateB, votesB]) {
     const moreVoted = votesB - votesA;
-    const closestToToday = compareAsc(parseISO(dateA), parseISO(dateB));
 
-    return moreVoted || closestToToday;
+    return moreVoted || this.byProximity(dateA, dateB);
   }
 
   byProximity(dateA, dateB) {
@@ -79,7 +78,8 @@ export class CalendarService {
   }
 
   usersCommonSlots(users) {
-    const sampleUser = users.shift();
+    const sampleUser = [...users].shift();
+
     return this.userRawSelection(sampleUser).filter((slot) => {
       return users.every((userId) => {
         return this.userRawSelection(userId).includes(slot);

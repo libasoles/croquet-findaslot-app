@@ -195,13 +195,32 @@ describe("CalendarService", () => {
   it("retrieve to closest possible slot for selected users", () => {
     const closestDate = "2021-11-16T12:00:00.000Z";
     const farthestDate = "2021-11-18T13:00:00.000Z";
+    const nonCommonDate = "2021-11-16T10:00:00.000Z";
 
-    vote(userId, [farthestDate, closestDate]);
+    vote(userId, [nonCommonDate, farthestDate, closestDate]);
     vote(anotherUserId, [farthestDate, closestDate]);
 
     const bestSlot = calendarService.bestSlotForUsers([userId, anotherUserId]);
 
     expect(bestSlot).toBe(closestDate);
+  });
+
+  it("retrieves users commons slots", () => {
+    const aCommonDate = "2021-11-16T12:00:00.000Z";
+    const anotherCommonDate = "2021-11-18T13:00:00.000Z";
+    const nonCommonDate = "2021-11-16T10:00:00.000Z";
+
+    vote(userId, [nonCommonDate, anotherCommonDate, aCommonDate]);
+    vote(anotherUserId, [aCommonDate, anotherCommonDate]);
+
+    const commonSlots = calendarService.usersCommonSlots([
+      anotherUserId,
+      userId,
+    ]);
+
+    expect(commonSlots).toContain(aCommonDate);
+    expect(commonSlots).toContain(anotherCommonDate);
+    expect(commonSlots).not.toContain(nonCommonDate);
   });
 
   it("discards invalid dates", () => {
