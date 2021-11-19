@@ -72,6 +72,8 @@ export default class CalendarView extends View {
   }
 
   hydrate() {
+    if (!this.settings.createdAt) return;
+
     this.render({
       lower: this.settings.daysRange[0],
       upper: this.settings.daysRange[1],
