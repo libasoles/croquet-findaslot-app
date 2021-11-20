@@ -6,7 +6,7 @@ This app allows a team (or group) to explore the best possible schedule for thei
 
 ## How it works
 
-One of you creates a link and shares it. The you all can see in real-time what are your schedule preferences for a given event.
+One of you creates a link and shares it. Then you all can see (with real-time feedback) what are your schedule preferences.
 
 ## Demo
 
