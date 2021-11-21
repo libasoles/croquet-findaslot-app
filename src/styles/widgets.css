@@ -747,4 +747,8 @@ nav .menu .new-event .plus-icon {
     .feedback {
         display: none;
     }
+
+    .event-name-widget input {
+        min-width: auto;
+    }
 }

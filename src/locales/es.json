@@ -19,7 +19,7 @@
   "half_hours_intervals": "Intervalos de media hora",
   "duration": "Duración",
   "feedback_github": "Por errores o pedidos de funcionalidad por favor crea un ticket <a target=\"_blank\" href=\"https://github.com/libasoles/croquet-whenisgood-app/issues\">aca</a>.",
-  "feedback_mail": "Cualquier otro tipo de comentarios a gperez*10pines.com",
+  "feedback_mail": "Cualquier otro tipo de comentarios a gperez<span>@</span>10pines<span>.</span>com",
   "feedback_thanks": "Gracias.",
   "your_available_slots": "Tu disponibilidad",
   "nothing_selected_yet": "Aun no marcaste tu disponibilidad",
@@ -34,5 +34,6 @@
   "no_other_events_yet": "Aún no hay otros eventos para mostrar",
   "schedule": "Agendar:",
   "schedule_call_to_action": "Click para agendar:",
-  "history": "Historial"
+  "history": "Historial",
+  "two_fingers_to_scroll": "Usa un dedo para seleccionar, y dos para deslizar la pantalla"
 }

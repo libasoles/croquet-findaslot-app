@@ -143,6 +143,10 @@ li {
     display: none !important;
 }
 
+.hint {
+    display: none;
+}
+
 .instructions {
     margin-top: .75em;
 }
@@ -166,7 +170,7 @@ li {
 @media (max-width: 600px) {
     body > header {
         background-color: var(--primaryColor);
-        padding: .5em;
+        padding: 0.5em 1em;
     }
 
     .content {
@@ -178,18 +182,35 @@ li {
         display: none;
     }
 
-    .content main {
-        margin: 0 auto;
-    }
-
     .content .column {
         padding: 0;
     }
 
-    .content main header {
-        padding: .5em;
+    .content main {
+        margin: 0 auto;
+        width: 100%;
     }
 
+    .content main .hint {
+        display: flex;
+        background: var(--primaryComplementaryColor);
+        color: var(--primaryGrayscaleColor);
+        padding: .5em .25em;
+    }
+
+    .content main img {
+       width: 36px;
+        height: fit-content;
+        margin: 0 .5em;
+    }
+
+    .content main header {
+        padding: 0 .75em 0 1.25em;
+    }
+
+    body > footer {
+        padding: 0.5em 1em;
+    }
 }
 
 @keyframes fadeIn {
