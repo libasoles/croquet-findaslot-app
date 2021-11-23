@@ -1,7 +1,7 @@
 import { View } from "@croquet/croquet";
 import SelectionArea from "@viselect/vanilla";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
-import { addHours, addDays, isWeekend, addMinutes, isBefore } from "date-fns";
+import { addHours, addMinutes, isBefore } from "date-fns";
 import {
   dayFormat,
   element,
@@ -15,6 +15,8 @@ import createDotElements from "./components/Dots";
 import { DatesMatrix } from "./DatesMatrix";
 
 const selectableOptions = {
+  selectionContainerClass: "section.calendar",
+  selectionAreaClass: ".calendar-columns",
   selectables: ["section.calendar .time-slot"],
   boundaries: ["section.calendar"],
   features: {
@@ -43,7 +45,7 @@ export default class CalendarView extends View {
 
   init() {
     this.selection = new SelectionArea(selectableOptions)
-      .on("beforestart", this.beforeSelectionStarts.bind(this))
+      .on("beforestart", this.beforeSelectionStarts())
       .on("move", this.whileSelecting.bind(this))
       .on("stop", this.onSelectionEnd.bind(this));
   }
@@ -218,13 +220,13 @@ export default class CalendarView extends View {
   }
 
   beforeSelectionStarts() {
-    if (!isMobile) return;
+    if (!isMobile()) return () => {};
 
     let timeout = null;
 
     return ({ event }) => {
-      // Check if user already tapped inside of a selection-area.
-      if (timeout !== null) {
+      const userAlreadyTapedSelectionArea = timeout !== null;
+      if (userAlreadyTapedSelectionArea) {
         // A second pointer-event occurred, ignore that one.
         clearTimeout(timeout);
         timeout = null;
@@ -237,7 +239,6 @@ export default class CalendarView extends View {
         }, 50);
       }
 
-      // Never start automatically.
       return false;
     };
   }
