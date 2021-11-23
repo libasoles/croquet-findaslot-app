@@ -642,7 +642,7 @@ nav .menuToggle input:checked ~ span.hamburger:nth-last-child(2) {
 }
 
 nav .menu {
-    position: absolute;
+    position: fixed;
     width: 300px;
     margin: -54px 0 0 -235px;
     padding: 70px 20px 20px;
@@ -664,7 +664,6 @@ nav .menuToggle input:checked ~ ul {
     transform: none;
     text-align: left;
     opacity: 1;
-
     transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
 }
 

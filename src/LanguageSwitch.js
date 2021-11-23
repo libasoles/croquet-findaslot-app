@@ -8,7 +8,7 @@ export class LanguageSwitch extends View {
 
     const links = (
       <>
-        <a href={this.uri("en")}>EN</a>/<a href={this.uri("es")}>ES</a>
+        <a href={this.uri("en")}>EN</a> / <a href={this.uri("es")}>ES</a>
       </>
     );
 
@@ -18,6 +18,6 @@ export class LanguageSwitch extends View {
   uri(lang) {
     const { origin, search, hash } = window.location;
 
-    return `${origin}/${lang}${search}${hash}`;
+    return `${origin}/${lang === "es" ? "" : lang}${search}${hash}`;
   }
 }

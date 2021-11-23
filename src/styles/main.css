@@ -174,7 +174,7 @@ li {
 @media (max-width: 600px) {
     body > header {
         background-color: var(--primaryColor);
-        padding: 0.5em .75em;
+        padding: 0.5em;
     }
 
     .content {
@@ -213,7 +213,7 @@ li {
     }
 
     body > footer {
-        padding: 0.5em 1em;
+        padding: 0.5em;
     }
 }
 
