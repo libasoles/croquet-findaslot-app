@@ -10,8 +10,8 @@ One of you creates a link and shares it. Then you all can see (with real-time fe
 
 ## Demo
 
-https://findaslot.netlify.app/
+https://findaslot.netlify.app/en
 
-![screenshot](https://github.com/libasoles/croquet-findaslot-app/blob/main/public/screenshot.png)
+![screenshot](https://github.com/libasoles/croquet-findaslot-app/blob/main/public/screenshot.png?raw=true)
 
-![screenshot1](https://github.com/libasoles/croquet-findaslot-app/blob/main/public/screenshot-2.png)
+![screenshot1](https://github.com/libasoles/croquet-findaslot-app/blob/main/public/screenshot-2.png?raw=true)
