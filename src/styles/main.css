@@ -75,6 +75,10 @@ p {
     display: flex;
     flex: 1;
     background-color: var(--primaryDark);
+    overflow-x: hidden;
+    max-width: 1920px;
+    align-self: center;
+    width: 100%;
 }
 
 .content .column {

@@ -655,7 +655,17 @@ nav .menu {
     transform-origin: 0% 0%;
     transform: translate(100%, 0);
 
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    transition: all 0.25s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+
+    opacity: 0;
+}
+
+nav .menuToggle input:checked ~ ul {
+    transform: none;
+    text-align: left;
+    opacity: 1;
+
+    transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
 }
 
 nav .menu li {
@@ -674,10 +684,6 @@ nav .menu li h3 {
     margin-bottom: 0;
 }
 
-nav .menuToggle input:checked ~ ul {
-    transform: none;
-    text-align: left;
-}
 
 nav .menu .new-event {
     border-bottom: 1px solid var(--tertiaryGrayscaleColor);
@@ -752,3 +758,4 @@ nav .menu .new-event .plus-icon {
         min-width: auto;
     }
 }
+
