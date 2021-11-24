@@ -79,6 +79,6 @@ export class EventView extends View {
   renderDuration(value) {
     element(".calendar .duration").textContent = `${i18next.t(
       "duration"
-    )}: ${value}hs`;
+    )}: ${i18next.t("hours", { count: value })}`;
   }
 }

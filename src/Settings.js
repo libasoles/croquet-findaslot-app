@@ -2,7 +2,7 @@ import { Model, View, Constants } from "@croquet/croquet";
 import { MultiRangeSlider } from "./components/MultiRangeSlider";
 import { SingleRangeSlider } from "./components/SingleRangeSlider";
 import i18next from "i18next";
-import { element, today } from "./utils";
+import { element, formatTime, today } from "./utils";
 import { addDays, isBefore, isEqual } from "date-fns";
 
 const Q = Constants;
@@ -229,14 +229,10 @@ export class SettingsView extends View {
       this.publish("settings", "time-range-change", values);
     };
 
-    const formatValue = (value) => {
-      return value + "hs";
-    };
-
     this.hoursRangeSlider = new MultiRangeSlider(
       selector,
       { min, max, lower, upper },
-      { onChange, formatValue }
+      { onChange, formatValue: formatTime }
     );
   }
 
@@ -251,7 +247,7 @@ export class SettingsView extends View {
     };
 
     const formatValue = (value) => {
-      return value + "hs"; // TODO: mins if less than 1hs
+      return i18next.t("hours", { count: value }); // TODO: add mins if less than 1hs
     };
 
     const step = this.halfHourIntervals.checked ? 0.5 : 1;

@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { element, formatDate, target } from "./utils";
+import { element, formatDate, formatTime, target } from "./utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { scheduleLinks } from "./components/CalendarsLink";
 import { addMinutes } from "date-fns";
@@ -115,7 +115,7 @@ export class StatusView {
         <div className="schedule">
           {i18next.t("you_have_common_slots")}
           <div className="best-slot">
-            {date} - {time}hs
+            {date} - {formatTime(time)}
           </div>
           {schedule}
         </div>,

@@ -41,14 +41,6 @@ export function element(selector) {
   return document.querySelector(selector);
 }
 
-export function formatDate(date, format = longDateFormat) {
-  const dateObject = typeof date === "string" ? new Date(date) : date;
-
-  return intlFormat(dateObject, format, {
-    locale: config.locale,
-  });
-}
-
 export function readCookie(name) {
   const result = document.cookie
     .split(";")
@@ -74,4 +66,24 @@ export function isMobile() {
 
 export function today() {
   return new Date(startOfToday());
+}
+
+export function formatDate(date, format = longDateFormat) {
+  const dateObject = typeof date === "string" ? new Date(date) : date;
+
+  return intlFormat(dateObject, format, {
+    locale: config.locale,
+  });
+}
+
+export function formatTime(
+  time,
+  format = { hour: "numeric", minute: "numeric", hour12: false }
+) {
+  const timeObject = today();
+  timeObject.setMinutes(time * 60);
+
+  return intlFormat(timeObject, format, {
+    locale: config.locale,
+  }).toLowerCase();
 }

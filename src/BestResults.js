@@ -1,6 +1,6 @@
 import { View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
-import { formatDate, target } from "./utils";
+import { formatDate, formatTime, target } from "./utils";
 import createDotElements from "./components/Dots";
 import i18next from "i18next";
 import { scheduleLinks } from "./components/CalendarsLink";
@@ -90,11 +90,11 @@ export default class BestResultsView extends View {
             <li>
               <div className="event">
                 <span>
-                  {date} - {time}hs
+                  {date} - {formatTime(time)}
                 </span>
                 <div className="dots">{dots}</div>
                 <p className="votes-count">
-                  {votes} {i18next.t("votes")}
+                  {i18next.t("votes", { count: votes })}
                 </p>
               </div>
               {shouldOfferScheduleLinks ? schedule : ""}

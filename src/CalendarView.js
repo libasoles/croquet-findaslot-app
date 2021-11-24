@@ -6,6 +6,7 @@ import {
   dayFormat,
   element,
   formatDate,
+  formatTime,
   isMobile,
   range,
   target,
@@ -173,7 +174,7 @@ export default class CalendarView extends View {
                   return (
                     <div className="half-hour-intervals">
                       {plainHour}
-                      {this.timeSlot(withMinutes, hours + ":30", "half-hour")}
+                      {this.timeSlot(withMinutes, hours + 0.5, "half-hour")}
                     </div>
                   );
                 })}
@@ -193,7 +194,7 @@ export default class CalendarView extends View {
     return (
       <div className={`time-slot cell ${className}`} data-slot={timestamp}>
         <div className="dots"></div>
-        {readableTime + "hs"}
+        {formatTime(readableTime)}
       </div>
     );
   }
