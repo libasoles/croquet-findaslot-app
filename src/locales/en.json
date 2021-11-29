@@ -1,7 +1,7 @@
 {
   "lang": "en",
   "title": "Find a slot",
-  "description": "Find a shared slot in your calendars with real-time feedback.",
+  "description": "Find a shared time slot in your calendars with real-time feedback.",
   "settings": "Settings",
   "setup": "Setup",
   "days_range": "Days range",
@@ -40,7 +40,7 @@
   "schedule_call_to_action": "Go ahead and schedule:",
   "history": "History",
   "two_fingers_to_scroll": "One finger to select, two fingers to scroll",
-  "first_time_here": "<b>First time here?</b> <span class='logo'></span> <b>Find a Slot</b> allows you to explore shared slot in your calendars with real-time feedback.",
+  "first_time_here": "<b>First time here?</b> <span class='logo'></span> <b>Find a Slot</b> allows you to explore shared time slots in your calendars with real-time feedback.",
   "setup_done": "Great. Now share the link. And select your own availability.",
   "setup_almost_done": "Almost there. Fill up the event name.",
   "setup_select_availability": "Good. Go ahead and select your availability."
