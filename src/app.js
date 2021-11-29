@@ -2,19 +2,19 @@ import { App, Model, View, Session } from "@croquet/croquet";
 import Calendar from "./Calendar";
 import CalendarView from "./Calendar/CalendarView";
 import Settings, { SettingsView } from "./Settings";
-import Event, { EventView } from "./Widgets/Event";
+import Event, { EventView } from "./widgets/Event";
 import BestResultsView from "./BestResults";
 import Identity, { IdentityView } from "./Identity";
 import i18next from "i18next";
 import { locales } from "./locales";
 import { config } from "./config";
 import Pills, { PillsView } from "./Participants/UsersPills";
-import { FeedbackView } from "./Widgets/Feedback";
-import { HistoryMenu } from "./Widgets/HistoryMenu";
-import { LanguageSwitch } from "./LanguageSwitch";
+import { FeedbackView } from "./widgets/Feedback";
+import { HistoryMenu } from "./widgets/HistoryMenu";
+import { LanguageSwitch } from "./widgets/LanguageSwitch";
 import { CalendarService } from "./Calendar/CalendarService";
-import { SetupView } from "./Widgets/Setup";
-import { BannerView } from "./Widgets/Banner";
+import { SetupView } from "./widgets/Setup";
+import { BannerView } from "./widgets/Banner";
 
 class Main extends Model {
   init(options, persistedState) {

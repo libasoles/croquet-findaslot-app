@@ -1,5 +1,5 @@
 import { View } from "@croquet/croquet";
-import { target } from "./utils";
+import { target } from "../utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 
 export class LanguageSwitch extends View {
