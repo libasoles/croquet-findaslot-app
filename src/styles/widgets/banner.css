@@ -37,3 +37,9 @@
   height: 1em;
   margin: 0 0.25em 0 0;
 }
+
+@media (max-width: 600px) {
+  .landing-banner {
+    display: none;
+  }
+}
