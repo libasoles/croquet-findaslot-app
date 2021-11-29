@@ -3,6 +3,7 @@
   "title": "Find a slot",
   "description": "Find a shared slot in your calendars with real-time feedback.",
   "settings": "Settings",
+  "setup": "Setup",
   "days_range": "Days range",
   "time_range": "Time range",
   "best_results": "Best results",
@@ -38,5 +39,8 @@
   "schedule": "Schedule:",
   "schedule_call_to_action": "Go ahead and schedule:",
   "history": "History",
-  "two_fingers_to_scroll": "One finger to select, two fingers to scroll"
+  "two_fingers_to_scroll": "One finger to select, two fingers to scroll",
+  "setup_done": "Great. Now share the link. And select your own availability.",
+  "setup_almost_done": "Almost there. Fill up the event name.",
+  "username_set": "Good. Go ahead and select your availability."
 }

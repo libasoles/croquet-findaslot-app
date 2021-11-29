@@ -1,0 +1,27 @@
+.tooltip {
+    display: inline-block;
+    text-align: center;
+    padding: 0.5em;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .tooltip .content {
+    position: absolute;
+    z-index: 1;
+    background-color: var(--secondaryGrayscaleColor);
+    color: var(--primaryDark);
+    bottom: 1.5em;
+    left: -4px;
+    padding: 0.5em;
+    border-radius: 6px;
+    max-width: 8em;
+    display: none;
+    flex-wrap: wrap;
+    font-weight: normal;
+  }
+  
+  .tooltip:hover .content {
+    display: flex;
+  }

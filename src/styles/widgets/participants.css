@@ -1,0 +1,101 @@
+.participants {
+    margin-top: 3em
+}
+
+.participants .pills {
+    display: flex;
+    gap: .5em;
+    margin: 1em 0;
+    flex-wrap: wrap;
+}
+
+.pill {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primaryGrayscaleColor);
+    background: var(--secondaryDark);
+    border: 1px solid var(--secondaryColor);
+    border-radius: 1em;
+    width: fit-content;
+    padding: .25em .5em;
+    font-size: 1em;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.pill.checked::before {
+    content: '';
+    display: inline-block;
+    transform: rotate(45deg);
+    height: .8em;
+    width: .3em;
+    border-bottom: .15em solid var(--secondaryColor);
+    border-right: .15em solid var(--secondaryColor);
+    margin: 0 .5em 0 .25em
+}
+
+.pill.selected.checked::before {
+    border-color: var(--primaryDark);
+}
+
+.pill.selected {
+    background: var(--tertiaryColor);
+    border: 2px solid rgba(0, 0, 0, 0.075);
+    color: var(--primaryDark);
+    font-weight: bold;
+}
+
+.pill.selected.compared {
+    background: var(--primaryComplementaryColor);
+    border: 2px solid var(--secondaryGrayscaleColor);
+    color: var(--primaryDark);
+}
+
+.participants .message {
+    display: flex;
+    margin-top: 1.5em;
+}
+
+.participants .content,
+.participants .title {
+    animation: fadeIn .25s ease;
+}
+
+.participants .message .content {
+    margin-top: .25em;
+    color: var(--secondaryGrayscaleColor);
+}
+
+.participants .message .dot {
+    content: '';
+    height: 1em;
+    width: 1em;
+    background: none;
+    border-radius: 50%;
+    display: block;
+    margin-right: .5em;
+    flex-shrink: 0;
+}
+
+.participants .message .dot.selecting {
+    background: var(--tertiaryColor);
+}
+
+.participants .message .dot.comparing {
+    background: var(--primaryComplementaryColor);
+}
+
+.participants .schedule .calendars {
+    margin-top: 1.5em;
+    font-size: .9em;
+}
+
+.participants .schedule .best-slot {
+    color: var(--primaryComplementaryColor);
+}
+
+.participants .schedule .calendars a {
+    margin: .15em 1em 0 0;
+    display: inline-block;
+    text-decoration: none;
+    font-size: .9em;
+}

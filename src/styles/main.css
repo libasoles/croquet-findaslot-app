@@ -2,227 +2,216 @@
 @import "./widgets.css";
 
 :root {
-    --primaryColor: #5cb270;
-    --secondaryColor: #82c26e;
-    --tertiaryColor: #8eed5e;
-    --primaryDark: #1a1b1a;
-    --secondaryDark: #353535;
-    --tertiaryDark: #424141;
-    --primaryGrayscaleColor: white;
-    --secondaryGrayscaleColor: #c2c2c2;
-    --tertiaryGrayscaleColor: #939393;
-    --primaryComplementaryColor: #5b9dff;
+  --primaryColor: #5cb270;
+  --secondaryColor: #82c26e;
+  --tertiaryColor: #8eed5e;
+  --primaryDark: #1a1b1a;
+  --secondaryDark: #353535;
+  --tertiaryDark: #424141;
+  --primaryGrayscaleColor: white;
+  --secondaryGrayscaleColor: #c2c2c2;
+  --tertiaryGrayscaleColor: #939393;
+  --primaryComplementaryColor: #5b9dff;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--secondaryDark);
-    color: var(--primaryGrayscaleColor);
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--secondaryDark);
+  color: var(--primaryGrayscaleColor);
 }
 
 body > header {
-    background-color: var(--primaryColor);
-    padding: 1em 2em;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  background-color: var(--primaryColor);
+  padding: 1em 2em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 body > header .brand {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-    width: 2em;
-    height: 2em;
-    background: var(--primaryGrayscaleColor);
-    border-radius: 50%;
-    margin-right: .5em;
+  width: 2em;
+  height: 2em;
+  background: var(--primaryGrayscaleColor);
+  border-radius: 50%;
+  margin-right: 0.5em;
 }
 
 h2 {
-    font-size: 2em;
-    text-align: left;
-    color: var(--primaryGrayscaleColor);
-    line-height: 1.5em;
+  font-size: 2em;
+  text-align: left;
+  color: var(--primaryGrayscaleColor);
+  line-height: 1.5em;
 }
 
 h3 {
-    margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 p {
-    margin: .4em 0
+  margin: 0.4em 0;
 }
 
 .content {
-    display: -webkit-flex;
-    display: flex;
-    flex: 1;
-    background-color: var(--primaryDark);
-    overflow-x: hidden;
-    max-width: 1920px;
-    align-self: center;
-    width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  flex: 1;
+  background-color: var(--primaryDark);
+  overflow-x: hidden;
+  max-width: 1920px;
+  align-self: center;
+  width: 100%;
 }
 
 .content .column {
-    padding: 10px;
+  padding: 10px;
 }
 
 /* Left and right column */
 .content .column.side {
-    flex: 1;
-    margin: 2em;
-    max-width: 340px;
+  flex: 1;
+  margin: 2em;
+  max-width: 340px;
 }
 
 .content main {
-    flex: 2;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  flex: 2;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .content main header {
-    margin: 1.5em 0;
-    padding: .5em 1.25em;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  margin: 1.5em 0;
+  padding: 0.5em 1.25em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .content main footer {
-    padding: .5em 0;
-    display: flex;
-    width: 100%;
-    max-width: 580px;
-    display: flex;
-    justify-content: flex-end;
+  padding: 0.5em 0;
+  display: flex;
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 body > footer {
-    background-color: var(--primaryColor);
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
+  background-color: var(--primaryColor);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 body > footer a {
-    color: var(--primaryGrayscaleColor);
-    text-decoration: none;
+  color: var(--primaryGrayscaleColor);
+  text-decoration: none;
 }
 
 a {
-    color: var(--primaryColor);
-    font-weight: bold;
+  color: var(--primaryColor);
+  font-weight: bold;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 li {
-    margin: 15px 0;
+  margin: 15px 0;
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .hint {
-    display: none;
+  display: none;
 }
 
 .instructions {
-    margin-top: .75em;
+  margin-top: 0.75em;
 }
 
 .instructions p {
-    color: var(--secondaryGrayscaleColor);
+  color: var(--secondaryGrayscaleColor);
 }
 
 @media (max-width: 1200px) {
-    .content .right {
-        display: none;
-    }
+  .content .right {
+    display: none;
+  }
 }
 
 @media (max-width: 1024px) {
-    .content .left {
-        display: none;
-    }
+  .content .left {
+    display: none;
+  }
 }
 
 @media (max-width: 600px) {
-    body > header {
-        background-color: var(--primaryColor);
-        padding: 0.5em;
-    }
+  body > header {
+    background-color: var(--primaryColor);
+    padding: 0.5em;
+  }
 
-    .content {
-        -webkit-flex-direction: column;
-        flex-direction: column;
-    }
+  .content {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
 
-    .content .column.side {
-        display: none;
-    }
+  .content .column.side {
+    display: none;
+  }
 
-    .content .column {
-        padding: 0;
-    }
+  .content .column {
+    padding: 0;
+  }
 
-    .content main {
-        margin: 0 auto;
-        width: 100%;
-    }
+  .content main {
+    margin: 0 auto;
+    width: 100%;
+  }
 
-    .content main .hint {
-        display: flex;
-        background: var(--primaryComplementaryColor);
-        color: var(--primaryGrayscaleColor);
-        padding: .5em .25em;
-    }
+  .content main .hint {
+    display: flex;
+    background: var(--primaryComplementaryColor);
+    color: var(--primaryGrayscaleColor);
+    padding: 0.5em 0.25em;
+  }
 
-    .content main img {
-       width: 36px;
-        height: fit-content;
-        margin: 0 .5em;
-    }
+  .content main img {
+    width: 36px;
+    height: fit-content;
+    margin: 0 0.5em;
+  }
 
-    .content main header {
-        padding: 0 .75em;
-    }
+  .content main header {
+    padding: 0 0.75em;
+  }
 
-    body > footer {
-        padding: 0.5em;
-    }
+  body > footer {
+    padding: 0.5em;
+  }
 }
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-

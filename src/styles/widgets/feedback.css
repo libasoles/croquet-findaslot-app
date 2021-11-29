@@ -1,0 +1,76 @@
+.feedback {
+  background: none;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  color: var(--primaryGrayscaleColor);
+  font-size: 0.95em;
+}
+
+.heart {
+  position: relative;
+  width: 1em;
+  float: left;
+  margin: 0 10px;
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  width: 9px;
+  height: 16px;
+  background: var(--tertiaryColor);
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: -1px;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.feedback-modal .overlay {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--secondaryDark);
+  opacity: 0.5;
+}
+
+.feedback-modal .container {
+  width: 400px;
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 200px);
+  left: calc(50% - 200px);
+  display: flex;
+  animation: fadeIn 0.25s ease;
+}
+
+.feedback-modal .content {
+  width: 100%;
+  background: var(--primaryGrayscaleColor);
+  color: var(--primaryDark);
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.5em 0 1.5em 1.5em;
+}
+
+.feedback-modal .close {
+  width: 1.5em;
+  height: 2em;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .feedback {
+    display: none;
+  }
+}

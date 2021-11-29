@@ -32,12 +32,10 @@ export class InputWidget {
       <>
         <div className="input-widget-form">
           <input name={name} placeholder={placeholder} />
-          <button className="button">ok</button>
         </div>
 
         <div className="hidden displayed-value">
           <div className="value"></div>
-          <button className="button icon close">x</button>
         </div>
       </>
     );
@@ -46,14 +44,12 @@ export class InputWidget {
   }
 
   subscribeToUserEvents() {
-    const submitButton = this.form.querySelector("button");
-    const closeButton = this.displayedValue.querySelector("button");
+    const input = this.form.querySelector("input");
 
     this.input.onkeyup = (e) => this.onUserTyping(e);
 
-    submitButton.onclick = () => this.onChange();
-    closeButton.onclick = () => this.onEditButtonClicked();
-    this.displayedValue.onclick = () => this.onEditButtonClicked();
+    input.onblur = () => this.onChange();
+    this.displayedValue.onclick = () => this.onEdit();
   }
 
   onUserTyping(event) {
@@ -72,7 +68,7 @@ export class InputWidget {
     this.handleOnChange(value);
   }
 
-  onEditButtonClicked() {
+  onEdit() {
     hide(this.displayedValue);
 
     this.input.value = this.displayedValue

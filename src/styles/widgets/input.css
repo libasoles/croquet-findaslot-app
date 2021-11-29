@@ -1,0 +1,29 @@
+.input-widget .input-widget-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-widget input {
+  font-size: 1.1em;
+  padding: 0.25em 0.5em;
+}
+
+.input-widget .displayed-value {
+  display: flex;
+  justify-content: space-between;
+  border-left: 0.25em solid var(--tertiaryColor);
+  padding-left: 0.5em;
+}
+
+.input-widget .displayed-value:hover {
+  cursor: pointer;
+}
+
+.input-widget .displayed-value h3 {
+  margin: 0;
+}
+
+.input-widget .displayed-value .value {
+  display: flex;
+  align-items: center;
+}

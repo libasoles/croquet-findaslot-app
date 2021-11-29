@@ -3,6 +3,7 @@
   "title": "Sale o sale",
   "description": "Combina reuniones y ensayos con feedback en tiempo real.",
   "settings": "Configuración",
+  "setup": "Setup",
   "days_range": "Rango de días",
   "time_range": "Rango de horas",
   "best_results": "Mejores horarios",
@@ -38,5 +39,8 @@
   "schedule": "Agendar:",
   "schedule_call_to_action": "Click para agendar:",
   "history": "Historial",
-  "two_fingers_to_scroll": "Usa un dedo para seleccionar, y dos para deslizar la pantalla"
+  "two_fingers_to_scroll": "Usa un dedo para seleccionar, y dos para deslizar la pantalla",
+  "setup_done": "Perfecto! Ahora comparte el link. Y selecciona tu propia disponibilidad.",
+  "setup_almost_done": "Casi listo. Falta completar el nombre del evento.",
+  "username_set": "Bien. Selecciona tu propia disponibilidad horaria."
 }

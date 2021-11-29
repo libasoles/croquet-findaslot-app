@@ -1,0 +1,24 @@
+.identity {
+    margin-bottom: .5em;
+    margin-top: 1em;
+}
+
+.identity .input-widget-form {
+    max-width: 260px;
+}
+
+.identity input {
+    width: 100%;
+}
+
+.identity .displayed-value {
+    justify-content: flex-end;
+    width: fit-content;
+    border-color: var(--secondaryColor);
+}
+
+@media (max-width: 600px) {
+    .identity .input-widget-form {
+        max-width: 100%;
+    }
+}

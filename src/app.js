@@ -13,6 +13,8 @@ import { FeedbackView } from "./Feedback";
 import { HistoryMenu } from "./HistoryMenu";
 import { LanguageSwitch } from "./LanguageSwitch";
 import { CalendarService } from "./CalendarService";
+import { SetupView } from "./Setup";
+import { BannerView } from "./Banner";
 
 class Main extends Model {
   init(options, persistedState) {
@@ -102,6 +104,8 @@ class MainView extends View {
       ),
       new FeedbackView(model),
       new LanguageSwitch(model),
+      new SetupView(model.event, model.identity, calendarService),
+      new BannerView(model),
     ];
   }
 

@@ -1,0 +1,34 @@
+.content .results {
+    margin-top: .5em;
+}
+
+.best-results li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.best-results .votes-count {
+    color: var(--secondaryGrayscaleColor);
+}
+
+.best-results .calendars {
+    display: flex;
+    flex-direction: column;
+    font-size: .9em;
+    font-weight: normal;
+    align-items: flex-end;
+}
+
+.best-results .calendars .title {
+    color: var(--secondaryGrayscaleColor);
+}
+
+.best-results .calendars a {
+    text-decoration: none;
+    font-size: .9em;
+    padding-top: .1em;
+}
+
+.best-results .calendars a:hover {
+    color: var(--tertiaryColor)
+}

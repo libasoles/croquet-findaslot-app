@@ -127,5 +127,52 @@ describe("Calendar", () => {
 
   // TODO:
   // context("Two user tab in the same browser")
-  // context("Two different browsers")
+
+  context("Two different browsers", () => {
+    const testURI = "http://localhost:1234/en";
+
+    before(() => {
+      cy.viewport(1280, 720);
+
+      cy.clock(Cypress.config("thursday_nov_11"));
+
+      cy.visit(testURI);
+      cy.setCookie("userId", "another_coOkie");
+      cy.setCookie("userName", "Pedro");
+
+      cy.get(".calendar").should("be.visible");
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").click();
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'] .dots")
+        .find(".dot")
+        .should("have.length", 1);
+
+      cy.reload();
+      cy.setCookie("userId", Cypress.config("test_user_cookie"));
+      cy.setCookie("userName", "Guille");
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z']").click();
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'] .dots")
+        .find(".dot")
+        .should("have.length", 2);
+    });
+
+    it("displays a tooltip with a list of users who selected the slot", () => {
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'] .dots")
+        .find(".tooltip .content")
+        .should("not.be.visible");
+
+      cy.get(".calendar [data-slot='2021-11-11T12:00:00.000Z'] .dots")
+        .find(".tooltip")
+        // .invoke("trigger", "contextmenu")
+        // .trigger("mouseenter")
+        // .invoke("show")
+        // .trigger("mouseover")
+        .find(".content")
+        .should("be.visible")
+        .should("contain", "Pedro, Guille");
+    });
+  });
 });

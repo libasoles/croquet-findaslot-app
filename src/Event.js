@@ -29,6 +29,10 @@ export default class Event extends Model {
 
     this.publish("event-name", "update-event-name", name);
   }
+
+  isEventNameSet() {
+    return this.eventName.trim() !== ""
+  }
 }
 
 export class EventView extends View {
@@ -62,7 +66,7 @@ export class EventView extends View {
       },
       {
         onChange: this.onChange,
-        formatValue: (value) => <h2>{value}</h2>,
+        formatValue: (value) => <h3>{value}</h3>,
       }
     );
   }

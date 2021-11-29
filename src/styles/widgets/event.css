@@ -1,0 +1,24 @@
+.event-name-widget {
+  width: fit-content;
+  max-width: 1000px;
+}
+
+.event-name-widget input {
+  width: 100%;
+  min-width: 18em;
+}
+
+.calendar .duration {
+  color: var(--secondaryGrayscaleColor);
+  margin-top: 0.5em;
+}
+
+@media (max-width: 600px) {
+  .event-name-widget {
+    min-width: 100%;
+  }
+
+  .event-name-widget input {
+    min-width: 100%;
+  }
+}

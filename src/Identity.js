@@ -11,7 +11,7 @@ export default class Identity extends Model {
 
     this.subscribe(this.id, "register-user", this.registerUser);
     this.subscribe(this.id, "register-user-view", this.registerUserView);
-    this.subscribe(this.id, "name-changed", this.updateUser);
+    this.subscribe("identity", "name-changed", this.updateUser);
   }
 
   hydrate(persistedState) {
@@ -80,6 +80,10 @@ export default class Identity extends Model {
 
   name(userId) {
     return this.connectedUsers.get(userId).userName;
+  }
+
+  isNameSet(userId) {
+    return this.name(userId).trim() !== ""
   }
 
   selfId(viewId) {
@@ -157,7 +161,7 @@ export class IdentityView extends View {
       },
       {
         onChange: this.userNameChanged,
-        formatValue: (value) => <h3>{value}</h3>,
+        formatValue: (value) => <div>{value}</div>,
       }
     );
   }
@@ -167,7 +171,7 @@ export class IdentityView extends View {
 
     document.cookie = `userName=${userName}`;
 
-    this.publish(this.model.id, "name-changed", { userId, userName });
+    this.publish("identity", "name-changed", { userId, userName });
   };
 
   updateName({ userId, userName }) {
