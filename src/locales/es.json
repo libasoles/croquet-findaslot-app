@@ -42,5 +42,5 @@
   "two_fingers_to_scroll": "Usa un dedo para seleccionar, y dos para deslizar la pantalla",
   "setup_done": "Perfecto! Ahora comparte el link. Y selecciona tu propia disponibilidad.",
   "setup_almost_done": "Casi listo. Falta completar el nombre del evento.",
-  "username_set": "Bien. Selecciona tu propia disponibilidad horaria."
+  "setup_select_availability": "Bien. Selecciona tu propia disponibilidad horaria."
 }

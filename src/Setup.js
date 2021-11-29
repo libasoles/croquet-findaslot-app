@@ -45,7 +45,10 @@ export class SetupView extends View {
     } else {
       if (this.wasSelectAvailabilityBannerDisplayed) return;
 
-      this.publish("banner", "display", { message: i18next.t("username_set") });
+      this.publish("banner", "display", {
+        message: i18next.t("setup_select_availability"),
+        sticky: true,
+      });
 
       this.wasSelectAvailabilityBannerDisplayed = true;
     }

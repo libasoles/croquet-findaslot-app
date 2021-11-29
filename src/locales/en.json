@@ -42,5 +42,5 @@
   "two_fingers_to_scroll": "One finger to select, two fingers to scroll",
   "setup_done": "Great. Now share the link. And select your own availability.",
   "setup_almost_done": "Almost there. Fill up the event name.",
-  "username_set": "Good. Go ahead and select your availability."
+  "setup_select_availability": "Good. Go ahead and select your availability."
 }
