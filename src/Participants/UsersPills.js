@@ -1,7 +1,7 @@
 import { Model, View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { StatusView } from "./Status";
-import { element } from "./utils";
+import { element } from "../utils";
 
 export default class Pills extends Model {
   init() {

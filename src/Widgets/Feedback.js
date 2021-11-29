@@ -1,5 +1,5 @@
 import { View } from "@croquet/croquet";
-import { element } from "./utils";
+import { element } from "../utils";
 
 export class FeedbackView extends View {
   constructor(model) {

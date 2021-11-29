@@ -1,8 +1,8 @@
 import { View } from "@croquet/croquet";
-import { target } from "./utils";
+import { target } from "../utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import i18next from "i18next";
-import { config } from "./config";
+import { config } from "../config";
 
 const NewEvent = () => {
   const lang = config.locale.lang;

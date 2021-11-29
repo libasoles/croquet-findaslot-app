@@ -11,8 +11,8 @@ import {
   range,
   target,
   today,
-} from "./utils";
-import createDotElements from "./components/Dots";
+} from "../utils";
+import createDotElements from "../components/Dots";
 import { DatesMatrix } from "./DatesMatrix";
 
 const selectableOptions = {

@@ -40,6 +40,7 @@
   "schedule_call_to_action": "Click para agendar:",
   "history": "Historial",
   "two_fingers_to_scroll": "Usa un dedo para seleccionar, y dos para deslizar la pantalla",
+  "first_time_here": "<b>Primera vez?</b> <span class='logo'></span> <b>Sale o sale</b> te permite explorar horarios en común, con feedback en tiempo real.",
   "setup_done": "Perfecto! Ahora comparte el link. Y selecciona tu propia disponibilidad.",
   "setup_almost_done": "Casi listo. Falta completar el nombre del evento.",
   "setup_select_availability": "Bien. Selecciona tu propia disponibilidad horaria."

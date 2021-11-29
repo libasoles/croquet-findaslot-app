@@ -1,7 +1,7 @@
 import { Model, View } from "@croquet/croquet";
-import { InputWidget } from "./components/InputWidget";
+import { InputWidget } from "../components/InputWidget";
 import i18next from "i18next";
-import { element } from "./utils";
+import { element } from "../utils";
 
 export default class Event extends Model {
   init(_, persistedState = {}) {

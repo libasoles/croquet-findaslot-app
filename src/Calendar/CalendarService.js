@@ -1,5 +1,5 @@
 import { compareAsc, formatISO, isBefore, parseISO } from "date-fns";
-import { today } from "./utils";
+import { today } from "../utils";
 import { DatesMatrix } from "./DatesMatrix";
 
 export class CalendarService {

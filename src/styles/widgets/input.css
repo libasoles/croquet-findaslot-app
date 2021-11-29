@@ -11,6 +11,7 @@
 .input-widget .displayed-value {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-left: 0.25em solid var(--tertiaryColor);
   padding-left: 0.5em;
 }

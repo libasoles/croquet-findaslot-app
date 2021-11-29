@@ -1,7 +1,7 @@
 import i18next from "i18next";
-import { element, formatDate, formatTime, target } from "./utils";
+import { element, formatDate, formatTime, target } from "../utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
-import { scheduleLinks } from "./components/CalendarsLink";
+import { scheduleLinks } from "../components/CalendarsLink";
 import { addMinutes } from "date-fns";
 
 export class StatusView {

@@ -1,5 +1,5 @@
 import { View } from "@croquet/croquet";
-import { element, target } from "./utils";
+import { element, target } from "../utils";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 
 export class BannerView extends View {

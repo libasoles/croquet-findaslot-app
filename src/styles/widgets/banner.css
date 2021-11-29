@@ -9,15 +9,31 @@
   align-items: center;
 }
 
-.calendar .banner {
-  padding: 0.5em 1em;
-  margin-top: 1em;
-}
-
-.calendar .banner button {
+.banner button {
   margin-left: 1em;
   background: none;
   border: none;
   cursor: pointer;
   font-size: 1.5em;
+}
+
+.calendar .banner {
+  padding: 0.5em 1em;
+  margin-top: 1em;
+}
+
+.landing-banner p {
+  display: flex;
+  align-items: center;
+}
+
+.landing-banner p b {
+  margin-right: .25em;
+}
+
+.landing-banner .logo {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.25em 0 0;
 }
