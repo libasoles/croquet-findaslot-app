@@ -4,7 +4,7 @@
     height: fit-content;
     user-select: none;
     justify-content: center;
-    align-content: flex-start;
+    align-items: center;
     padding: 1em 0;
     color: var(--primaryGrayscaleColor);
     background-color: var(--primaryDark);
@@ -14,7 +14,6 @@
 .calendar .calendar-columns {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
 .calendar .day {

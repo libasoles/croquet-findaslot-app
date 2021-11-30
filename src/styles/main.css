@@ -102,10 +102,40 @@ p {
 
 .content main header {
   margin: 1.5em 0;
-  padding: 0.5em 1.25em;
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-self: flex-end;
+  max-width: 960px;
+}
+
+.content main header form {
+  min-height: 117px;
+  padding: 1em 1.25em 0.5em 1.25em;
+  display: flex;
+  flex-direction: column;
+  background: var(--secondaryDark);
+  border-radius: 9px;
+  position: relative;
+  overflow: hidden;
+}
+
+.content main header svg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  fill: #727272;
+}
+
+.content main header .decorator {
+  position: absolute;
+  z-index: 0;
+  right: -100px;
+  top: 0;
+  background-color: #727272;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
 }
 
 .content main footer {

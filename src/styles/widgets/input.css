@@ -6,14 +6,13 @@
 .input-widget input {
   font-size: 1.1em;
   padding: 0.25em 0.5em;
+  z-index: 1;
 }
 
 .input-widget .displayed-value {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-left: 0.25em solid var(--tertiaryColor);
-  padding-left: 0.5em;
 }
 
 .input-widget .displayed-value:hover {
