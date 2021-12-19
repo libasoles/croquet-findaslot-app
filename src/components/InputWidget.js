@@ -35,6 +35,7 @@ export class InputWidget {
         </div>
 
         <div className="hidden displayed-value">
+          <div className="pencil"></div>
           <div className="value"></div>
         </div>
       </>

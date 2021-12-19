@@ -57,3 +57,32 @@ input {
   display: inline-block;
   margin: 2px;
 }
+
+/* pencil */
+.pencil {
+  width: 0.25em;
+  height: 1em;
+  background: var(--secondaryGrayscaleColor);
+  position: relative;
+  transform: rotate(30deg);
+  max-height: 0.58em;
+  margin-right: 0.75em;
+  margin-top: 0.2em
+}
+.pencil::before {
+  content: "";
+  position: absolute;
+  width: 0.25em;
+  height: 0.2em;
+  background: var(--secondaryGrayscaleColor);
+  top: -0.25em;
+}
+.pencil::after {
+  content: "";
+  position: absolute;
+  width: 0.2em;
+  height: 0.2em;
+  background: var(--secondaryGrayscaleColor);
+  bottom: -0.1em;
+  transform: rotate(45deg);
+}

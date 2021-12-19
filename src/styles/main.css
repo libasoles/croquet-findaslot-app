@@ -120,13 +120,6 @@ p {
   overflow: hidden;
 }
 
-.content main header svg {
-  position: absolute;
-  right: 0;
-  top: 0;
-  fill: #727272;
-}
-
 .content main header .decorator {
   position: absolute;
   z-index: 0;
