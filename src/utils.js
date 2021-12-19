@@ -12,6 +12,12 @@ export const dayFormat = {
   day: "numeric",
 };
 
+const timeFormat = { 
+  hour: "numeric", 
+  minute: "numeric", 
+  hour12: false 
+};
+
 export function range(start, end, includeEnd = true) {
   if (typeof end === "undefined")
     return start === 0 ? [] : [0, ...range(1, start, false)];
@@ -76,14 +82,15 @@ export function formatDate(date, format = longDateFormat) {
   });
 }
 
+
 export function formatTime(
-  time,
-  format = { hour: "numeric", minute: "numeric", hour12: false }
+  hours,
+  minutes = 0
 ) {
   const timeObject = today();
-  timeObject.setMinutes(time * 60);
+  timeObject.setMinutes((hours * 60) + minutes);
 
-  return intlFormat(timeObject, format, {
+  return intlFormat(timeObject, timeFormat, {
     locale: config.locale,
   }).toLowerCase();
 }

@@ -67,7 +67,6 @@ export default class BestResultsView extends View {
           const date = formatDate(timeSlot);
           const hours = new Date(timeSlot).getHours();
           const minutes = new Date(timeSlot).getMinutes();
-          const time = minutes ? `${hours}:${minutes}` : hours;
           const dots = createDotElements(votes);
 
           const endTime = addMinutes(
@@ -90,7 +89,7 @@ export default class BestResultsView extends View {
             <li>
               <div className="event">
                 <span>
-                  {date} - {formatTime(time)}
+                  {date} - {formatTime(hours, minutes)}
                 </span>
                 <div className="dots">{dots}</div>
                 <p className="votes-count">

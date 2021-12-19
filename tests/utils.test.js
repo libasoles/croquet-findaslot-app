@@ -1,4 +1,4 @@
-import { range } from "../src/utils";
+import { formatTime, range } from "../src/utils";
 
 describe("range", () => {
   it("return empty array if 0 is passed as single param", () => {
@@ -37,3 +37,17 @@ describe("range", () => {
     expect(result).toEqual([1, 2, 3]);
   });
 });
+
+describe("format time", () => {
+  it("formats time when only hours provided", () => {
+    const result = formatTime(13)
+
+    expect(result).toEqual("13:00")
+  })
+
+  it("formats time when hours and minutes provided", () => {
+    const result = formatTime(13, 30)
+
+    expect(result).toEqual("13:30")
+  })
+})
