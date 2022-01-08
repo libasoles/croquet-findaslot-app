@@ -14,6 +14,7 @@ import {
 } from "../utils";
 import createDotElements from "../components/Dots";
 import { DatesMatrix } from "./DatesMatrix";
+import i18next from "i18next";
 
 const selectableOptions = {
   selectionContainerClass: "section.calendar",
@@ -272,6 +273,13 @@ export default class CalendarView extends View {
       .filter((slot) => !removed.includes(slot));
 
     this.publishSelection(Array.from(new Set(selection)));
+
+    if(this.identity.isAnonymous(this.me())) {
+      this.publish("banner", "display", {
+        message: i18next.t("please_set_your_name"),
+      });
+      this.publish("identity", "require")
+    }
   }
 
   publishSelection(selection) {

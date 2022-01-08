@@ -43,5 +43,6 @@
   "first_time_here": "<b>First time here?</b> <span class='logo'></span> <b>Find a Slot</b> allows you to explore shared time slots in your calendars with real-time feedback.",
   "setup_done": "Great. Now share the link. And select your own availability.",
   "setup_almost_done": "Almost there. Fill up the event name.",
-  "setup_select_availability": "Good. Go ahead and select your availability."
+  "setup_select_availability": "Good. Go ahead and select your availability.",
+  "please_set_your_name": "Remember to fill in your name, so other users can identify you."
 }

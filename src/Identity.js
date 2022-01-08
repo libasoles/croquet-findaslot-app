@@ -104,8 +104,8 @@ export default class Identity extends Model {
     return this.connectedUsers.get(userId).userName
   }
 
-  isNameSet(userId) {
-    return !this.connectedUsers.get(userId).isAnonymous();
+  isAnonymous(userId) {
+    return this.connectedUsers.get(userId).isAnonymous();
   }
 
   selfId(viewId) {
@@ -147,6 +147,7 @@ export class IdentityView extends View {
     this.initForm();
 
     this.subscribe("identity", "established", this.focus);
+    this.subscribe("identity", "require", this.focus);
 
     this.subscribe("identity", "update-name", this.updateName);
   }

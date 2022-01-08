@@ -28,7 +28,7 @@ export class SetupView extends View {
   onEventNameSet() {
     if (this.calendarService.userHasAnySelection(this.me())) return;
 
-    const readyToGo = this.identity.isNameSet(this.me());
+    const readyToGo = !this.identity.isAnonymous(this.me());
 
     if (readyToGo) {
       this.future(100).displayShareTheLinkBanner();
