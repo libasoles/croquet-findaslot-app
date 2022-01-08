@@ -9,7 +9,7 @@ export default class Identity extends Model {
     return {
       User: {
         cls: User,
-        write: (state) => ({ ...state }),
+        write: (user) => ({ ...user }),
         read: (user) => new User(user),
       },
     };
@@ -27,8 +27,12 @@ export default class Identity extends Model {
 
   hydrate(persistedState) {
     this.connectedUsers = persistedState.connectedUsers
-      ? new Map(persistedState.connectedUsers)
+      ? new Map(persistedState.connectedUsers.map(this.objectToUser))
       : new Map();
+  }
+
+  objectToUser([id, user]) {
+    return (user instanceof User) ? [id, user] : [id, new User(user)]
   }
 
   save() {
