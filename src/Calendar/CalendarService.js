@@ -56,9 +56,9 @@ export class CalendarService {
   }
 
   everybodyCanAttendTo(slot) {
-    const numberOfUsers = this.identity.numberOfUsers();
+    const numberOfNonAnonymousUsers = this.identity.numberOfNonAnonymousUsers();
 
-    return this.usersWhoSelectedSlot(slot).length === numberOfUsers;
+    return this.usersWhoSelectedSlot(slot).length >= numberOfNonAnonymousUsers;
   }
 
   bestSlotForUsers(users) {

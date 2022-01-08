@@ -100,6 +100,10 @@ export default class Identity extends Model {
     this.publish("identity", "update-name", { userId, userName });
   }
 
+  name(userId) {
+    return this.connectedUsers.get(userId).userName
+  }
+
   isNameSet(userId) {
     return !this.connectedUsers.get(userId).isAnonymous();
   }
@@ -113,14 +117,22 @@ export default class Identity extends Model {
   }
 
   allUsers() {
-    return Array.from(this.connectedUsers).map(([userId, user]) => ({
-      userId,
-      userName: user.userName,
-    }));
+    return Array.from(this.connectedUsers)
+      .map(([_, user]) => user);
+  }
+
+  nonAnonymousUsers() {
+    return Array.from(this.connectedUsers)
+      .filter(([_, user]) => !user.isAnonymous())
+      .map(([_, user]) => user);
   }
 
   numberOfUsers() {
     return this.connectedUsers.size;
+  }
+
+  numberOfNonAnonymousUsers() {
+    return this.nonAnonymousUsers().length;
   }
 }
 

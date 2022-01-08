@@ -1,7 +1,7 @@
 import Calendar from "../src/Calendar";
-import { CalendarService } from "../src/CalendarService";
+import { CalendarService } from "../src/Calendar/CalendarService";
 import { addDays, parseISO, toDate } from "date-fns";
-import { DatesMatrix } from "../src/DatesMatrix";
+import { DatesMatrix } from "../src/Calendar/DatesMatrix";
 
 const userId = "x632kjda";
 const anotherUserId = "dHy6sFxo";
@@ -181,7 +181,7 @@ describe("CalendarService", () => {
     const aDate = "2021-11-16T12:00:00.000Z";
     const anotherDate = "2021-11-18T13:00:00.000Z";
     mockIdentity({
-      numberOfUsers: () => 2,
+      numberOfNonAnonymousUsers: () => 2,
     });
     createCalendarService();
 
@@ -190,6 +190,21 @@ describe("CalendarService", () => {
 
     expect(calendarService.everybodyCanAttendTo(aDate)).toBeTruthy();
     expect(calendarService.everybodyCanAttendTo(anotherDate)).toBeFalsy();
+  });
+
+  it("excludes anonymous users in the attendees list", () => {
+    const aDate = "2021-11-16T12:00:00.000Z";
+    const anotherDate = "2021-11-18T13:00:00.000Z";
+    mockIdentity({
+      numberOfNonAnonymousUsers: () => 1,
+    });
+    createCalendarService();
+
+    vote(userId, [aDate]);
+    vote(anotherUserId, [aDate, anotherDate]);
+
+    expect(calendarService.everybodyCanAttendTo(aDate)).toBeTruthy();
+    expect(calendarService.everybodyCanAttendTo(anotherDate)).toBeTruthy();
   });
 
   it("retrieve to closest possible slot for selected users", () => {

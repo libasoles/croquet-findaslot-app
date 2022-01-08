@@ -96,23 +96,28 @@ export class PillsView extends View {
   render() {
     const selfId = this.identity.selfId(this.viewId);
 
-    const allUsers = this.identity.allUsers();
+    const allUsers = this.identity.allUsers(selfId);
 
     const toPill = (user, index) => {
       const isSelected = this.model.userHasOtherUserPillSelected(
         selfId,
         user.userId
       );
-      const isChecked = this.calendarService.userHasAnySelection(user.userId);
+      const hasAnySelection = this.calendarService.userHasAnySelection(user.userId);
       const isBeingCompared = this.model.selectionCountIsEqualOrBiggerThan(
         selfId,
         2
       );
 
+      const isZombieUser = !user.is(selfId) && user.isAnonymous() && !hasAnySelection
+
+      if(isZombieUser)
+        return
+
       return (
         <button
           className={`pill ${isSelected && "selected"} ${
-            isChecked && "checked"
+            hasAnySelection && "checked"
           } ${isBeingCompared && "compared"}`}
           data-user-id={user.userId}
           onClick={(event) => this.toggle(event)}

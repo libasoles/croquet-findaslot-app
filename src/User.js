@@ -7,7 +7,7 @@ export default class User {
   }
 
   isAnonymous() {
-    return !this.userName.trim();
+    return !this.userName || !this.userName.trim();
   }
 
   clone(properties) {
@@ -22,5 +22,9 @@ export default class User {
 
   hasView(viewId) {
     return this.views.includes(viewId);
+  }
+
+  is(id) {
+    return this.userId === id
   }
 }
