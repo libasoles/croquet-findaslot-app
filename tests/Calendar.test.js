@@ -116,7 +116,7 @@ describe("CalendarService", () => {
     expect(slots).not.toContain(lessVotedSlot);
   });
 
-  it("should retrieves the best dates ordered by proximity", () => {
+  it("should retrieve the best dates ordered by proximity", () => {
     const closestSlot = "2021-11-17T13:00:00.000Z";
     const farthestSlot = "2021-11-17T14:00:00.000Z";
 
@@ -249,7 +249,7 @@ describe("CalendarService", () => {
   });
 });
 
-describe("CalendarService", () => {
+describe("DatesMatrix", () => {
   let settings = {
     daysRange: [0, 6],
     halfHourIntervals: false,

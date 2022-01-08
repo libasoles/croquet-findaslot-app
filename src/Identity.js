@@ -2,8 +2,19 @@ import { Model, View } from "@croquet/croquet";
 import { InputWidget } from "./components/InputWidget";
 import i18next from "i18next";
 import { element, readCookie } from "./utils";
+import User from "./User";
 
 export default class Identity extends Model {
+  static types() {
+    return {
+      User: {
+        cls: User,
+        write: (state) => ({ ...state }),
+        read: (user) => new User(user),
+      },
+    };
+  }
+
   init(_, persistedState = {}) {
     this.beWellKnownAs("identity");
 
@@ -31,12 +42,15 @@ export default class Identity extends Model {
   registerUser({ viewId, userName, views }) {
     if (this.connectedUsers.has(viewId)) return;
 
-    this.connectedUsers.set(viewId, {
-      start: this.now(),
-      userId: viewId,
-      userName: userName || "",
-      views: views ? views : [viewId],
-    });
+    this.connectedUsers.set(
+      viewId,
+      new User({
+        start: this.now(),
+        userId: viewId,
+        userName: userName || "",
+        views: views ? views : [viewId],
+      })
+    );
 
     this.identityEstablished(viewId);
   }
@@ -50,11 +64,13 @@ export default class Identity extends Model {
 
     const user = this.connectedUsers.get(userId);
 
-    this.connectedUsers.set(userId, {
-      ...user,
-      userName,
-      views: [...user.views, viewId],
-    });
+    this.connectedUsers.set(
+      userId,
+      user.clone({
+        userName,
+        views: [...user.views, viewId],
+      })
+    );
 
     this.identityEstablished(userId);
   }
@@ -68,27 +84,25 @@ export default class Identity extends Model {
   updateUser({ userId, userName }) {
     const user = this.connectedUsers.get(userId);
 
-    this.connectedUsers.set(userId, {
-      ...user,
-      userName,
-    });
+    this.connectedUsers.set(
+      userId,
+      user.clone({
+        userName,
+      })
+    );
 
     this.save();
 
     this.publish("identity", "update-name", { userId, userName });
   }
 
-  name(userId) {
-    return this.connectedUsers.get(userId).userName;
-  }
-
   isNameSet(userId) {
-    return this.name(userId).trim() !== ""
+    return !this.connectedUsers.get(userId).isAnonymous();
   }
 
   selfId(viewId) {
     for (const [userId, user] of this.connectedUsers) {
-      if (user.views.includes(viewId)) {
+      if (user.hasView(viewId)) {
         return userId;
       }
     }
