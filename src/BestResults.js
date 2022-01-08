@@ -1,7 +1,7 @@
 import { View } from "@croquet/croquet";
 import { render } from "@itsjavi/jsx-runtime/src/jsx-runtime/index";
 import { formatDate, formatTime, target } from "./utils";
-import createDotElements from "./components/Dots";
+import Dots from "./components/Dots";
 import i18next from "i18next";
 import { scheduleLinks } from "./components/CalendarsLink";
 import { addMinutes } from "date-fns";
@@ -67,7 +67,6 @@ export default class BestResultsView extends View {
           const date = formatDate(timeSlot);
           const hours = new Date(timeSlot).getHours();
           const minutes = new Date(timeSlot).getMinutes();
-          const dots = createDotElements(votes);
 
           const endTime = addMinutes(
             new Date(timeSlot),
@@ -91,7 +90,9 @@ export default class BestResultsView extends View {
                 <span>
                   {date} - {formatTime(hours, minutes)}
                 </span>
-                <div className="dots">{dots}</div>
+                <Dots timeSlot={timeSlot} 
+                    calendarService={this.calendarService} 
+                    identity={this.identity} />
                 <p className="votes-count">
                   {i18next.t("votes", { count: votes })}
                 </p>

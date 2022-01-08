@@ -12,7 +12,7 @@ import {
   target,
   today,
 } from "../utils";
-import createDotElements from "../components/Dots";
+import Dots from "../components/Dots";
 import { DatesMatrix } from "./DatesMatrix";
 import i18next from "i18next";
 
@@ -194,7 +194,7 @@ export default class CalendarView extends View {
   timeSlot(timestamp, readableTime, className) {
     return (
       <div className={`time-slot cell ${className}`} data-slot={timestamp}>
-        <div className="dots"></div>
+        <div className="dots-placeholder"></div>
         {formatTime(readableTime)}
       </div>
     );
@@ -341,21 +341,16 @@ export default class CalendarView extends View {
   addDotsToCalendarSlot(countedSlots, timeSlot) {
     const votes = countedSlots.get(timeSlot.dataset.slot) || 0;
 
-    const dotsElement = timeSlot.querySelector(".dots");
+    const dotsPlaceholder = timeSlot.querySelector(".dots-placeholder");
 
     if (votes === 0) {
-      render(<></>, dotsElement);
+      render(<></>, dotsPlaceholder);
       return;
     }
 
-    const usersList = this.calendarService
-      .usersWhoSelectedSlot(timeSlot.dataset.slot)
-      .map((userId) => this.identity.name(userId))
-      .join(", ");
-
-    const dots = createDotElements(votes, usersList);
-
-    render(<>{dots}</>, dotsElement);
+    render(<Dots timeSlot={timeSlot.dataset.slot}
+      calendarService={this.calendarService} 
+      identity={this.identity} />, dotsPlaceholder);
   }
 
   me() {
