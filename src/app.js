@@ -1,20 +1,20 @@
-import { App, Model, View, Session } from "@croquet/croquet";
-import Calendar from "./Calendar";
-import CalendarView from "./Calendar/CalendarView";
-import Settings, { SettingsView } from "./Settings";
-import Event, { EventView } from "./widgets/Event";
-import BestResultsView from "./BestResults";
-import Identity, { IdentityView } from "./Identity";
+import { App, Model, Session, View } from "@croquet/croquet";
 import i18next from "i18next";
-import { locales } from "./locales";
+import BestResultsView from "./BestResults";
+import Calendar from "./Calendar";
+import { CalendarService } from "./Calendar/CalendarService";
+import CalendarView from "./Calendar/CalendarView";
 import { config } from "./config";
+import Identity, { IdentityView } from "./Identity";
+import { locales } from "./locales";
 import Pills, { PillsView } from "./Participants/UsersPills";
+import Settings, { SettingsView } from "./Settings";
+import { BannerView } from "./widgets/Banner";
+import Event, { EventView } from "./widgets/Event";
 import { FeedbackView } from "./widgets/Feedback";
 import { HistoryMenu } from "./widgets/HistoryMenu";
 import { LanguageSwitch } from "./widgets/LanguageSwitch";
-import { CalendarService } from "./Calendar/CalendarService";
 import { SetupView } from "./widgets/Setup";
-import { BannerView } from "./widgets/Banner";
 
 class Main extends Model {
   init(options, persistedState) {
@@ -139,7 +139,7 @@ Settings.register("Settings");
 Pills.register("Pills");
 
 Session.join({
-  apiKey: "1d5yaq96ii9K5L7zHGa6lxgaMpbO7Au1oinsteyx5",
+  apiKey: "2Mv34ZE0caluPzQJzVd1UsQPvvJ21f6qXV7uj3w2Im",
   appId: "io.croquet.gperez.whenis", // TODO: better namespace
   name: App.autoSession(),
   password: App.autoPassword(),
